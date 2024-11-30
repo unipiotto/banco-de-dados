@@ -7,11 +7,11 @@ services:
     environment:
       POSTGRES_USER: unifalmg
       POSTGRES_PASSWORD: unifalmg123
-      POSTGRES_DB: school
+      POSTGRES_DB: escola
     ports:
-      - "5432:5432"
+      - "5432:5432"  
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data  
     networks:
       - mynetwork
 

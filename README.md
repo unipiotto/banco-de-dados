@@ -97,7 +97,6 @@ Projeto de criação de um banco de dados da disciplina Banco de Dados [DCE534] 
 #### **12. Cursos**
 - **ID_curso** (PK)
 - **Nome_curso**
-- **Duracao**
 - **ID_professor_coordenador**
 
 #### **13. Curso_Disciplina**
@@ -125,7 +124,7 @@ docker compose up -d
 ```
 Host: localhost
 Porta: 5432
-Banco de dados: school
+Banco de dados: escola
 Usuário: unifalmg
 Senha: unifalmg123
 ```
