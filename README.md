@@ -11,6 +11,7 @@ Projeto de criação de um banco de dados da disciplina Banco de Dados [DCE534] 
 - Vinicius Boiago - 2023.1.08.024
 - Rodrigo Rolucatelli - 2023.1.08.019
 - Leonardo Bonardi - 2023.1.08.011
+- Jose Olavo - 2023.1.08.009
 
 ## Banco de dados
 
