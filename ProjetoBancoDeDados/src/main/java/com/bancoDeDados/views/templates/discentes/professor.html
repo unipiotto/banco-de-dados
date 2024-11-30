@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Lista de Professores</title>
+</head>
+<body>
+<h1>Produtos</h1>
+<a href="/professores/novo">Adicionar Professor</a>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Telefone</th>
+    <th>CPF</th>
+    <th>Data Nascimento</th>
+    <th>Registro Academico</th>
+    <th>Data de Ingresso</th>
+    <th>Status</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="discente : ${discentes}">
+    <td th:text="${discente.idDiscente}"></td>
+    <td th:text="${discente.nome}"></td>
+    <td th:text="${discente.preco}"></td>
+    <td th:text="${discente.quantidade}"></td>
+    <td th:text="${discente.id}"></td>
+    <td th:text="${discente.nome}"></td>
+    <td th:text="${discente.preco}"></td>
+    <td th:text="${discente.quantidade}"></td><td th:text="${discente.id}"></td>
+    <td th:text="${discente.nome}"></td>
+    <td th:text="${discente.preco}"></td>
+    <td th:text="${discente.quantidade}"></td>
+    <td>
+      <a th:href="@{/discentes/editar/{id}(id=${discente.id})}">Editar</a>
+      <a th:href="@{/discentes/deletar/{id}(id=${discente.id})}">Deletar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
