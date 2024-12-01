@@ -29,7 +29,7 @@ public class DiscenteService {
 
         for (Discente discente : discentes) {
             Optional<Pessoa> optionalPessoa = pessoaRepository.buscarPorId(discente.getIdPessoa());
-            optionalPessoa.ifPresent(pessoa -> discente.setPessoa(pessoa));
+            optionalPessoa.ifPresent(discente::setPessoa);
         }
 
         return discentes;

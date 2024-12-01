@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,7 +15,7 @@ public class Discente {
     private Long idDiscente;
     private Long idPessoa;
     private String registroAcademico;
-    private String dataIngresso;
+    private LocalDate dataIngresso;
     private StatusDiscente status;
 
     private Pessoa pessoa;
@@ -21,7 +23,7 @@ public class Discente {
     public enum StatusDiscente {
         ATIVA,
         TRANCADA,
-        CONCLUIDA
+        CONCLUIDA;
     }
 
     public String getStatusFormatado() {

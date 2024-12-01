@@ -29,12 +29,12 @@
         <td th:text="${discente.pessoa.telefone}"></td>
         <td th:text="${discente.pessoa.cpf}"></td>
         <td th:text="${discente.pessoa.dataNascimento}"></td>
-        <td th:text="${discente.dataIngresso}"></td>
         <td th:text="${discente.registroAcademico}"></td>
-        <td th:text="${discente.statusFormatado()}"></td>
+        <td th:text="${discente.dataIngresso}"></td>
+        <td th:text="${discente.getStatusFormatado()}"></td>
         <td>
-            <a th:href="@{/discentes/editar/{id}(id=${discente.id})}">Editar</a>
-            <a th:href="@{/discentes/deletar/{id}(id=${discente.id})}">Deletar</a>
+            <a th:href="@{/discentes/editar/{id}(id=${discente.idDiscente})}">Editar</a>
+            <a th:href="@{/discentes/deletar/{id}(id=${discente.idDiscente})}">Deletar</a>
         </td>
     </tr>
     </tbody>
