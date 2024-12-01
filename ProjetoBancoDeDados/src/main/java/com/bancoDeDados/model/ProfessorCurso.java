@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Professor_Curso {
+public class ProfessorCurso {
     private Long idProfessor;
     private Long idCurso;
     private LocalDate dataIngreso;

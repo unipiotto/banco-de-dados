@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Curso_Disciplina {
+public class CursoDisciplina {
     private Long idCurso;
     private Long idDisciplina;
 }

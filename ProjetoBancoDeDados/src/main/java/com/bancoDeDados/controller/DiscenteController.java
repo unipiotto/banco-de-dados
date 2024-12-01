@@ -22,7 +22,7 @@ public class DiscenteController {
         return "formularioDiscentes";
     }
 
-    @GetMapping("/discentes/listar")
+    @GetMapping("/listar")
     public String listar(Model model) {
         List<Discente> discentes = discenteService.listarTodos();
         model.addAttribute("discentes", discentes);

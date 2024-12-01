@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Avaliacao_Professor {
+public class AvaliacaoProfessor {
     private Long idAvaliacao;
     private Long idDiscente;
     private Long idProfessor;
