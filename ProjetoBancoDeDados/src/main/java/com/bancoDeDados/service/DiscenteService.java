@@ -1,7 +1,7 @@
 package com.bancoDeDados.service;
 
-import com.bancoDeDados.model.entities.Discente;
-import com.bancoDeDados.model.entities.Pessoa;
+import com.bancoDeDados.model.Discente;
+import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.repository.DiscenteRepository;
 import com.bancoDeDados.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

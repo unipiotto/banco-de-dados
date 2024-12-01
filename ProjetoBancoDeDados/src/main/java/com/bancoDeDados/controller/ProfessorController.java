@@ -1,8 +1,7 @@
 package com.bancoDeDados.controller;
 
 
-import com.bancoDeDados.model.entities.Discente;
-import com.bancoDeDados.model.entities.Professor;
+import com.bancoDeDados.model.Professor;
 import com.bancoDeDados.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

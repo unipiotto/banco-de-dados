@@ -1,6 +1,6 @@
 package com.bancoDeDados.repository;
 
-import com.bancoDeDados.model.entities.Pessoa;
+import com.bancoDeDados.model.Pessoa;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

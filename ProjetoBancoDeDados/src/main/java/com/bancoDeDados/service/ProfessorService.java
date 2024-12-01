@@ -1,6 +1,6 @@
 package com.bancoDeDados.service;
 
-import com.bancoDeDados.model.entities.Professor;
+import com.bancoDeDados.model.Professor;
 import com.bancoDeDados.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

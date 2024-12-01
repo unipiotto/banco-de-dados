@@ -1,13 +1,11 @@
 package com.bancoDeDados.repository;
 
-import com.bancoDeDados.model.entities.Professor;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import com.bancoDeDados.model.Professor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository

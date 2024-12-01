@@ -1,6 +1,6 @@
 package com.bancoDeDados.repository;
 
-import com.bancoDeDados.model.entities.Discente;
+import com.bancoDeDados.model.Discente;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

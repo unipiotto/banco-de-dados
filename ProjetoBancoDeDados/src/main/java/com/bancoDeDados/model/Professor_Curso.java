@@ -1,16 +1,18 @@
-package com.bancoDeDados.model.entities;
+package com.bancoDeDados.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Departamento {
-    private Long idDepartamento;
-    private String nomeDepartamento;
+public class Professor_Curso {
     private Long idProfessor;
+    private Long idCurso;
+    private LocalDate dataIngreso;
 }

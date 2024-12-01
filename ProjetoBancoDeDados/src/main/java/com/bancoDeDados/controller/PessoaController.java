@@ -1,6 +1,6 @@
 package com.bancoDeDados.controller;
 
-import com.bancoDeDados.model.entities.Pessoa;
+import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

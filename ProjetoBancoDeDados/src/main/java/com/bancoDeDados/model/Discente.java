@@ -1,11 +1,9 @@
-package com.bancoDeDados.model.entities;
+package com.bancoDeDados.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,7 +24,7 @@ public class Discente {
         CONCLUIDA
     }
 
-    public String getStatusFormatted() {
+    public String getStatusFormatado() {
         return status != null ? status.name().substring(0, 1).toUpperCase() + status.name().substring(1).toLowerCase() : "";
     }
 }

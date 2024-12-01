@@ -1,6 +1,6 @@
 package com.bancoDeDados.controller;
 
-import com.bancoDeDados.model.entities.Discente;
+import com.bancoDeDados.model.Discente;
 import com.bancoDeDados.service.DiscenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,31 +19,32 @@ public class DiscenteController {
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("produto", new Discente());
-        return "discentes/formulario";
+        return "formularioDiscentes";
     }
 
+    @GetMapping("/discentes/listar")
     public String listar(Model model) {
         List<Discente> discentes = discenteService.listarTodos();
         model.addAttribute("discentes", discentes);
-        return "discentes/discentes.html";
+        return "discentes";
     }
 
     @PostMapping
     public String salvar(@ModelAttribute Discente discente) {
         discenteService.salvar(discente);
-        return "redirect:/discentes";
+        return "redirect:discentes";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Discente discente = discenteService.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Produto inválido: " + id));
         model.addAttribute("discente", discente);
-        return "discentes/formulario";
+        return "formularioDiscentes";
     }
 
     @GetMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         discenteService.deletar(id);
-        return "redirect:/discente";
+        return "redirect:discentes";
     }
 }

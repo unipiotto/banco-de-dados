@@ -1,4 +1,4 @@
-package com.bancoDeDados.model.entities;
+package com.bancoDeDados.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

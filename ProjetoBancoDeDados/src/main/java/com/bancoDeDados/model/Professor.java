@@ -1,4 +1,4 @@
-package com.bancoDeDados.model.entities;
+package com.bancoDeDados.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,9 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pessoa {
+public class Professor {
+    private Long idProfessor;
     private Long idPessoa;
-    private String nome;
-    private String email;
-    private String telefone;
-    private String cpf;
-    private LocalDate dataNascimento;
+    private Long idDepartamento;
+    private LocalDate dataContratacao;
 }
