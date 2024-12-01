@@ -79,21 +79,20 @@ Projeto de criação de um banco de dados da disciplina Banco de Dados [DCE534] 
 #### **9. Avaliacoes**
 - **ID_avaliacao** (PK)
 - **ID_matricula** (FK)
-- **Nota** -- Fazer um check (se está entre 0 e 100)
-- **Peso** -- Fazer um check (0 a 1)
+- **Nota**
+- **Peso**
 
 #### **10. Pagamentos**
 - **ID_pagamento** (PK)
 - **ID_discente** (FK)
 - **Data_vencimento**
-- **Data_pagamento** -- pode ser null
+- **Data_pagamento**
 - **Valor**
 - **Status_pagamento** (Pago, Pendente, Cancelado)
 
 #### **11. Departamentos**
 - **ID_departamento** (PK)
 - **Nome_departamento**
-- **ID_professor_chefe** (FK)
 
 #### **12. Cursos**
 - **ID_curso** (PK)
