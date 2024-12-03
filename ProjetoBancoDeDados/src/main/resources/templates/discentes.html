@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Discentes</h1>
-<a href="/discentes/novo">Adicionar Discente</a>
+<a href="/novo">Adicionar Discente</a>
 <table>
     <thead>
     <tr>
@@ -24,8 +24,8 @@
     <tbody>
     <tr th:each="discente : ${discentes}">
         <td th:text="${discente.idDiscente}"></td>
-        <td th:text="${discente.getPessoa.nome}"></td>
-        <td th:text="${discente.getPessoa.email}"></td>
+        <td th:text="${discente.pessoa.nome}"></td>
+        <td th:text="${discente.pessoa.email}"></td>
         <td th:text="${discente.pessoa.telefone}"></td>
         <td th:text="${discente.pessoa.cpf}"></td>
         <td th:text="${discente.pessoa.dataNascimento}"></td>
@@ -33,8 +33,8 @@
         <td th:text="${discente.dataIngresso}"></td>
         <td th:text="${discente.getStatusFormatado()}"></td>
         <td>
-            <a th:href="@{/discentes/editar/{id}(id=${discente.idDiscente})}">Editar</a>
-            <a th:href="@{/discentes/deletar/{id}(id=${discente.idDiscente})}">Deletar</a>
+            <a th:href="@{/editar/{id}(id=${discente.idDiscente})}">Editar</a>
+            <a th:href="@{/deletar/{id}(id=${discente.idDiscente})}">Deletar</a>
         </td>
     </tr>
     </tbody>

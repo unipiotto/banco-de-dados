@@ -41,7 +41,7 @@ public class DiscenteRepository {
         FROM discente d
         JOIN pessoa p ON d.pessoa_ID = p.ID_pessoa
     """;
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+        return jdbcTemplate.query(sql, (rs, _) -> {
             Discente discente = new Discente();
             discente.setIdDiscente(rs.getLong("ID_discente"));
             discente.setRegistroAcademico(rs.getString("registro_academico"));
@@ -65,12 +65,12 @@ public class DiscenteRepository {
     public Optional<Discente> buscarPorId(Long id) {
         String sql = "SELECT * FROM discente WHERE ID_discente = ?";
         try {
-            Discente discente = jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
+            Discente discente = jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, _) -> {
                 Discente d = new Discente();
                 d.setIdDiscente(rs.getLong("ID_discente"));
                 d.setRegistroAcademico(rs.getString("registro_academico"));
                 d.setDataIngresso(rs.getDate("data_ingresso").toLocalDate());
-                d.setStatus(StatusDiscente.valueOf(rs.getString("Status").toUpperCase()));
+                d.setStatus(StatusDiscente.valueOf(rs.getString("status").toUpperCase()));
                 return d;
             });
             return Optional.of(discente);

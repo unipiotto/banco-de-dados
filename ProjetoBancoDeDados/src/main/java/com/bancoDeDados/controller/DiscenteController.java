@@ -18,7 +18,7 @@ public class DiscenteController {
 
     @GetMapping("/novo")
     public String novo(Model model) {
-        model.addAttribute("produto", new Discente());
+        model.addAttribute("discente", new Discente());
         return "formularioDiscentes";
     }
 
