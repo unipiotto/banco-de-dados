@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Discente</title>
+</head>
+<body>
+<h1>Detalhes do Discente</h1>
+
+<h2>Informações do Discente</h2>
+<p><strong>ID:</strong> <span th:text="${discente.idDiscente}"></span></p>
+<p><strong>Registro Acadêmico:</strong> <span th:text="${discente.registroAcademico}"></span></p>
+<p><strong>Data de Ingresso:</strong> <span th:text="${#temporals.format(discente.dataIngresso, 'dd/MM/yyyy')}"></span></p>
+<p><strong>Status:</strong> <span th:text="${discente.getStatusFormatado()}"></span></p>
+
+<h2>Informações Pessoais</h2>
+<p><strong>Nome:</strong> <span th:text="${discente.pessoa.nome}"></span></p>
+<p><strong>Email:</strong> <span th:text="${discente.pessoa.email}"></span></p>
+<p><strong>Telefone:</strong> <span th:text="${discente.pessoa.getTelefoneFormatado()}"></span></p>
+<p><strong>CPF:</strong> <span th:text="${discente.pessoa.getCpfFormatado()}"></span></p>
+<p><strong>Data de Nascimento:</strong> <span th:text="${#temporals.format(discente.pessoa.dataNascimento, 'dd/MM/yyyy')}"></span></p>
+
+<h2>Endereços</h2>
+<div th:if="${discente.pessoa.enderecos != null and !discente.pessoa.enderecos.isEmpty()}">
+    <ul>
+        <li th:each="endereco : ${discente.pessoa.enderecos}">
+            <p><strong>Rua:</strong> <span th:text="${endereco.rua}"></span>,
+                <strong>Número:</strong> <span th:text="${endereco.numero}"></span></p>
+            <p><strong>Complemento:</strong> <span th:text="${endereco.complemento}"></span></p>
+            <p><strong>CEP:</strong> <span th:text="${endereco.cep}"></span></p>
+            <p><strong>Cidade:</strong> <span th:text="${endereco.cidade}"></span>,
+                <strong>Estado:</strong> <span th:text="${endereco.getSiglaEstado()}"></span></p>
+            <hr/>
+        </li>
+    </ul>
+</div>
+<div th:if="${discente.pessoa.enderecos == null or discente.pessoa.enderecos.isEmpty()}">
+    <p>Não há endereços cadastrados.</p>
+</div>
+
+<a th:href="@{/discentes/listar}">Voltar à Lista</a>
+</body>
+</html>

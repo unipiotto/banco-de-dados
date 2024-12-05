@@ -9,14 +9,19 @@ import lombok.*;
 public class Endereco {
     private Long idEndereco;
     private Long idPessoa;
-    private String bairro;
     private String rua;
     private String numero;
     private String cep;
     private String complemento;
-    @Setter(AccessLevel.NONE)
+
+    @Getter(AccessLevel.NONE)
     private SiglaEstado sigla;
+
     private String cidade;
+
+    public String getSiglaEstado() {
+        return sigla != null ? sigla.name() : null;
+    }
 
     public enum SiglaEstado {
         // Região Norte

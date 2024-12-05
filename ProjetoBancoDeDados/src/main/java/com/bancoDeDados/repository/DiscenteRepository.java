@@ -57,24 +57,6 @@ public class DiscenteRepository {
         });
     }
 
-
-    public Optional<Discente> buscarPorId(Long id) {
-        String sql = "SELECT * FROM discente WHERE ID_discente = ?";
-        try {
-            Discente discente = jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, _) -> {
-                Discente d = new Discente();
-                d.setIdDiscente(rs.getLong("ID_discente"));
-                d.setRegistroAcademico(rs.getString("registro_academico"));
-                d.setDataIngresso(rs.getDate("data_ingresso").toLocalDate());
-                d.setStatus(StatusDiscente.valueOf(rs.getString("status").toUpperCase()));
-                return d;
-            });
-            return Optional.of(discente);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
-        }
-    }
-
     public void deletar(Long id) {
         String sql = "DELETE FROM discente WHERE ID_Discente = ?";
         jdbcTemplate.update(sql, id);

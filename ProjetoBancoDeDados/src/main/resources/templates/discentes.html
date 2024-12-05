@@ -12,9 +12,6 @@
         <th>ID</th>
         <th>Nome</th>
         <th>Email</th>
-        <th>Telefone</th>
-        <th>CPF</th>
-        <th>Data Nascimento</th>
         <th>Registro Academico</th>
         <th>Data de Ingresso</th>
         <th>Status</th>
@@ -26,20 +23,13 @@
         <td th:text="${discente.idDiscente}"></td>
         <td th:text="${discente.pessoa.nome}"></td>
         <td th:text="${discente.pessoa.email}"></td>
-        <td th:text="'(' + ${discente.pessoa.telefone.substring(0,2)} + ') ' +
-               ${discente.pessoa.telefone.substring(2,7)} + '-' +
-               ${discente.pessoa.telefone.substring(7,11)}"></td>
-        <td th:text="${discente.pessoa.cpf.substring(0,3)} + '.' +
-               ${discente.pessoa.cpf.substring(3,6)} + '.' +
-               ${discente.pessoa.cpf.substring(6,9)} + '-' +
-               ${discente.pessoa.cpf.substring(9,11)}"></td>
-        <td th:text="${#temporals.format(discente.pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
         <td th:text="${discente.registroAcademico}"></td>
-        <td th:text="${discente.dataIngresso}"></td>
+        <td th:text="${#temporals.format(discente.dataIngresso, 'dd/MM/yyyy')}"></td>
         <td th:text="${discente.getStatusFormatado()}"></td>
         <td>
-            <a th:href="@{/editar/{id}(id=${discente.idDiscente})}">Editar</a>
-            <a th:href="@{/deletar/{id}(id=${discente.idDiscente})}">Deletar</a>
+            <a th:href="@{/discentes/editar/{id}(id=${discente.idDiscente})}">Editar</a>
+            <a th:href="@{/discentes/deletar/{id}(id=${discente.idDiscente})}">Deletar</a>
+            <a th:href="@{/discentes/{id}(id=${discente.idDiscente})}">Mais informações</a>
         </td>
     </tr>
     </tbody>

@@ -19,7 +19,7 @@ CREATE TABLE endereco (
                           cep VARCHAR(9),
                           complemento VARCHAR(100),
                           sigla_estado CHAR(2),
-                          cIDade VARCHAR(50),
+                          cidade VARCHAR(50),
                           FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
                               ON DELETE CASCADE
                               ON UPDATE CASCADE

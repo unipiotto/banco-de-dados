@@ -20,8 +20,8 @@ VALUES
     (3, 'Rua C', '300', '03003000', 'Casa 303', 'MG', 'Belo Horizonte'),
     (4, 'Rua D', '400', '04004000', 'Casa 404', 'BA', 'Salvador'),
     (5, 'Rua E', '500', '05005000', 'Casa 505', 'PR', 'Curitiba'),
-    (6, 'Rua F', '600', '06006000', 'Apto 606', 'RS', 'Porto Alegre'),
-    (7, 'Rua G', '700', '07007000', 'Apto 707', 'SP', 'São Paulo'),
+    (2, 'Rua F', '600', '06006000', 'Apto 606', 'RS', 'Porto Alegre'),
+    (2, 'Rua G', '700', '07007000', 'Apto 707', 'SP', 'São Paulo'),
     (8, 'Rua H', '800', '08008000', 'Casa 808', 'ES', 'Vitória'),
     (9, 'Rua I', '900', '09009000', 'Casa 909', 'SC', 'Florianópolis'),
     (10, 'Rua J', '1000', '10010000', 'Apto 1010', 'DF', 'Brasília');

@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/discentes")
@@ -33,7 +35,7 @@ public class DiscenteController {
                                     Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "formularioDiscentes"; // Return to the form with validation errors
+            return "formularioDiscentes";
         }
 
         Pessoa pessoa = Pessoa.builder()
@@ -53,11 +55,27 @@ public class DiscenteController {
             discenteService.adicionarDiscente(pessoa, discente);
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("errorMessage", "Erro ao criar discente. Por favor, tente novamente.");
             return "erroAoCriarDiscente";
         }
 
         return "redirect:/discentes/listar";
+    }
+
+    @GetMapping("/{id}")
+    public String visualizarDiscente(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            Discente discente = discenteService.buscarDiscenteCompletoPorId(id);
+            if (discente == null) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Discente não encontrado.");
+                return "redirect:/discentes/listar";
+            }
+            model.addAttribute("discente", discente);
+            return "discenteComDetalhes";
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "Erro ao buscar discente.");
+            return "redirect:/discentes/listar";
+        }
     }
 
     @GetMapping("/listar")
@@ -73,16 +91,16 @@ public class DiscenteController {
         return "redirect:discentes";
     }
 
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model) {
-        Discente discente = discenteService.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Discente inválido: " + id));
-        model.addAttribute("discente", discente);
-        return "formularioDiscentes";
-    }
-
-    @GetMapping("/deletar/{id}")
-    public String deletar(@PathVariable Long id) {
-        discenteService.deletar(id);
-        return "redirect:discentes";
-    }
+//    @GetMapping("/editar/{id}")
+//    public String editar(@PathVariable Long id, Model model) {
+//        Discente discente = discenteService.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Discente inválido: " + id));
+//        model.addAttribute("discente", discente);
+//        return "formularioDiscentes";
+//    }
+//
+//    @GetMapping("/deletar/{id}")
+//    public String deletar(@PathVariable Long id) {
+//        discenteService.deletar(id);
+//        return "redirect:discentes";
+//    }
 }

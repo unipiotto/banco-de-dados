@@ -67,8 +67,8 @@ public class DiscenteService {
         return discentes;
     }
 
-    public Optional<Discente> buscarPorId(Long id) {
-        return discenteRepository.buscarPorId(id);
+    public Discente buscarDiscenteCompletoPorId(Long id) {
+        return discenteDAO.buscarDiscenteCompletoPorId(id);
     }
 
     public void deletar(Long id) {
