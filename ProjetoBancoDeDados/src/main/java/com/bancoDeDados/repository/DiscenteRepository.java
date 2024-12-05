@@ -19,16 +19,12 @@ public class DiscenteRepository {
 
     public void salvar(Discente discente) {
         if (discente.getIdDiscente() == null) {
-            String sql = "INSERT INTO discente (registro_academico, data_ingresso, status) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO discente (status) VALUES (?)";
             jdbcTemplate.update(sql,
-                    discente.getRegistroAcademico(),
-                    discente.getDataIngresso(),
                     discente.getStatus().name());
         } else {
-            String sql = "UPDATE discente SET registro_academico = ?, data_ingresso = ?, status = ? WHERE ID_discente = ?";
+            String sql = "UPDATE discente SET status = ? WHERE ID_discente = ?";
             jdbcTemplate.update(sql,
-                    discente.getRegistroAcademico(),
-                    discente.getDataIngresso(),
                     discente.getStatus().name(),
                     discente.getIdDiscente());
         }
@@ -36,7 +32,7 @@ public class DiscenteRepository {
 
     public List<Discente> listarTodos() {
         String sql = """
-        SELECT d.ID_discente, d.registro_academico, d.data_ingresso, d.status, 
+        SELECT d.ID_discente, d.registro_academico, d.data_ingresso, d.status,
                p.ID_pessoa, p.nome, p.email, p.telefone, p.cpf, p.data_nascimento
         FROM discente d
         JOIN pessoa p ON d.pessoa_ID = p.ID_pessoa

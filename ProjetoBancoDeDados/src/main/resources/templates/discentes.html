@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Discentes</h1>
-<a href="/novo">Adicionar Discente</a>
+<a href="novo">Adicionar Discente</a>
 <table>
     <thead>
     <tr>
@@ -26,9 +26,14 @@
         <td th:text="${discente.idDiscente}"></td>
         <td th:text="${discente.pessoa.nome}"></td>
         <td th:text="${discente.pessoa.email}"></td>
-        <td th:text="${discente.pessoa.telefone}"></td>
-        <td th:text="${discente.pessoa.cpf}"></td>
-        <td th:text="${discente.pessoa.dataNascimento}"></td>
+        <td th:text="'(' + ${discente.pessoa.telefone.substring(0,2)} + ') ' +
+               ${discente.pessoa.telefone.substring(2,7)} + '-' +
+               ${discente.pessoa.telefone.substring(7,11)}"></td>
+        <td th:text="${discente.pessoa.cpf.substring(0,3)} + '.' +
+               ${discente.pessoa.cpf.substring(3,6)} + '.' +
+               ${discente.pessoa.cpf.substring(6,9)} + '-' +
+               ${discente.pessoa.cpf.substring(9,11)}"></td>
+        <td th:text="${#temporals.format(discente.pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
         <td th:text="${discente.registroAcademico}"></td>
         <td th:text="${discente.dataIngresso}"></td>
         <td th:text="${discente.getStatusFormatado()}"></td>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adicionar Discente</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+<h1>Adicionar Discente</h1>
+<form th:action="@{/discentes/novo}" th:method="post" th:object="${discenteForm}">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" th:field="*{nome}" required />
+        <div th:if="${#fields.hasErrors('nome')}" class="error" th:errors="*{nome}"></div>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:field="*{email}" required />
+        <div th:if="${#fields.hasErrors('email')}" class="error" th:errors="*{email}"></div>
+    </div>
+    <div>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" th:field="*{telefone}" placeholder="11999999999" required />
+        <div th:if="${#fields.hasErrors('telefone')}" class="error" th:errors="*{telefone}"></div>
+    </div>
+    <div>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" th:field="*{cpf}" placeholder="12345678901" required />
+        <div th:if="${#fields.hasErrors('cpf')}" class="error" th:errors="*{cpf}"></div>
+    </div>
+    <div>
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input type="date" id="dataNascimento" name="dataNascimento" th:field="*{dataNascimento}" required />
+        <div th:if="${#fields.hasErrors('dataNascimento')}" class="error" th:errors="*{dataNascimento}"></div>
+    </div>
+    <div>
+        <button type="submit">Adicionar</button>
+    </div>
+</form>
+</body>
+</html>

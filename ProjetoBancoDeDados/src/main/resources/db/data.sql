@@ -29,16 +29,16 @@ VALUES
 -- 3. Inserir dados na tabela discente
 INSERT INTO discente (pessoa_id, registro_academico, data_ingresso, status)
 VALUES
-    (1, 'RA001', '2010-03-01', 'ativa'),
-    (2, 'RA002', '2011-04-15', 'concluida'),
-    (3, 'RA003', '2012-05-20', 'ativa'),
-    (4, 'RA004', '2013-06-25', 'trancada'),
-    (5, 'RA005', '2014-07-10', 'concluida'),
-    (6, 'RA006', '2015-08-15', 'ativa'),
-    (7, 'RA007', '2016-09-20', 'trancada'),
-    (8, 'RA008', '2017-10-25', 'ativa'),
-    (9, 'RA009', '2018-11-30', 'concluida'),
-    (10, 'RA010', '2019-12-05', 'ativa');
+    (1, '2024.1.08.001', '2010-03-01', 'Ativa'),
+    (2, '2024.1.08.002', '2011-04-15', 'Concluida'),
+    (3, '2024.1.08.003', '2012-05-20', 'Ativa'),
+    (4, '2024.1.08.004', '2013-06-25', 'Trancada'),
+    (5, '2024.1.08.005', '2014-07-10', 'Concluida'),
+    (6, '2024.1.08.006', '2015-08-15', 'Ativa'),
+    (7, '2024.1.08.007', '2016-09-20', 'Trancada'),
+    (8, '2024.1.08.008', '2017-10-25', 'Ativa'),
+    (9, '2024.1.08.009', '2018-11-30', 'Concluida'),
+    (10, '2024.1.08.010', '2019-12-05', 'Ativa');
 
 -- 4. Inserir dados na tabela departamentos
 INSERT INTO departamentos (nome_departamento)
