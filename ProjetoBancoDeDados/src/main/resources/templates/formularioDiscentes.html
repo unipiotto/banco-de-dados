@@ -7,11 +7,122 @@
             color: red;
             font-size: 0.9em;
         }
+        .endereco {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .remove-endereco {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: red;
+            cursor: pointer;
+        }
     </style>
+    <script>
+        function adicionarEndereco() {
+            const enderecosDiv = document.getElementById('enderecos');
+            const index = enderecosDiv.children.length;
+
+            const enderecoDiv = document.createElement('div');
+            enderecoDiv.className = 'endereco';
+
+            enderecoDiv.innerHTML = `
+                <span class="remove-endereco" onclick="removerEndereco(this)">&#10060;</span>
+                <h3>Endereço ${index + 1}</h3>
+                <div>
+                    <label for="enderecos[${index}].rua">Rua:</label>
+                    <input type="text" id="enderecos[${index}].rua" name="enderecos[${index}].rua" required />
+                </div>
+                <div>
+                    <label for="enderecos[${index}].numero">Número:</label>
+                    <input type="text" id="enderecos[${index}].numero" name="enderecos[${index}].numero" required />
+                </div>
+                <div>
+                    <label for="enderecos[${index}].complemento">Complemento:</label>
+                    <input type="text" id="enderecos[${index}].complemento" name="enderecos[${index}].complemento" />
+                </div>
+                <div>
+                    <label for="enderecos[${index}].cidade">Cidade:</label>
+                    <input type="text" id="enderecos[${index}].cidade" name="enderecos[${index}].cidade" required />
+                </div>
+                <div>
+                    <label for="enderecos[${index}].estado">Estado:</label>
+                    <select id="enderecos[${index}].estado" name="enderecos[${index}].siglaEstado" required>
+                        <option value="">Selecione</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="DF">DF</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MT">MT</option>
+                        <option value="MS">MS</option>
+                        <option value="MG">MG</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PR">PR</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RS">RS</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="SC">SC</option>
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="enderecos[${index}].cep">CEP:</label>
+                    <input type="text" id="enderecos[${index}].cep" name="enderecos[${index}].cep" placeholder="12345-678" required />
+                </div>
+            `;
+
+            enderecosDiv.appendChild(enderecoDiv);
+        }
+
+        function removerEndereco(button) {
+            const enderecoDiv = button.parentElement;
+            enderecoDiv.remove();
+            atualizarNumeracaoEnderecos();
+        }
+
+        function atualizarNumeracaoEnderecos() {
+            const enderecos = document.querySelectorAll('.endereco');
+            enderecos.forEach((endereco, index) => {
+                const titulo = endereco.querySelector('h3');
+                titulo.textContent = `Endereço ${index + 1}`;
+                // Atualizar os nomes e ids dos campos
+                const inputs = endereco.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    const name = input.getAttribute('name');
+                    const newName = name.replace(/\d+/, index);
+                    input.setAttribute('name', newName);
+                    const id = input.getAttribute('id');
+                    const newId = id.replace(/\d+/, index);
+                    input.setAttribute('id', newId);
+                });
+            });
+        }
+
+        window.onload = function() {
+            document.getElementById('addEndereco').addEventListener('click', adicionarEndereco);
+        }
+    </script>
 </head>
 <body>
 <h1>Adicionar Discente</h1>
 <form th:action="@{/discentes/novo}" th:method="post" th:object="${discenteForm}">
+    <!-- Campos existentes para Pessoa -->
     <div>
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" th:field="*{nome}" required />
@@ -37,6 +148,75 @@
         <input type="date" id="dataNascimento" name="dataNascimento" th:field="*{dataNascimento}" required />
         <div th:if="${#fields.hasErrors('dataNascimento')}" class="error" th:errors="*{dataNascimento}"></div>
     </div>
+
+    <h2>Endereços</h2>
+    <div id="enderecos">
+        <div class="endereco">
+            <span class="remove-endereco" onclick="removerEndereco(this)">&#10060;</span>
+            <h3>Endereço 1</h3>
+            <div>
+                <label for="enderecos[0].rua">Rua:</label>
+                <input type="text" id="enderecos[0].rua" name="enderecos[0].rua" required />
+                <div th:if="${#fields.hasErrors('enderecos[0].rua')}" class="error" th:errors="*{enderecos[0].rua}"></div>
+            </div>
+            <div>
+                <label for="enderecos[0].numero">Número:</label>
+                <input type="text" id="enderecos[0].numero" name="enderecos[0].numero" required />
+                <div th:if="${#fields.hasErrors('enderecos[0].numero')}" class="error" th:errors="*{enderecos[0].numero}"></div>
+            </div>
+            <div>
+                <label for="enderecos[0].complemento">Complemento:</label>
+                <input type="text" id="enderecos[0].complemento" name="enderecos[0].complemento" />
+                <div th:if="${#fields.hasErrors('enderecos[0].complemento')}" class="error" th:errors="*{enderecos[0].complemento}"></div>
+            </div>
+            <div>
+                <label for="enderecos[0].cidade">Cidade:</label>
+                <input type="text" id="enderecos[0].cidade" name="enderecos[0].cidade" required />
+                <div th:if="${#fields.hasErrors('enderecos[0].cidade')}" class="error" th:errors="*{enderecos[0].cidade}"></div>
+            </div>
+            <div>
+                <label for="enderecos[0].estado">Estado:</label>
+                <select id="enderecos[0].estado" name="enderecos[0].siglaEstado" required>
+                    <option value="">Selecione</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                </select>
+                <div th:if="${#fields.hasErrors('enderecos[0].siglaEstado')}" class="error" th:errors="*{enderecos[0].siglaEstado}"></div>
+            </div>
+            <div>
+                <label for="enderecos[0].cep">CEP:</label>
+                <input type="text" id="enderecos[0].cep" name="enderecos[0].cep" required />
+                <div th:if="${#fields.hasErrors('enderecos[0].cep')}" class="error" th:errors="*{enderecos[0].cep}"></div>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="addEndereco">Adicionar Outro Endereço</button>
+
     <div>
         <button type="submit">Adicionar</button>
     </div>

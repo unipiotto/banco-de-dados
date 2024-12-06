@@ -6,9 +6,10 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Endereco {
     private Long idEndereco;
-    private Long idPessoa;
+    private Long pessoaId;
     private String rua;
     private String numero;
     private String cep;

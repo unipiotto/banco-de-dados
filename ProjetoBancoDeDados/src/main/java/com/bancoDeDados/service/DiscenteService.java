@@ -1,8 +1,10 @@
 package com.bancoDeDados.service;
 
 import com.bancoDeDados.model.Discente;
+import com.bancoDeDados.model.Endereco;
 import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.repository.dao.DiscenteDAO;
+import com.bancoDeDados.repository.dao.EnderecoDAO;
 import com.bancoDeDados.repository.dao.PessoaDAO;
 import com.bancoDeDados.repository.DiscenteRepository;
 import com.bancoDeDados.repository.PessoaRepository;
@@ -19,14 +21,16 @@ public class DiscenteService {
 
     private final PessoaDAO pessoaDAO;
     private final DiscenteDAO discenteDAO;
+    private final EnderecoDAO enderecoDAO;
     private final DiscenteRepository discenteRepository;
     private final PessoaRepository pessoaRepository;
     private final AtomicInteger contador;
 
     @Autowired
-    public DiscenteService(PessoaDAO pessoaDAO, DiscenteDAO discenteDAO, DiscenteRepository discenteRepository, PessoaRepository pessoaRepository) {
+    public DiscenteService(PessoaDAO pessoaDAO, DiscenteDAO discenteDAO, EnderecoDAO enderecoDAO, DiscenteRepository discenteRepository, PessoaRepository pessoaRepository) {
         this.pessoaDAO = pessoaDAO;
         this.discenteDAO = discenteDAO;
+        this.enderecoDAO = enderecoDAO;
         this.discenteRepository = discenteRepository;
         this.pessoaRepository = pessoaRepository;
         this.contador = new AtomicInteger(discenteDAO.contarDiscentesCadastrados());
@@ -41,8 +45,13 @@ public class DiscenteService {
         return String.format("%d.1.08.%s", anoAtual, numeroFormatado);
     }
 
-    public void adicionarDiscente(Pessoa pessoa, Discente discente) {
+    public void adicionarDiscente(Pessoa pessoa, List<Endereco> enderecos, Discente discente) {
         Long pessoaId = pessoaDAO.inserirPessoa(pessoa);
+
+        for (Endereco endereco : enderecos) {
+            endereco.setPessoaId(pessoaId);
+            enderecoDAO.inserirEndereco(endereco);
+        }
 
         discente.setIdPessoa(pessoaId);
 

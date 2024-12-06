@@ -1,5 +1,6 @@
 package com.bancoDeDados.model.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,4 +34,8 @@ public class DiscenteForm {
 
     private String matricula;
     private String curso;
+
+    @Valid
+    @NotEmpty(message = "Pelo menos um endereço é obrigatório")
+    private List<EnderecoForm> enderecos;
 }

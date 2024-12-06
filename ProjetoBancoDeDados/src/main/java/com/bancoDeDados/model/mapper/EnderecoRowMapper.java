@@ -13,7 +13,7 @@ public class EnderecoRowMapper implements RowMapper<Endereco> {
         Endereco endereco = new Endereco();
 
         endereco.setIdEndereco(rs.getLong("id_endereco"));
-        endereco.setIdPessoa(rs.getLong("pessoa_id"));
+        endereco.setPessoaId(rs.getLong("pessoa_id"));
         endereco.setRua(rs.getString("rua"));
         endereco.setNumero(rs.getString("numero"));
         endereco.setCep(rs.getString("cep"));

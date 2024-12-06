@@ -4,22 +4,22 @@ DROP TABLE IF EXISTS pessoa, endereco, discente, professores, disciplinas, horar
 CREATE TABLE pessoa (
                         ID_pessoa SERIAL PRIMARY KEY,
                         nome VARCHAR(100) NOT NULL,
-                        email VARCHAR(100),
-                        telefone VARCHAR(20),
-                        cpf VARCHAR(14),
-                        data_nascimento DATE
+                        email VARCHAR(100) NOT NULL,
+                        telefone VARCHAR(20) NOT NULL,
+                        cpf VARCHAR(14) NOT NULL,
+                        data_nascimento DATE NOT NULL
 );
 
 -- 2. Endereço
 CREATE TABLE endereco (
                           ID_endereco SERIAL PRIMARY KEY,
                           pessoa_ID INT,
-                          rua VARCHAR(100),
-                          numero VARCHAR(10),
-                          cep VARCHAR(9),
+                          rua VARCHAR(100) NOT NULL,
+                          numero VARCHAR(10) NOT NULL,
+                          cep VARCHAR(9) NOT NULL,
                           complemento VARCHAR(100),
-                          sigla_estado CHAR(2),
-                          cidade VARCHAR(50),
+                          sigla_estado CHAR(2) NOT NULL,
+                          cidade VARCHAR(50) NOT NULL,
                           FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
                               ON DELETE CASCADE
                               ON UPDATE CASCADE
@@ -29,8 +29,8 @@ CREATE TABLE endereco (
 CREATE TABLE discente (
                           ID_discente SERIAL PRIMARY KEY,
                           pessoa_ID INT,
-                          registro_academico VARCHAR(20),
-                          data_ingresso DATE,
+                          registro_academico VARCHAR(20) NOT NULL,
+                          data_ingresso DATE NULL,
                           status VARCHAR(20) CHECK (status IN ('Ativa', 'Trancada', 'Concluida')),
                           FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
                               ON DELETE CASCADE
@@ -40,7 +40,7 @@ CREATE TABLE discente (
 -- 4. Departamentos
 CREATE TABLE departamentos (
                                ID_departamento SERIAL PRIMARY KEY,
-                               nome_departamento VARCHAR(100)
+                               nome_departamento VARCHAR(100) NOT NULL
 );
 
 -- 5. Professores
@@ -48,7 +48,7 @@ CREATE TABLE professores (
                              ID_professor SERIAL PRIMARY KEY,
                              pessoa_ID INT,
                              departamento_ID INT,
-                             data_contratacao DATE,
+                             data_contratacao DATE NOT NULL,
                              FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
                                  ON DELETE CASCADE
                                  ON UPDATE CASCADE,
@@ -60,9 +60,9 @@ CREATE TABLE professores (
 -- 6. Disciplinas
 CREATE TABLE disciplinas (
                              ID_disciplina SERIAL PRIMARY KEY,
-                             nome_disciplina VARCHAR(100),
-                             carga_horaria INT,
-                             valor_mensal DECIMAL(10,2),
+                             nome_disciplina VARCHAR(100) NOT NULL,
+                             carga_horaria INT NOT NULL,
+                             valor_mensal DECIMAL(10,2) NOT NULL,
                              professor_ID INT,
                              FOREIGN KEY (professor_ID) REFERENCES professores(ID_professor)
                                  ON DELETE SET NULL
@@ -75,7 +75,7 @@ CREATE TABLE horarios (
                           disciplina_ID INT,
                           dia_semana VARCHAR(20) CHECK (dia_semana IN ('segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo')),
                           horario_inicio TIME,
-                          duracao INT,
+                          duracao INT NOT NULL,
                           numero_sala VARCHAR(10),
                           FOREIGN KEY (disciplina_ID) REFERENCES disciplinas(ID_disciplina)
                               ON DELETE CASCADE
@@ -85,7 +85,7 @@ CREATE TABLE horarios (
 -- 8. Cursos
 CREATE TABLE cursos (
                         ID_curso SERIAL PRIMARY KEY,
-                        nome_curso VARCHAR(100),
+                        nome_curso VARCHAR(100) NOT NULL,
                         professor_coordenador_ID INT,
                         FOREIGN KEY (professor_coordenador_ID) REFERENCES professores(ID_professor)
                             ON DELETE SET NULL
@@ -112,8 +112,8 @@ CREATE TABLE matricula (
                            discente_ID INT,
                            disciplina_ID INT,
                            nota_final DECIMAL(5,2),
-                           ano_matricula INT,
-                           semestre INT,
+                           ano_matricula INT NOT NULL,
+                           semestre INT NOT NULL,
                            FOREIGN KEY (discente_ID) REFERENCES discente(ID_discente)
                                ON DELETE CASCADE
                                ON UPDATE CASCADE,
@@ -126,8 +126,8 @@ CREATE TABLE matricula (
 CREATE TABLE avaliacoes (
                             ID_avaliacao SERIAL PRIMARY KEY,
                             matricula_ID INT,
-                            nota DECIMAL(5,2),
-                            peso DECIMAL(3,2),
+                            nota DECIMAL(5,2) NOT NULL,
+                            peso DECIMAL(3,2) NOT NULL,
                             FOREIGN KEY (matricula_ID) REFERENCES matricula(ID_matricula)
                                 ON DELETE CASCADE
                                 ON UPDATE CASCADE
@@ -137,9 +137,9 @@ CREATE TABLE avaliacoes (
 CREATE TABLE pagamentos (
                             ID_pagamento SERIAL PRIMARY KEY,
                             discente_ID INT,
-                            data_vencimento DATE,
+                            data_vencimento DATE NOT NULL,
                             data_pagamento DATE,
-                            valor DECIMAL(10,2),
+                            valor DECIMAL(10,2) NOT NULL,
                             status_pagamento VARCHAR(20) CHECK (status_pagamento IN ('pago', 'pendente', 'cancelado')),
                             FOREIGN KEY (discente_ID) REFERENCES discente(ID_discente)
                                 ON DELETE CASCADE
@@ -165,8 +165,8 @@ CREATE TABLE avaliacao_professores (
                                        discente_ID INT,
                                        professor_ID INT,
                                        nota_ensino INT CHECK (nota_ensino BETWEEN 1 AND 5),
-                                       comentario TEXT,
-                                       data_avaliacao DATE,
+                                       comentario TEXT NOT NULL,
+                                       data_avaliacao DATE NOT NULL,
                                        FOREIGN KEY (discente_ID) REFERENCES discente(ID_discente)
                                            ON DELETE CASCADE
                                            ON UPDATE CASCADE,

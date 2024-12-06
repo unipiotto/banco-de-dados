@@ -1,6 +1,7 @@
 package com.bancoDeDados.controller;
 
 import com.bancoDeDados.model.Discente;
+import com.bancoDeDados.model.Endereco;
 import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.model.dto.DiscenteForm;
 import com.bancoDeDados.service.DiscenteService;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/discentes")
@@ -38,6 +40,7 @@ public class DiscenteController {
             return "formularioDiscentes";
         }
 
+        // Construir objeto Pessoa
         Pessoa pessoa = Pessoa.builder()
                 .nome(discenteForm.getNome())
                 .email(discenteForm.getEmail())
@@ -46,13 +49,25 @@ public class DiscenteController {
                 .dataNascimento(discenteForm.getDataNascimento())
                 .build();
 
+        // Construir lista de Endereços
+        List<Endereco> enderecos = discenteForm.getEnderecos().stream()
+                .map(enderecoForm -> Endereco.builder()
+                        .rua(enderecoForm.getRua())
+                        .numero(enderecoForm.getNumero())
+                        .complemento(enderecoForm.getComplemento())
+                        .cidade(enderecoForm.getCidade())
+                        .sigla(enderecoForm.getSiglaEstado())
+                        .cep(enderecoForm.getCep())
+                        .build())
+                .collect(Collectors.toList());
+
         Discente discente = Discente.builder()
                 .dataIngresso(LocalDate.now())
                 .status(Discente.StatusDiscente.ATIVA)
                 .build();
 
         try {
-            discenteService.adicionarDiscente(pessoa, discente);
+            discenteService.adicionarDiscente(pessoa, enderecos, discente);
         } catch (Exception e) {
             e.printStackTrace();
             return "erroAoCriarDiscente";
