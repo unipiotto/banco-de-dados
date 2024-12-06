@@ -87,9 +87,11 @@ CREATE TABLE cursos (
                         ID_curso SERIAL PRIMARY KEY,
                         nome_curso VARCHAR(100) NOT NULL,
                         professor_coordenador_ID INT,
+                        departamento_ID INT,
                         FOREIGN KEY (professor_coordenador_ID) REFERENCES professores(ID_professor)
                             ON DELETE SET NULL
-                            ON UPDATE CASCADE
+                            ON UPDATE CASCADE,
+                        FOREIGN KEY (departamento_ID) REFERENCES departamentos(ID_departamento)
 );
 
 -- 9. Professor_Curso

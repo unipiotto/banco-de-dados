@@ -97,18 +97,18 @@ VALUES
     (10, 'quarta', '17:00:00', 90, '110');
 
 -- 8. Inserir dados na tabela cursos
-INSERT INTO cursos (nome_curso, professor_coordenador_id)
+INSERT INTO cursos (nome_curso, professor_coordenador_id, departamento_id)
 VALUES
-    ('Curso A', 1),
-    ('Curso B', 2),
-    ('Curso C', 3),
-    ('Curso D', 4),
-    ('Curso E', 5),
-    ('Curso F', 6),
-    ('Curso G', 7),
-    ('Curso H', 8),
-    ('Curso I', 9),
-    ('Curso J', 10);
+    ('Curso A', 1, 1),
+    ('Curso B', 2, 2),
+    ('Curso C', 3, 3),
+    ('Curso D', 4, 4),
+    ('Curso E', 5, 5),
+    ('Curso F', 6, 6),
+    ('Curso G', 7, 7),
+    ('Curso H', 8, 8),
+    ('Curso I', 9, 9),
+    ('Curso J', 10, 10);
 
 -- 9. Inserir dados na tabela professor_curso
 INSERT INTO professor_curso (professor_id, curso_id, data_ingresso)

@@ -18,7 +18,6 @@ public class PessoaRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Método para salvar ou atualizar uma pessoa
     public void salvar(Pessoa pessoa) {
         if (pessoa.getIdPessoa() == 0) {
             String sql = "INSERT INTO pessoa (nome, email, telefone, cpf, data_nascimento) VALUES (?, ?, ?, ?, ?)";
@@ -43,7 +42,6 @@ public class PessoaRepository {
             return Optional.empty();
         }
     }
-
 
     public void deletar(Long id) {
         String sql = "DELETE FROM pessoa WHERE id_pessoa = ?";

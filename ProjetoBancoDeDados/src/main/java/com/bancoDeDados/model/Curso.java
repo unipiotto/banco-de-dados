@@ -12,5 +12,6 @@ import lombok.Setter;
 public class Curso {
     private Long idCurso;
     private String nomeCurso;
+    private Long departamentoId;
     private Long idProfessorCordernador;
 }
