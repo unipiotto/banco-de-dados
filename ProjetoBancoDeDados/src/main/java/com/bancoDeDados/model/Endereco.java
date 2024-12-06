@@ -24,6 +24,10 @@ public class Endereco {
         return sigla != null ? sigla.name() : null;
     }
 
+    public SiglaEstado getSiglaEstadoEnum() {
+        return this.sigla;
+    }
+
     public enum SiglaEstado {
         // Região Norte
         AC, AP, AM, PA, RO, RR, TO,

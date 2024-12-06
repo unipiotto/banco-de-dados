@@ -3,6 +3,8 @@ package com.bancoDeDados.service;
 import com.bancoDeDados.model.Discente;
 import com.bancoDeDados.model.Endereco;
 import com.bancoDeDados.model.Pessoa;
+import com.bancoDeDados.model.dto.DiscenteForm;
+import com.bancoDeDados.model.dto.EnderecoForm;
 import com.bancoDeDados.repository.dao.DiscenteDAO;
 import com.bancoDeDados.repository.dao.EnderecoDAO;
 import com.bancoDeDados.repository.dao.PessoaDAO;
@@ -82,5 +84,41 @@ public class DiscenteService {
 
     public void deletar(Long id) {
         discenteRepository.deletar(id);
+    }
+
+    public DiscenteForm converterDiscenteParaForm(Discente discente) {
+        if (discente == null || discente.getPessoa() == null) {
+            throw new IllegalArgumentException("Discente ou Pessoa não podem ser nulos");
+        }
+
+        Pessoa pessoa = discente.getPessoa();
+
+        DiscenteForm form = new DiscenteForm();
+        form.setNome(pessoa.getNome());
+        form.setEmail(pessoa.getEmail());
+        form.setTelefone(pessoa.getTelefone());
+        form.setDataNascimento(pessoa.getDataNascimento());
+        form.setCpf(pessoa.getCpf());
+
+        form.setMatricula(discente.getRegistroAcademico());
+        form.setCurso(null);
+
+        List<EnderecoForm> enderecosForm = pessoa.getEnderecos().stream()
+                .map(this::converterEnderecoParaForm)
+                .toList();
+        form.setEnderecos(enderecosForm);
+
+        return form;
+    }
+
+    private EnderecoForm converterEnderecoParaForm(Endereco endereco) {
+        EnderecoForm enderecoForm = new EnderecoForm();
+        enderecoForm.setRua(endereco.getRua());
+        enderecoForm.setNumero(endereco.getNumero());
+        enderecoForm.setComplemento(endereco.getComplemento());
+        enderecoForm.setCidade(endereco.getCidade());
+        enderecoForm.setSiglaEstado(endereco.getSiglaEstadoEnum());
+        enderecoForm.setCep(endereco.getCep());
+        return enderecoForm;
     }
 }

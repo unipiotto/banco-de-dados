@@ -4,16 +4,16 @@ DROP TABLE IF EXISTS pessoa, endereco, discente, professores, disciplinas, horar
 CREATE TABLE pessoa (
                         ID_pessoa SERIAL PRIMARY KEY,
                         nome VARCHAR(100) NOT NULL,
-                        email VARCHAR(100) NOT NULL,
+                        email VARCHAR(100) NOT NULL UNIQUE,
                         telefone VARCHAR(20) NOT NULL,
-                        cpf VARCHAR(14) NOT NULL,
+                        cpf VARCHAR(14) NOT NULL UNIQUE,
                         data_nascimento DATE NOT NULL
 );
 
 -- 2. Endereço
 CREATE TABLE endereco (
                           ID_endereco SERIAL PRIMARY KEY,
-                          pessoa_ID INT,
+                          pessoa_ID INT NOT NULL,
                           rua VARCHAR(100) NOT NULL,
                           numero VARCHAR(10) NOT NULL,
                           cep VARCHAR(9) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE endereco (
 -- 3. Discente
 CREATE TABLE discente (
                           ID_discente SERIAL PRIMARY KEY,
-                          pessoa_ID INT,
+                          pessoa_ID INT NOT NULL,
                           registro_academico VARCHAR(20) NOT NULL,
                           data_ingresso DATE NULL,
                           status VARCHAR(20) CHECK (status IN ('Ativa', 'Trancada', 'Concluida')),

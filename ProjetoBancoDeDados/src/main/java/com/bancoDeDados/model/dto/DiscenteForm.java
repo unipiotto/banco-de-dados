@@ -29,7 +29,6 @@ public class DiscenteForm {
     @Pattern(regexp = "\\d{11}", message = "CPF deve conter exatamente 11 números")
     private String cpf;
 
-    @NotNull(message = "Data de Nascimento é obrigatória")
     private LocalDate dataNascimento;
 
     private String matricula;
@@ -38,4 +37,25 @@ public class DiscenteForm {
     @Valid
     @NotEmpty(message = "Pelo menos um endereço é obrigatório")
     private List<EnderecoForm> enderecos;
+
+    public String getTelefoneFormatado() {
+        if (telefone == null || telefone.length() != 11) {
+            return telefone;
+        }
+        return String.format("(%s) %s-%s",
+                telefone.substring(0, 2),
+                telefone.substring(2, 7),
+                telefone.substring(7));
+    }
+
+    public String getCpfFormatado() {
+        if (cpf == null || cpf.length() != 11) {
+            return cpf;
+        }
+        return String.format("%s.%s.%s-%s",
+                cpf.substring(0, 3),
+                cpf.substring(3, 6),
+                cpf.substring(6, 9),
+                cpf.substring(9));
+    }
 }

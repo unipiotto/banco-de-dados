@@ -1,41 +1,111 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Detalhes do Discente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Detalhes do Discente</h1>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Detalhes do Discente</h1>
 
-<h2>Informações do Discente</h2>
-<p><strong>Registro Acadêmico:</strong> <span th:text="${discente.registroAcademico}"></span></p>
-<p><strong>Data de Ingresso:</strong> <span th:text="${#temporals.format(discente.dataIngresso, 'dd/MM/yyyy')}"></span></p>
-<p><strong>Status da Matrícula:</strong> <span th:text="${discente.getStatusFormatado()}"></span></p>
+    <!-- Informações do Discente -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="h5 mb-0">Informações do Discente</h2>
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Registro Acadêmico:</strong></div>
+                <div class="col-md-8" th:text="${discente.registroAcademico}"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Data de Ingresso:</strong></div>
+                <div class="col-md-8" th:text="${#temporals.format(discente.dataIngresso, 'dd/MM/yyyy')}"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Status da Matrícula:</strong></div>
+                <div class="col-md-8" th:text="${discente.getStatusFormatado()}"></div>
+            </div>
+        </div>
+    </div>
 
-<h2>Informações Pessoais</h2>
-<p><strong>Nome:</strong> <span th:text="${discente.pessoa.nome}"></span></p>
-<p><strong>Email:</strong> <span th:text="${discente.pessoa.email}"></span></p>
-<p><strong>Telefone:</strong> <span th:text="${discente.pessoa.getTelefoneFormatado()}"></span></p>
-<p><strong>CPF:</strong> <span th:text="${discente.pessoa.getCpfFormatado()}"></span></p>
-<p><strong>Data de Nascimento:</strong> <span th:text="${#temporals.format(discente.pessoa.dataNascimento, 'dd/MM/yyyy')}"></span></p>
+    <!-- Informações Pessoais -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="h5 mb-0">Informações Pessoais</h2>
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Nome:</strong></div>
+                <div class="col-md-8" th:text="${discente.pessoa.nome}"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Email:</strong></div>
+                <div class="col-md-8" th:text="${discente.pessoa.email}"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Telefone:</strong></div>
+                <div class="col-md-8" th:text="${discente.pessoa.getTelefoneFormatado()}"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>CPF:</strong></div>
+                <div class="col-md-8" th:text="${discente.pessoa.getCpfFormatado()}"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Data de Nascimento:</strong></div>
+                <div class="col-md-8" th:text="${#temporals.format(discente.pessoa.dataNascimento, 'dd/MM/yyyy')}"></div>
+            </div>
+        </div>
+    </div>
 
-<h2>Endereços</h2>
-<div th:if="${discente.pessoa.enderecos != null and !discente.pessoa.enderecos.isEmpty()}">
-    <ul>
-        <li th:each="endereco : ${discente.pessoa.enderecos}">
-            <p><strong>Rua:</strong> <span th:text="${endereco.rua}"></span>,
-                <strong>Número:</strong> <span th:text="${endereco.numero}"></span></p>
-            <p><strong>Complemento:</strong> <span th:text="${endereco.complemento}"></span></p>
-            <p><strong>CEP:</strong> <span th:text="${endereco.cep}"></span></p>
-            <p><strong>Cidade:</strong> <span th:text="${endereco.cidade}"></span>,
-                <strong>Estado:</strong> <span th:text="${endereco.getSiglaEstado()}"></span></p>
-            <hr/>
-        </li>
-    </ul>
+    <!-- Endereços -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0">Endereços</h2>
+            <span th:if="${discente.pessoa.enderecos != null and !discente.pessoa.enderecos.isEmpty()}"
+                  class="badge bg-primary" th:text="${discente.pessoa.enderecos.size()} + ' Endereço(s)'"></span>
+        </div>
+        <div class="card-body">
+            <div th:if="${discente.pessoa.enderecos != null and !discente.pessoa.enderecos.isEmpty()}">
+                <div class="accordion" id="enderecosAccordion">
+                    <div th:each="endereco, iterStat : ${discente.pessoa.enderecos}" class="accordion-item">
+                        <h2 class="accordion-header" th:id="'heading' + ${iterStat.index}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    th:data-bs-target="'#collapse' + ${iterStat.index}" aria-expanded="false"
+                                    th:aria-controls="'collapse' + ${iterStat.index}">
+                                Endereço [[${iterStat.index + 1}]]
+                            </button>
+                        </h2>
+                        <div th:id="'collapse' + ${iterStat.index}" class="accordion-collapse collapse"
+                             th:aria-labelledby="'heading' + ${iterStat.index}" data-bs-parent="#enderecosAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Rua:</strong> <span th:text="${endereco.rua}"></span>,
+                                    <strong>Número:</strong> <span th:text="${endereco.numero}"></span></p>
+                                <p><strong>Complemento:</strong> <span th:text="${endereco.complemento}"></span></p>
+                                <p><strong>CEP:</strong> <span th:text="${endereco.cep}"></span></p>
+                                <p><strong>Cidade:</strong> <span th:text="${endereco.cidade}"></span>,
+                                    <strong>Estado:</strong> <span th:text="${endereco.getSiglaEstado()}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${discente.pessoa.enderecos == null or discente.pessoa.enderecos.isEmpty()}">
+                <p class="text-muted">Não há endereços cadastrados.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão Voltar -->
+    <div class="d-flex justify-content-start">
+        <a th:href="@{/discentes/listar}" class="btn btn-secondary">Voltar à Lista</a>
+    </div>
 </div>
-<div th:if="${discente.pessoa.enderecos == null or discente.pessoa.enderecos.isEmpty()}">
-    <p>Não há endereços cadastrados.</p>
-</div>
 
-<a th:href="@{/discentes/listar}">Voltar à Lista</a>
+<!-- Bootstrap JS e dependências (opcional, para funcionalidades como o Accordion) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

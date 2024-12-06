@@ -41,4 +41,9 @@ public class EnderecoDAO {
 
         return keyHolder.getKey().longValue();
     }
+
+    public void deletarPorPessoaId(Long pessoaId) {
+        String sql = "DELETE FROM endereco WHERE pessoa_ID = ?";
+        jdbcTemplate.update(sql, pessoaId);
+    }
 }

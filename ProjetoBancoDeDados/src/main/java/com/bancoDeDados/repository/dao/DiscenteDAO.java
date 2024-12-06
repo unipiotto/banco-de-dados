@@ -32,22 +32,6 @@ public class DiscenteDAO {
                 discente.getDataIngresso(), discente.getStatusFormatado());
     }
 
-//    public Optional<Discente> buscaPorId(Long idDiscente) {
-//        String sql = "SELECT * FROM discente WHERE ID_discente = ?";
-//        return jdbcTemplate.query(sql, rs -> {
-//            if (rs.next()) {
-//                Discente discente = new Discente();
-//                discente.setIdDiscente(rs.getLong("ID_discente"));
-//                discente.setIdPessoa(rs.getLong("pessoa_ID"));
-//                discente.setRegistroAcademico(rs.getString("registro_academico"));
-//                discente.setDataIngresso(LocalDate.parse(rs.getString("data_nascimento")));
-//                discente.setStatus(Discente.StatusDiscente.valueOf(rs.getString("status")));
-//                return Optional.of(discente);
-//            }
-//            return Optional.empty();
-//        }, idDiscente);
-//    }
-
     public int contarDiscentesCadastrados() {
         String sql = "SELECT COUNT(*) FROM discente";
         return jdbcTemplate.queryForObject(sql, Integer.class);
