@@ -13,7 +13,7 @@ public class ProfessorRowMapper implements RowMapper<Professor> {
         Professor professor = new Professor();
         professor.setIdProfessor(rs.getLong("ID_professor"));
         professor.setIdDepartamento(rs.getLong("departamento_id"));
-        professor.setIdPessoa(rs.getLong("id_pessoa"));
+        professor.setIdPessoa(rs.getLong("pessoa_id"));
         professor.setDataContratacao(LocalDate.parse(rs.getString("data_contratacao")));
 
 

@@ -1,8 +1,10 @@
 package com.bancoDeDados.model.dto;
 
+import com.bancoDeDados.model.Departamento;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,10 +33,11 @@ public class ProfessorForm {
     @Pattern(regexp = "\\d{11}", message = "CPF deve conter exatamente 11 números")
     private String cpf;
 
+    @NotNull(message = "Data de nascimento é obrigatório")
     private LocalDate dataNascimento;
 
-//    private String matricula;
-//    private String curso;
+
+    private Long departamentoId;
 
     @Valid
     @NotEmpty(message = "Pelo menos um endereço é obrigatório")

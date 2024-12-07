@@ -4,6 +4,7 @@ import com.bancoDeDados.model.Departamento;
 import com.bancoDeDados.model.Discente;
 import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.model.Professor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,32 +16,8 @@ import java.util.Optional;
 @Repository
 public class ProfessorRepository {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
-
-//    public void salvar(Professor professor) {
-//        if(professor.getIdProfessor() == null){
-//            String sql = "INSERT INTO professor (idPessoa, idDepartamento, dataContratacao) VALUES (?,?,?)";
-//            jdbcTemplate.update(sql, professor.getIdPessoa(), professor.getIdDepartamento(), professor.getDataContratacao());
-//        }else{
-//            String sql = "UPDATE professor SET idPessoa = ?, idDepartamento = ?, dataContratacao = ? WHERE idProfessor = ?";
-//            jdbcTemplate.update(sql, professor.getIdPessoa(), professor.getIdDepartamento(), professor.getDataContratacao(), professor.getIdProfessor());
-//        }
-//    }
-//
-//    public Optional<Professor> buscarPorId(Long id){
-//        String sql = "SELECT * FROM professor WHERE idProfessor = ?";
-//        try{
-//            Professor professor = jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Professor.class));
-//            return Optional.of(professor);
-//        }catch (EmptyResultDataAccessException e) {
-//            return Optional.empty();
-//        }
-//    }
-//
-//    public void deletar(Long id){
-//        String sql = "DELETE FROM professor WHERE idProfessor = ?";
-//        jdbcTemplate.update(sql, id);
-//    }
 
     public List<Professor> listar() {
         String sql = """

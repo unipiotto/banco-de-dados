@@ -1,6 +1,9 @@
 package com.bancoDeDados.service;
 
 import com.bancoDeDados.model.*;
+import com.bancoDeDados.model.dto.DiscenteForm;
+import com.bancoDeDados.model.dto.EnderecoForm;
+import com.bancoDeDados.model.dto.ProfessorForm;
 import com.bancoDeDados.repository.PessoaRepository;
 import com.bancoDeDados.repository.ProfessorRepository;
 import com.bancoDeDados.repository.dao.EnderecoDAO;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfessorService {
@@ -31,33 +35,135 @@ public class ProfessorService {
 
     }
 
-    public void adicionarProfessor(Pessoa pessoa, List<Endereco> enderecos, Departamento departamento, Professor professor) {
+    public void adicionar(ProfessorForm professorForm) {
+
+
+        Pessoa pessoa = Pessoa.builder()
+                .nome(professorForm.getNome())
+                .email(professorForm.getEmail())
+                .telefone(professorForm.getTelefone())
+                .cpf(professorForm.getCpf())
+                .dataNascimento(professorForm.getDataNascimento())
+                .build();
+
+        Long departamentoId = professorForm.getDepartamentoId();
+
+        List<Endereco> enderecos = professorForm.getEnderecos().stream()
+                .map(enderecoForm -> Endereco.builder()
+                        .rua(enderecoForm.getRua())
+                        .numero(enderecoForm.getNumero())
+                        .complemento(enderecoForm.getComplemento())
+                        .cidade(enderecoForm.getCidade())
+                        .sigla(enderecoForm.getSiglaEstado())
+                        .cep(enderecoForm.getCep())
+                        .build())
+                .toList();
+
+
         Long pessoaId = pessoaDAO.inserirPessoa(pessoa);
-//        Long departamentoId = departamentoDAO.inserirDepartamento(departamento);
 
         for (Endereco endereco : enderecos) {
             endereco.setPessoaId(pessoaId);
             enderecoDAO.inserirEndereco(endereco);
         }
 
-        professor.setPessoa(pessoa);
-        professor.setDepartamento(departamento);
+
+        Professor professor = Professor.builder()
+                .dataContratacao(LocalDate.now())
+                .build();
+
+//        professor.setPessoa(pessoa);
+        professor.setIdPessoa(pessoaId);
+
+        professor.setIdDepartamento(departamentoId);
 
         professorDAO.inserir(professor);
     }
 
+    public void editarProfessor(Long id, ProfessorForm professorForm) throws Exception {
+        Professor professorOriginal = buscarPorId(id);
+        if (professorOriginal == null) {
+            throw new Exception("Professor não encontrado.");
+        }
 
-//    public Professor salvar(Professor professor) {
-//        professorRepository.salvar(professor);
-//        return professor;
-//    }
-//
-//    public Optional<Professor> buscarPorId(Long id) {
-//        return professorRepository.buscarPorId(id);
-//    }
-//
-//    public void deletar(Long id) {
-//        professorRepository.deletar(id);
-//    }
+        professorOriginal.setIdDepartamento(professorForm.getDepartamentoId());
+
+        // Atualiza informações de Pessoa
+        Pessoa pessoaOriginal = professorOriginal.getPessoa();
+        pessoaOriginal.setNome(professorForm.getNome());
+        pessoaOriginal.setEmail(professorForm.getEmail());
+        pessoaOriginal.setTelefone(professorForm.getTelefone());
+        pessoaOriginal.setCpf(professorForm.getCpf());
+        pessoaOriginal.setDataNascimento(professorForm.getDataNascimento());
+        pessoaDAO.atualizarPessoa(pessoaOriginal);
+
+        // Deleta os endereços antigos e insere os novos
+        enderecoDAO.deletarPorPessoaId(pessoaOriginal.getIdPessoa());
+        List<Endereco> enderecosAtualizados = professorForm.getEnderecos().stream()
+                .map(enderecoForm -> Endereco.builder()
+                        .rua(enderecoForm.getRua())
+                        .numero(enderecoForm.getNumero())
+                        .complemento(enderecoForm.getComplemento())
+                        .cidade(enderecoForm.getCidade())
+                        .sigla(enderecoForm.getSiglaEstado())
+                        .cep(enderecoForm.getCep())
+                        .pessoaId(pessoaOriginal.getIdPessoa())
+                        .build())
+                .toList();
+
+        for (Endereco endereco : enderecosAtualizados) {
+            enderecoDAO.inserirEndereco(endereco);
+        }
+        professorDAO.atualizar(professorOriginal);
+    }
+
+    public List<Professor> listar() {
+        return professorRepository.listar();
+    }
+
+    public void deletar(Long id){
+        professorDAO.remover(id);
+    }
+
+    public void atualizar(Professor professor) {
+        professorDAO.atualizar(professor);
+    }
+
+    public Professor buscarPorId(Long id){
+        return professorDAO.buscarPorId(id);
+    }
+
+    public ProfessorForm converterProfessorParaForm(Professor professor) {
+        if (professor == null || professor.getPessoa() == null) {
+            throw new IllegalArgumentException("Professor ou Pessoa não podem ser nulos");
+        }
+
+        Pessoa pessoa = professor.getPessoa();
+
+        ProfessorForm form = new ProfessorForm();
+        form.setNome(pessoa.getNome());
+        form.setEmail(pessoa.getEmail());
+        form.setCpf(pessoa.getCpf());
+        form.setTelefone(pessoa.getTelefone());
+        form.setDataNascimento(pessoa.getDataNascimento());
+
+        List<EnderecoForm> enderecosForm = pessoa.getEnderecos().stream()
+                .map(this::converterEnderecoParaForm)
+                .toList();
+        form.setEnderecos(enderecosForm);
+
+        return form;
+    }
+
+    private EnderecoForm converterEnderecoParaForm(Endereco endereco) {
+        EnderecoForm enderecoForm = new EnderecoForm();
+        enderecoForm.setRua(endereco.getRua());
+        enderecoForm.setNumero(endereco.getNumero());
+        enderecoForm.setComplemento(endereco.getComplemento());
+        enderecoForm.setCidade(endereco.getCidade());
+        enderecoForm.setSiglaEstado(endereco.getSiglaEstadoEnum());
+        enderecoForm.setCep(endereco.getCep());
+        return enderecoForm;
+    }
 
 }
