@@ -28,11 +28,6 @@ public class PessoaRepository {
         }
     }
 
-    public List<Pessoa> listarTodos() {
-        String sql = "SELECT * FROM pessoa";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Pessoa.class));
-    }
-
     public Optional<Pessoa> buscarPorId(Long id) {
         String sql = "SELECT * FROM pessoa WHERE id_pessoa = ?";
         try {

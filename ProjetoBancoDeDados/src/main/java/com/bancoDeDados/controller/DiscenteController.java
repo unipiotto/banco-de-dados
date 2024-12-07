@@ -1,12 +1,7 @@
 package com.bancoDeDados.controller;
 
 import com.bancoDeDados.model.Discente;
-import com.bancoDeDados.model.Endereco;
-import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.model.dto.DiscenteForm;
-import com.bancoDeDados.model.dto.DiscenteFormEditar;
-import com.bancoDeDados.repository.dao.EnderecoDAO;
-import com.bancoDeDados.repository.dao.PessoaDAO;
 import com.bancoDeDados.service.DiscenteService;
 import com.bancoDeDados.service.PessoaService;
 import jakarta.validation.Valid;
@@ -17,9 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/discentes")
@@ -29,10 +22,6 @@ public class DiscenteController {
     private DiscenteService discenteService;
     @Autowired
     private PessoaService pessoaService;
-    @Autowired
-    private PessoaDAO pessoaDAO;
-    @Autowired
-    private EnderecoDAO enderecoDAO;
 
     @GetMapping("/formulario")
     public String abrirPaginaFormularioDiscente (Model model) {
@@ -105,63 +94,10 @@ public class DiscenteController {
         }
     }
 
-//    @PostMapping("/editar/{id}")
-//    public String editarDiscente(@PathVariable Long id,
-//                                 @Valid @ModelAttribute("discenteForm") DiscenteFormEditar discenteForm,
-//                                 BindingResult bindingResult,
-//                                 RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()) {
-//            return "discente/editar";
-//        }
-//
-//        try {
-//            Discente discenteOriginal = discenteService.buscarDiscenteCompletoPorId(id);
-//            if (discenteOriginal == null) {
-//                redirectAttributes.addFlashAttribute("errorMessage", "Discente não encontrado.");
-//                return "redirect:/discentes";
-//            }
-//
-//            // Atualiza informações de Pessoa
-//            Pessoa pessoaOriginal = discenteOriginal.getPessoa();
-//            pessoaOriginal.setNome(discenteForm.getNome());
-//            pessoaOriginal.setEmail(discenteForm.getEmail());
-//            pessoaOriginal.setTelefone(discenteForm.getTelefone());
-//
-//            pessoaDAO.atualizarPessoa(pessoaOriginal);
-//
-//            // Deleta os endereços
-//            enderecoDAO.deletarPorPessoaId(pessoaOriginal.getIdPessoa());
-//
-//            // Mapeia todos os novos endereços
-//            List<Endereco> enderecosAtualizados = discenteForm.getEnderecos().stream()
-//                    .map(enderecoForm -> Endereco.builder()
-//                            .rua(enderecoForm.getRua())
-//                            .numero(enderecoForm.getNumero())
-//                            .complemento(enderecoForm.getComplemento())
-//                            .cidade(enderecoForm.getCidade())
-//                            .sigla(enderecoForm.getSiglaEstado())
-//                            .cep(enderecoForm.getCep())
-//                            .pessoaId(pessoaOriginal.getIdPessoa())
-//                            .build())
-//                    .collect(Collectors.toList());
-//
-//            for (Endereco end : enderecosAtualizados) {
-//                enderecoDAO.inserirEndereco(end);
-//            }
-//
-//            redirectAttributes.addFlashAttribute("successMessage", "Discente atualizado com sucesso!");
-//            return "redirect:/discentes";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            redirectAttributes.addFlashAttribute("errorMessage", "Ocorreu um erro ao atualizar o discente: " + e.getMessage());
-//            return "redirect:/discentes";
-//        }
-//    }
-
     @PostMapping("/deletar")
     public String deletarDiscente(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
         Discente discente = discenteService.buscarDiscenteCompletoPorId(id);
-        pessoaService.deletar(discente.getIdPessoa());
+        pessoaService.deletar(discente.getPessoaId());
         redirectAttributes.addFlashAttribute("message", "Discente deletado com sucesso.");
         return "redirect:/discentes";
     }
