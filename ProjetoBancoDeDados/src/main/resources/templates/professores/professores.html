@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Lista de Professores</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Discentes</h1>
+    <a href="novo" class="btn btn-primary mb-3">Adicionar Discente</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Registro Acadêmico</th>
+            <th>Data de Ingresso</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="discente : ${discentes}">
+            <td th:text="${discente.pessoa.nome}"></td>
+            <td th:text="${discente.pessoa.email}"></td>
+            <td th:text="${discente.registroAcademico}"></td>
+            <td th:text="${#temporals.format(discente.dataIngresso, 'dd/MM/yyyy')}"></td>
+            <td th:text="${discente.getStatusFormatado()}"></td>
+            <td>
+                <a th:href="@{/discentes/editar/{id}(id=${discente.idDiscente})}" class="btn btn-sm btn-warning">Editar</a>
+                <!-- Botão para abrir o modal de deleção -->
+                <button
+                        type="button"
+                        class="btn btn-sm btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmDeleteModal"
+                        th:data-id="${discente.idDiscente}"
+                        th:data-nome="${discente.pessoa.nome}"
+                        th:data-email="${discente.pessoa.email}"
+                >
+                    Deletar
+                </button>
+                <a th:href="@{/discentes/{id}(id=${discente.idDiscente})}" class="btn btn-sm btn-info">Mais informações</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de Confirmação de Deleção -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form th:action="@{/discentes/deletar}" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Deleção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja deletar o Discente abaixo?</p>
+                    <ul>
+                        <li><strong>Nome:</strong> <span id="discenteNome"></span></li>
+                        <li><strong>Email:</strong> <span id="discenteEmail"></span></li>
+                        <li><strong>Registro Acadêmico:</strong> <span id="discenteRegistro"></span></li>
+                    </ul>
+                    <!-- Campo oculto para armazenar o ID do Discente -->
+                    <input type="hidden" name="id" id="discenteId" value="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+    var confirmDeleteModal = document.getElementById('confirmDeleteModal');
+    confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+
+        var id = button.getAttribute('data-id');
+        var nome = button.getAttribute('data-nome');
+        var email = button.getAttribute('data-email');
+        var registro = button.closest('tr').querySelector('td:nth-child(3)').innerText;
+
+        var modalBodyNome = confirmDeleteModal.querySelector('#discenteNome');
+        var modalBodyEmail = confirmDeleteModal.querySelector('#discenteEmail');
+        var modalBodyRegistro = confirmDeleteModal.querySelector('#discenteRegistro');
+        var modalInputId = confirmDeleteModal.querySelector('#discenteId');
+
+        modalBodyNome.textContent = nome;
+        modalBodyEmail.textContent = email;
+        modalBodyRegistro.textContent = registro;
+        modalInputId.value = id;
+    });
+</script>
+</body>
+</html>

@@ -15,27 +15,30 @@ public class ProfessorController {
     @Autowired
     private ProfessorService professorService;
 
-    @GetMapping("/novo")
-    public String novo(Model model) {
-        model.addAttribute("professor", new Professor());
-        return "professores/formulario";
-    }
+//    @GetMapping("/novo")
+//    public String novo(Model model) {
+//        model.addAttribute("professor", new Professor());
+//        return "professores/formulario";
+//    }
+//
+//    @PostMapping
+//    public String salvar(@ModelAttribute Professor professor) {
+//        professorService.salvar(professor);
+//        return "redirect:/professores";
+//    }
+//
+//    @GetMapping("/editar/{id}")
+//    public String editar(@PathVariable("id") Long id, Model model) {
+//        Professor professor = professorService.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Professor inválido: " + id));
+//        return "professores/formulario";
+//    }
+//
+//    @GetMapping("deletar/{id}")
+//    public String deletar(@PathVariable("id") Long id) {
+//        professorService.deletar(id);
+//        return "redirect:/professores";
+//    }
 
-    @PostMapping
-    public String salvar(@ModelAttribute Professor professor) {
-        professorService.salvar(professor);
-        return "redirect:/professores";
-    }
 
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable("id") Long id, Model model) {
-        Professor professor = professorService.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Professor inválido: " + id));
-        return "professores/formulario";
-    }
 
-    @GetMapping("deletar/{id}")
-    public String deletar(@PathVariable("id") Long id) {
-        professorService.deletar(id);
-        return "redirect:/professores";
-    }
 }
