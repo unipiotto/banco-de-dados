@@ -8,7 +8,6 @@ import com.bancoDeDados.model.dto.EnderecoForm;
 import com.bancoDeDados.repository.dao.DiscenteDAO;
 import com.bancoDeDados.repository.dao.EnderecoDAO;
 import com.bancoDeDados.repository.dao.PessoaDAO;
-import com.bancoDeDados.repository.DiscenteRepository;
 import com.bancoDeDados.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,16 +25,14 @@ public class DiscenteService {
     private final PessoaDAO pessoaDAO;
     private final DiscenteDAO discenteDAO;
     private final EnderecoDAO enderecoDAO;
-    private final DiscenteRepository discenteRepository;
     private final PessoaRepository pessoaRepository;
     private final AtomicInteger contador;
 
     @Autowired
-    public DiscenteService(PessoaDAO pessoaDAO, DiscenteDAO discenteDAO, EnderecoDAO enderecoDAO, DiscenteRepository discenteRepository, PessoaRepository pessoaRepository) {
+    public DiscenteService(PessoaDAO pessoaDAO, DiscenteDAO discenteDAO, EnderecoDAO enderecoDAO, PessoaRepository pessoaRepository) {
         this.pessoaDAO = pessoaDAO;
         this.discenteDAO = discenteDAO;
         this.enderecoDAO = enderecoDAO;
-        this.discenteRepository = discenteRepository;
         this.pessoaRepository = pessoaRepository;
         this.contador = new AtomicInteger(discenteDAO.contarDiscentesCadastrados());
     }
@@ -84,7 +81,7 @@ public class DiscenteService {
             enderecoDAO.inserirEndereco(endereco);
         }
 
-        discente.setIdPessoa(pessoaId);
+        discente.setPessoaId(pessoaId);
 
         discente.setRegistroAcademico(gerarNovoRegistroAcademico());
 
@@ -92,10 +89,10 @@ public class DiscenteService {
     }
 
     public List<Discente> listarTodos() {
-        List<Discente> discentes = discenteRepository.listarTodos();
+        List<Discente> discentes = discenteDAO.listarTodos();
 
         for (Discente discente : discentes) {
-            Optional<Pessoa> optionalPessoa = pessoaRepository.buscarPorId(discente.getIdPessoa());
+            Optional<Pessoa> optionalPessoa = pessoaRepository.buscarPorId(discente.getPessoaId());
             optionalPessoa.ifPresent(discente::setPessoa);
         }
 

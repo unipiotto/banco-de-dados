@@ -142,7 +142,7 @@ CREATE TABLE pagamentos (
                             data_vencimento DATE NOT NULL,
                             data_pagamento DATE,
                             valor DECIMAL(10,2) NOT NULL,
-                            status_pagamento VARCHAR(20) CHECK (status_pagamento IN ('pago', 'pendente', 'cancelado')),
+                            status_pagamento VARCHAR(20) CHECK (status_pagamento IN ('pago', 'pendente')),
                             FOREIGN KEY (discente_ID) REFERENCES discente(ID_discente)
                                 ON DELETE CASCADE
                                 ON UPDATE CASCADE

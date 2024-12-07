@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Discente {
     private Long idDiscente;
-    private Long idPessoa;
+    private Long pessoaId;
     private String registroAcademico;
     private LocalDate dataIngresso;
     private StatusDiscente status;

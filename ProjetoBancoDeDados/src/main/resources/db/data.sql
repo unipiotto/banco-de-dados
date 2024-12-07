@@ -15,30 +15,34 @@ VALUES
 -- 2. Inserir dados na tabela endereco
 INSERT INTO endereco (pessoa_id, rua, numero, cep, complemento, sigla_estado, cidade)
 VALUES
-    (1, 'Rua A', '100', '01001000', 'Apto 101', 'SP', 'São Paulo'),
-    (2, 'Rua B', '200', '02002000', 'Apto 202', 'RJ', 'Rio de Janeiro'),
     (3, 'Rua C', '300', '03003000', 'Casa 303', 'MG', 'Belo Horizonte'),
     (4, 'Rua D', '400', '04004000', 'Casa 404', 'BA', 'Salvador'),
     (5, 'Rua E', '500', '05005000', 'Casa 505', 'PR', 'Curitiba'),
-    (6, 'Rua F', '600', '06006000', 'Apto 606', 'RS', 'Porto Alegre'),
-    (7, 'Rua G', '700', '07007000', 'Apto 707', 'SP', 'São Paulo'),
     (8, 'Rua H', '800', '08008000', 'Casa 808', 'ES', 'Vitória'),
     (9, 'Rua I', '900', '09009000', 'Casa 909', 'SC', 'Florianópolis'),
     (10, 'Rua J', '1000', '10010000', 'Apto 1010', 'DF', 'Brasília');
 
+-- 2.1 Inserir dados na tabela endereco sem complemento
+INSERT INTO endereco (pessoa_id, rua, numero, cep, sigla_estado, cidade)
+VALUES
+    (1, 'Rua A', '100', '01001000', 'SP', 'São Paulo'),
+    (2, 'Rua B', '200', '02002000',  'RJ', 'Rio de Janeiro'),
+    (6, 'Rua F', '600', '06006000', 'RS', 'Porto Alegre'),
+    (7, 'Rua G', '700', '07007000',  'SP', 'São Paulo');
+
 -- 3. Inserir dados na tabela discente
 INSERT INTO discente (pessoa_id, registro_academico, data_ingresso, status)
 VALUES
-    (1, '2024.1.08.001', '2010-03-01', 'Ativa'),
-    (2, '2024.1.08.002', '2011-04-15', 'Concluida'),
-    (3, '2024.1.08.003', '2012-05-20', 'Ativa'),
-    (4, '2024.1.08.004', '2013-06-25', 'Trancada'),
-    (5, '2024.1.08.005', '2014-07-10', 'Concluida'),
-    (6, '2024.1.08.006', '2015-08-15', 'Ativa'),
-    (7, '2024.1.08.007', '2016-09-20', 'Trancada'),
-    (8, '2024.1.08.008', '2017-10-25', 'Ativa'),
-    (9, '2024.1.08.009', '2018-11-30', 'Concluida'),
-    (10, '2024.1.08.010', '2019-12-05', 'Ativa');
+    (1, '2010.1.08.001', '2010-02-10', 'Ativa'),
+    (2, '2011.1.08.002', '2011-02-15', 'Concluida'),
+    (3, '2012.1.08.003', '2012-02-12', 'Ativa'),
+    (4, '2013.1.08.004', '2013-06-05', 'Trancada'),
+    (5, '2014.1.08.005', '2014-02-10', 'Concluida'),
+    (6, '2015.1.08.006', '2015-06-15', 'Ativa'),
+    (7, '2016.1.08.007', '2016-06-20', 'Trancada'),
+    (8, '2017.1.08.008', '2017-06-10', 'Ativa'),
+    (9, '2018.1.08.009', '2018-02-02', 'Concluida'),
+    (10, '2019.1.08.010', '2019-02-05', 'Ativa');
 
 -- 4. Inserir dados na tabela departamentos
 INSERT INTO departamentos (nome_departamento)
@@ -155,16 +159,19 @@ VALUES
 -- 12. Inserir dados na tabela pagamentos
 INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
-    (1, '2023-05-10', '2023-05-09', 500.00, 'pago'),
-    (2, '2023-06-15', '2023-06-14', 550.00, 'pago'),
-    (3, '2023-07-20', '2023-07-19', 600.00, 'pendente'),
-    (4, '2023-08-25', '2023-08-24', 650.00, 'cancelado'),
-    (5, '2023-09-30', '2023-09-29', 700.00, 'pago'),
-    (6, '2023-10-15', '2023-10-14', 750.00, 'pago'),
-    (7, '2023-11-20', '2023-11-19', 800.00, 'pendente'),
-    (8, '2023-12-05', '2023-12-04', 850.00, 'pago'),
-    (9, '2023-01-10', '2023-01-09', 900.00, 'pago'),
-    (10, '2023-02-25', '2023-02-24', 950.00, 'cancelado');
+    (1, '2023-07-20', '2023-07-19', 600.00, 'pago'),
+    (1, '2023-08-25', '2023-08-24', 650.00, 'pago'),
+    (1, '2023-09-30', '2023-09-29', 700.00, 'pago'),
+    (1, '2023-10-15', '2023-10-14', 750.00, 'pago'),
+    (1, '2023-11-20', '2023-11-19', 800.00, 'pago'),
+    (1, '2023-12-05', '2023-12-04', 850.00, 'pago'),
+    (1, '2023-01-10', '2023-01-09', 900.00, 'pago'),
+    (10, '2023-02-25', '2023-02-24', 950.00, 'pago');
+
+INSERT INTO pagamentos (discente_id, data_vencimento, valor, status_pagamento)
+VALUES
+    (1, '2024-12-31', 550.00, 'pendente'),
+    (1, '2023-05-10', 550.00, 'pendente');
 
 -- 13. Inserir dados na tabela curso_disciplina
 INSERT INTO curso_disciplina (curso_id, disciplina_id)

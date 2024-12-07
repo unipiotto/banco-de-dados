@@ -56,7 +56,10 @@
             </div>
             <div class="row mb-2">
                 <div class="col-md-4"><strong>Data de Nascimento:</strong></div>
-                <div class="col-md-8" th:text="${#temporals.format(discente.pessoa.dataNascimento, 'dd/MM/yyyy')}"></div>
+                <div class="col-md-8">
+                    <input type="date"
+                           th:value="${#temporals.format(discente.pessoa.dataNascimento, 'yyyy-MM-dd')}" />
+                </div>
             </div>
         </div>
     </div>
