@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Professor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .remove-endereco {
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Adicionar Professor</h1>
+    <form th:action="@{/professores/novo}" th:method="post" th:object="${professorForm}" novalidate>
+        <!-- Informações Pessoais -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Informações Pessoais</h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" required />
+                    <div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback d-block" th:errors="*{nome}"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required />
+                    <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback d-block" th:errors="*{email}"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="telefone" class="form-label">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone" th:field="*{telefone}" placeholder="11999999999" required />
+                    <div th:if="${#fields.hasErrors('telefone')}" class="invalid-feedback d-block" th:errors="*{telefone}"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}" placeholder="12345678901" required />
+                    <div th:if="${#fields.hasErrors('cpf')}" class="invalid-feedback d-block" th:errors="*{cpf}"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" th:field="*{dataNascimento}" required />
+                    <div th:if="${#fields.hasErrors('dataNascimento')}" class="invalid-feedback d-block" th:errors="*{dataNascimento}"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--Professor-->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Informações Profissionais</h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="departamentoId" class="form-label">Departamento</label>
+                    <select class="form-select" id="departamentoId" name="departamentoId" th:field="*{departamentoId}" required >
+<!--                        TODO: Fazer isso usando um th:each-->
+                        <option value="">Selecione</option>
+                        <option value="1">Exatas</option>
+                        <option value="2">Humanas</option>
+                        <option value="3">Biológicas</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('departamentoId')}" class="invalid-feedback d-block" th:errors="*{departamentoId}"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Endereços -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="h5 mb-0">Endereços</h2>
+                <button type="button" id="addEndereco" class="btn btn-primary btn-sm">Adicionar Endereço</button>
+            </div>
+            <div class="card-body" id="enderecos">
+                <!-- Endereço 1 -->
+                <div class="card mb-3 endereco">
+                    <div class="card-body position-relative">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="remove-endereco btn-close" aria-label="Remove" onclick="removerEndereco(this)"></button>
+                        </div>
+                        <h5 class="card-title">Endereço 1</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="enderecos[0].rua" class="form-label">Rua</label>
+                                <input type="text" class="form-control" id="enderecos[0].rua" name="enderecos[0].rua" th:field="*{enderecos[0].rua}" required />
+                                <div th:if="${#fields.hasErrors('enderecos[0].rua')}" class="invalid-feedback d-block" th:errors="*{enderecos[0].rua}"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="enderecos[0].numero" class="form-label">Número</label>
+                                <input type="text" class="form-control" id="enderecos[0].numero" name="enderecos[0].numero" th:field="*{enderecos[0].numero}" required />
+                                <div th:if="${#fields.hasErrors('enderecos[0].numero')}" class="invalid-feedback d-block" th:errors="*{enderecos[0].numero}"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="enderecos[0].cep" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="enderecos[0].cep" name="enderecos[0].cep" th:field="*{enderecos[0].cep}" placeholder="12345-678" required />
+                                <div th:if="${#fields.hasErrors('enderecos[0].cep')}" class="invalid-feedback d-block" th:errors="*{enderecos[0].cep}"></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="enderecos[0].cidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="enderecos[0].cidade" name="enderecos[0].cidade" th:field="*{enderecos[0].cidade}" required />
+                                <div th:if="${#fields.hasErrors('enderecos[0].cidade')}" class="invalid-feedback d-block" th:errors="*{enderecos[0].cidade}"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="enderecos[0].estado" class="form-label">Estado</label>
+                                <select class="form-select" id="enderecos[0].estado" name="enderecos[0].siglaEstado" th:field="*{enderecos[0].siglaEstado}" required>
+                                    <option value="">Selecione</option>
+                                    <option value="AC">AC</option>
+                                    <option value="AL">AL</option>
+                                    <option value="AP">AP</option>
+                                    <option value="AM">AM</option>
+                                    <option value="BA">BA</option>
+                                    <option value="CE">CE</option>
+                                    <option value="DF">DF</option>
+                                    <option value="ES">ES</option>
+                                    <option value="GO">GO</option>
+                                    <option value="MA">MA</option>
+                                    <option value="MT">MT</option>
+                                    <option value="MS">MS</option>
+                                    <option value="MG">MG</option>
+                                    <option value="PA">PA</option>
+                                    <option value="PB">PB</option>
+                                    <option value="PR">PR</option>
+                                    <option value="PE">PE</option>
+                                    <option value="PI">PI</option>
+                                    <option value="RJ">RJ</option>
+                                    <option value="RN">RN</option>
+                                    <option value="RS">RS</option>
+                                    <option value="RO">RO</option>
+                                    <option value="RR">RR</option>
+                                    <option value="SC">SC</option>
+                                    <option value="SP">SP</option>
+                                    <option value="SE">SE</option>
+                                    <option value="TO">TO</option>
+                                </select>
+                                <div th:if="${#fields.hasErrors('enderecos[0].siglaEstado')}" class="invalid-feedback d-block" th:errors="*{enderecos[0].siglaEstado}"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="enderecos[0].complemento" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="enderecos[0].complemento" name="enderecos[0].complemento" th:field="*{enderecos[0].complemento}" />
+                                <div th:if="${#fields.hasErrors('enderecos[0].complemento')}" class="invalid-feedback d-block" th:errors="*{enderecos[0].complemento}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fim do Endereço 1 -->
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="d-flex justify-content-between">
+            <a th:href="@{/professores}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+    </form>
+</div>
+
+<!-- Template para novo endereço -->
+<template id="enderecoTemplate">
+    <div class="card mb-3 endereco">
+        <div class="card-body position-relative">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="remove-endereco btn-close" aria-label="Remove" onclick="removerEndereco(this)"></button>
+            </div>
+            <h5 class="card-title">Endereço __INDEX__</h5>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label" for="enderecos[__INDEX__].rua">Rua</label>
+                    <input type="text" class="form-control" id="enderecos[__INDEX__].rua" name="enderecos[__INDEX__].rua" required />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="enderecos[__INDEX__].numero">Número</label>
+                    <input type="text" class="form-control" id="enderecos[__INDEX__].numero" name="enderecos[__INDEX__].numero" required />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="enderecos[__INDEX__].cep">CEP</label>
+                    <input type="text" class="form-control" id="enderecos[__INDEX__].cep" name="enderecos[__INDEX__].cep" placeholder="12345-678" required />
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label" for="enderecos[__INDEX__].cidade">Cidade</label>
+                    <input type="text" class="form-control" id="enderecos[__INDEX__].cidade" name="enderecos[__INDEX__].cidade" required />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="enderecos[__INDEX__].estado">Estado</label>
+                    <select class="form-select" id="enderecos[__INDEX__].estado" name="enderecos[__INDEX__].siglaEstado" required>
+                        <option value="">Selecione</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="DF">DF</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MT">MT</option>
+                        <option value="MS">MS</option>
+                        <option value="MG">MG</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PR">PR</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RS">RS</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="SC">SC</option>
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="enderecos[__INDEX__].complemento">Complemento</label>
+                    <input type="text" class="form-control" id="enderecos[__INDEX__].complemento" name="enderecos[__INDEX__].complemento" />
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- Bootstrap JS e dependências -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Função para adicionar um novo endereço
+    function adicionarEndereco() {
+        const enderecosDiv = document.getElementById('enderecos');
+        const template = document.getElementById('enderecoTemplate').innerHTML;
+        const index = enderecosDiv.querySelectorAll('.endereco').length;
+        const novoEnderecoHTML = template.replace(/__INDEX__/g, index);
+
+        // Adiciona o novo endereço
+        enderecosDiv.insertAdjacentHTML('beforeend', novoEnderecoHTML);
+
+        // Adiciona o listener para o botão de remoção
+        const novoEndereco = enderecosDiv.lastElementChild;
+        const btnRemove = novoEndereco.querySelector('.remove-endereco');
+        btnRemove.addEventListener('click', function() {
+            removerEndereco(this);
+        });
+
+        // Atualiza a numeração dos endereços
+        atualizarNumeracaoEnderecos();
+    }
+
+    // Função para remover um endereço
+    function removerEndereco(button) {
+        const enderecoCard = button.closest('.endereco');
+        enderecoCard.remove();
+        atualizarNumeracaoEnderecos();
+    }
+
+    // Função para atualizar a numeração e os índices dos endereços
+    function atualizarNumeracaoEnderecos() {
+        const enderecos = document.querySelectorAll('.endereco');
+        enderecos.forEach((endereco, index) => {
+            // Atualiza o título
+            const titulo = endereco.querySelector('.card-title');
+            titulo.textContent = `Endereço ${index + 1}`;
+
+            // Atualiza os atributos 'id' e 'name' dos inputs e selects
+            const inputs = endereco.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                // Atualiza o 'name'
+                const name = input.getAttribute('name');
+                const newName = name.replace(/\d+/, index);
+                input.setAttribute('name', newName);
+
+                // Atualiza o 'id'
+                const id = input.getAttribute('id');
+                const newId = id.replace(/\d+/, index);
+                input.setAttribute('id', newId);
+
+                // Atualiza o 'for' dos labels
+                const label = endereco.querySelector(`label[for="${id}"]`);
+                if (label) {
+                    label.setAttribute('for', newId);
+                }
+            });
+        });
+    }
+
+    // Adiciona o listener para o botão de adicionar endereço
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('addEndereco').addEventListener('click', adicionarEndereco);
+
+        // Adiciona o listener para o botão de remoção do primeiro endereço
+        const initialRemoveBtn = document.querySelector('.endereco .remove-endereco');
+        initialRemoveBtn.addEventListener('click', function() {
+            removerEndereco(this);
+        });
+    });
+</script>
+</body>
+</html>

@@ -2,11 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Discente</title>
+    <title>Editar Professor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .remove-endereco {
+            cursor: pointer;
+            color: red;
+        }
         input[readonly], p.form-control-plaintext {
             background-color: #e9ecef;
             cursor: not-allowed;
@@ -16,8 +20,8 @@
 <body>
 <div class="container my-5">
     <h1 class="mb-4 text-center">Editar Discente</h1>
-    <form th:action="@{/discentes/editar/{id}(id=${discente != null ? discente.idDiscente : ''})}" th:method="post" th:object="${discenteForm}" novalidate>
-    <!-- Informações Pessoais -->
+    <form th:action="@{/professores/editar/{id}(id=${professor != null ? professor.idProfessor : ''})}" th:method="post" th:object="${professorForm}" novalidate>
+        <!-- Informações Pessoais -->
         <div class="card mb-4">
             <div class="card-header">
                 <h2 class="h5 mb-0">Informações Pessoais</h2>
@@ -39,26 +43,45 @@
                 <div class="mb-3">
                     <label th:for="*{telefone}" class="form-label">Telefone</label>
                     <input type="text" class="form-control" th:field="*{telefone}" required />
-                    <div th:if="${#fields.hasErrors('telefone')}" class="invalid-feedback d-block" th:errors="*{telefone}"></div>
+                    <div th:if="${#fields.hasErrors('telefone')}" class="invalid-feedback d-block" th:errors="*{getTelefoneFormatado}"></div>
                 </div>
                 <!-- CPF -->
                 <div class="mb-3">
                     <label th:for="*{cpf}" class="form-label">CPF</label>
-                    <input type="text" class="form-control" th:field="*{cpf}" placeholder="Digite o CPF" required/>
+                    <input type="text" class="form-control" th:field="*{cpf}" placeholder="Digite o CPF" required />
                     <div th:if="${#fields.hasErrors('cpf')}" class="invalid-feedback d-block" th:errors="*{cpf}"></div>
                 </div>
 
                 <!-- Data de Nascimento -->
                 <div class="mb-3">
                     <label th:for="*{dataNascimento}" class="form-label">Data de Nascimento</label>
-                    <input type="date" class="form-control"
-                           th:field="*{dataNascimento}"
-                           required />
-                    <div th:if="${#fields.hasErrors('dataNascimento')}" class="invalid-feedback d-block" th:errors="*{dataNascimento}">
-                    </div>
+                    <input type="date" class="form-control" th:field="*{dataNascimento}" required />
+                    <div th:if="${#fields.hasErrors('dataNascimento')}" class="invalid-feedback d-block" th:errors="*{dataNascimento}"></div>
                 </div>
             </div>
         </div>
+
+        <!--Professor-->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Informações Profissionais</h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="departamentoId" class="form-label">Departamento</label>
+                    <select class="form-select" id="departamentoId" name="departamentoId" th:field="*{departamentoId}" required >
+                        <!--TODO: Fazer isso usando um th:each-->
+                        <option value="">Selecione</option>
+                        <option value="1">Exatas</option>
+                        <option value="2">Humanas</option>
+                        <option value="3">Biológicas</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('departamentoId')}" class="invalid-feedback d-block" th:errors="*{departamentoId}"></div>
+                </div>
+
+            </div>
+        </div>
+
 
         <!-- Endereços -->
         <div class="card mb-4">
@@ -229,13 +252,13 @@
                         </div>
                     </div>
                 </template>
-            </div>
-        </div>
 
-        <!-- Botões de Ação -->
-        <div class="d-flex justify-content-between">
-            <a th:href="@{/discentes}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-success">Salvar Alterações</button>
+                <!-- Botões de Ação -->
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/professores}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Salvar Alterações</button>
+                </div>
+            </div>
         </div>
     </form>
 </div>
@@ -256,11 +279,13 @@
         const enderecosDiv = document.getElementById('enderecos');
         const enderecoCards = enderecosDiv.querySelectorAll('.endereco');
 
+        // Prevent deletion if there's only one address
         if (enderecoCards.length === 1) {
             alert("Você não pode remover o único endereço.");
             return;
         }
 
+        // Remove the address card and update numbering
         const enderecoCard = button.closest('.endereco');
         enderecoCard.remove();
         atualizarNumeracaoEnderecos();
