@@ -13,10 +13,12 @@ import com.bancoDeDados.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 public class DiscenteService {
@@ -47,7 +49,34 @@ public class DiscenteService {
         return String.format("%d.1.08.%s", anoAtual, numeroFormatado);
     }
 
-    public void adicionarDiscente(Pessoa pessoa, List<Endereco> enderecos, Discente discente) {
+    public void adicionarDiscente(DiscenteForm discenteForm) {
+
+        // Construir objeto Pessoa
+        Pessoa pessoa = Pessoa.builder()
+                .nome(discenteForm.getNome())
+                .email(discenteForm.getEmail())
+                .telefone(discenteForm.getTelefone())
+                .cpf(discenteForm.getCpf())
+                .dataNascimento(discenteForm.getDataNascimento())
+                .build();
+
+        // Construir lista de Endereços
+        List<Endereco> enderecos = discenteForm.getEnderecos().stream()
+                .map(enderecoForm -> Endereco.builder()
+                        .rua(enderecoForm.getRua())
+                        .numero(enderecoForm.getNumero())
+                        .complemento(enderecoForm.getComplemento())
+                        .cidade(enderecoForm.getCidade())
+                        .sigla(enderecoForm.getSiglaEstado())
+                        .cep(enderecoForm.getCep())
+                        .build())
+                .collect(Collectors.toList());
+
+        Discente discente = Discente.builder()
+                .dataIngresso(LocalDate.now())
+                .status(Discente.StatusDiscente.ATIVA)
+                .build();
+
         Long pessoaId = pessoaDAO.inserirPessoa(pessoa);
 
         for (Endereco endereco : enderecos) {
@@ -60,11 +89,6 @@ public class DiscenteService {
         discente.setRegistroAcademico(gerarNovoRegistroAcademico());
 
         discenteDAO.inserirDiscente(discente);
-    }
-
-    public Discente salvar(Discente discente) {
-        discenteRepository.salvar(discente);
-        return discente;
     }
 
     public List<Discente> listarTodos() {
@@ -82,8 +106,38 @@ public class DiscenteService {
         return discenteDAO.buscarDiscenteCompletoPorId(id);
     }
 
-    public void deletar(Long id) {
-        discenteRepository.deletar(id);
+    public void editarDiscente(Long id, DiscenteForm discenteForm) throws Exception {
+        Discente discenteOriginal = buscarDiscenteCompletoPorId(id);
+        if (discenteOriginal == null) {
+            throw new Exception("Discente não encontrado.");
+        }
+
+        // Atualiza informações de Pessoa
+        Pessoa pessoaOriginal = discenteOriginal.getPessoa();
+        pessoaOriginal.setNome(discenteForm.getNome());
+        pessoaOriginal.setEmail(discenteForm.getEmail());
+        pessoaOriginal.setTelefone(discenteForm.getTelefone());
+        pessoaOriginal.setCpf(discenteForm.getCpf());
+        pessoaOriginal.setDataNascimento(discenteForm.getDataNascimento());
+        pessoaDAO.atualizarPessoa(pessoaOriginal);
+
+        // Deleta os endereços antigos e insere os novos
+        enderecoDAO.deletarPorPessoaId(pessoaOriginal.getIdPessoa());
+        List<Endereco> enderecosAtualizados = discenteForm.getEnderecos().stream()
+                .map(enderecoForm -> Endereco.builder()
+                        .rua(enderecoForm.getRua())
+                        .numero(enderecoForm.getNumero())
+                        .complemento(enderecoForm.getComplemento())
+                        .cidade(enderecoForm.getCidade())
+                        .sigla(enderecoForm.getSiglaEstado())
+                        .cep(enderecoForm.getCep())
+                        .pessoaId(pessoaOriginal.getIdPessoa())
+                        .build())
+                .collect(Collectors.toList());
+
+        for (Endereco endereco : enderecosAtualizados) {
+            enderecoDAO.inserirEndereco(endereco);
+        }
     }
 
     public DiscenteForm converterDiscenteParaForm(Discente discente) {

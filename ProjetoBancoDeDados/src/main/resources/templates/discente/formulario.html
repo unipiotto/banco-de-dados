@@ -6,17 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .remove-endereco {
-            cursor: pointer;
-            color: red;
-        }
-    </style>
 </head>
 <body>
 <div class="container my-5">
     <h1 class="mb-4 text-center">Adicionar Discente</h1>
-    <form th:action="@{/discentes/novo}" th:method="post" th:object="${discenteForm}" novalidate>
+    <form th:action="@{/discentes/formulario}" th:method="post" th:object="${discenteForm}" novalidate>
         <!-- Informações Pessoais -->
         <div class="card mb-4">
             <div class="card-header">
@@ -78,7 +72,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="enderecos[0].cep" class="form-label">CEP</label>
-                                <input type="text" class="form-control" id="enderecos[0].cep" name="enderecos[0].cep" th:field="*{enderecos[0].cep}" placeholder="12345-678" required />
+                                <input type="text" class="form-control" id="enderecos[0].cep" name="enderecos[0].cep" th:field="*{enderecos[0].cep}" required />
                                 <div th:if="${#fields.hasErrors('enderecos[0].cep')}" class="invalid-feedback d-block" th:errors="*{enderecos[0].cep}"></div>
                             </div>
                         </div>
@@ -136,7 +130,7 @@
 
         <!-- Botões de Ação -->
         <div class="d-flex justify-content-between">
-            <a th:href="@{/discentes/listar}" class="btn btn-secondary">Cancelar</a>
+            <a th:href="@{/discentes}" class="btn btn-secondary">Cancelar</a>
             <button type="submit" class="btn btn-success">Adicionar</button>
         </div>
     </form>
@@ -227,17 +221,14 @@
         const index = enderecosDiv.querySelectorAll('.endereco').length;
         const novoEnderecoHTML = template.replace(/__INDEX__/g, index);
 
-        // Adiciona o novo endereço
         enderecosDiv.insertAdjacentHTML('beforeend', novoEnderecoHTML);
 
-        // Adiciona o listener para o botão de remoção
         const novoEndereco = enderecosDiv.lastElementChild;
         const btnRemove = novoEndereco.querySelector('.remove-endereco');
         btnRemove.addEventListener('click', function() {
             removerEndereco(this);
         });
 
-        // Atualiza a numeração dos endereços
         atualizarNumeracaoEnderecos();
     }
 
@@ -252,24 +243,19 @@
     function atualizarNumeracaoEnderecos() {
         const enderecos = document.querySelectorAll('.endereco');
         enderecos.forEach((endereco, index) => {
-            // Atualiza o título
             const titulo = endereco.querySelector('.card-title');
             titulo.textContent = `Endereço ${index + 1}`;
 
-            // Atualiza os atributos 'id' e 'name' dos inputs e selects
             const inputs = endereco.querySelectorAll('input, select');
             inputs.forEach(input => {
-                // Atualiza o 'name'
                 const name = input.getAttribute('name');
                 const newName = name.replace(/\d+/, index);
                 input.setAttribute('name', newName);
 
-                // Atualiza o 'id'
                 const id = input.getAttribute('id');
                 const newId = id.replace(/\d+/, index);
                 input.setAttribute('id', newId);
 
-                // Atualiza o 'for' dos labels
                 const label = endereco.querySelector(`label[for="${id}"]`);
                 if (label) {
                     label.setAttribute('for', newId);
@@ -282,7 +268,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('addEndereco').addEventListener('click', adicionarEndereco);
 
-        // Adiciona o listener para o botão de remoção do primeiro endereço
         const initialRemoveBtn = document.querySelector('.endereco .remove-endereco');
         initialRemoveBtn.addEventListener('click', function() {
             removerEndereco(this);

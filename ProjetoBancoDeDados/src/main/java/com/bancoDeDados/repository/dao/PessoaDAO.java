@@ -13,7 +13,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class PessoaDAO {
@@ -53,31 +52,9 @@ public class PessoaDAO {
         return keyHolder.getKey().longValue();
     }
 
-    public Optional<Pessoa> buscarPorId(Long idPessoa) {
-        String sql = "SELECT * FROM pessoa WHERE ID_pessoa = ?";
-        return jdbcTemplate.query(sql, rs -> {
-            if (rs.next()) {
-                Pessoa pessoa = new Pessoa();
-                pessoa.setIdPessoa(rs.getLong("ID_pessoa"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setEmail(rs.getString("email"));
-                pessoa.setTelefone(rs.getString("telefone"));
-                pessoa.setCpf(rs.getString("cpf"));
-                pessoa.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-                return Optional.of(pessoa);
-            }
-            return Optional.empty();
-        }, idPessoa);
-    }
-
     public void atualizarPessoa(Pessoa pessoa) {
-        String sql = "UPDATE pessoa SET nome = ?, email = ?, telefone = ? WHERE ID_pessoa = ?";
+        String sql = "UPDATE pessoa SET nome = ?, email = ?, telefone = ?, cpf = ?, data_nascimento = ? WHERE ID_pessoa = ?";
         jdbcTemplate.update(sql, pessoa.getNome(), pessoa.getEmail(), pessoa.getTelefone(),
-                pessoa.getIdPessoa());
-    }
-
-    public void deletarPorId(Long idPessoa) {
-        String sql = "DELETE FROM pessoa WHERE ID_pessoa = ?";
-        jdbcTemplate.update(sql, idPessoa);
+                pessoa.getCpf(), pessoa.getDataNascimento(), pessoa.getIdPessoa());
     }
 }

@@ -23,12 +23,15 @@ public class DiscenteForm {
     @NotEmpty(message = "Email é obrigatório")
     private String email;
 
+    @NotEmpty(message = "Telefone é obrigatório")
     @Pattern(regexp = "\\d{11}", message = "Telefone deve conter exatamente 11 números")
     private String telefone;
 
+    @NotEmpty(message = "CPF é obrigatório")
     @Pattern(regexp = "\\d{11}", message = "CPF deve conter exatamente 11 números")
     private String cpf;
 
+    @NotNull(message = "Data de nascimento é obrigatório")
     private LocalDate dataNascimento;
 
     private String matricula;
