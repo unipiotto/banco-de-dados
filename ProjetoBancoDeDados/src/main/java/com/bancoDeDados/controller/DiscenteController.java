@@ -4,6 +4,7 @@ import com.bancoDeDados.model.Discente;
 import com.bancoDeDados.model.Endereco;
 import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.model.dto.DiscenteForm;
+import com.bancoDeDados.model.dto.DiscenteFormEditar;
 import com.bancoDeDados.repository.dao.EnderecoDAO;
 import com.bancoDeDados.repository.dao.PessoaDAO;
 import com.bancoDeDados.service.DiscenteService;
@@ -33,68 +34,42 @@ public class DiscenteController {
     @Autowired
     private EnderecoDAO enderecoDAO;
 
-    @GetMapping("/novo")
-    public String novo(Model model) {
+    @GetMapping("/formulario")
+    public String abrirPaginaFormularioDiscente (Model model) {
         model.addAttribute("discenteForm", new DiscenteForm());
-        return "formularioDiscentes";
+        return "discente/formulario";
     }
 
-    @PostMapping("/novo")
-    public String adicionarDiscente(@Valid @ModelAttribute DiscenteForm discenteForm,
+    @PostMapping("/formulario")
+    public String adicionarDiscente (@Valid @ModelAttribute DiscenteForm discenteForm,
                                     BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "formularioDiscentes";
+            return "discente/formulario";
         }
-
-        // Construir objeto Pessoa
-        Pessoa pessoa = Pessoa.builder()
-                .nome(discenteForm.getNome())
-                .email(discenteForm.getEmail())
-                .telefone(discenteForm.getTelefone())
-                .cpf(discenteForm.getCpf())
-                .dataNascimento(discenteForm.getDataNascimento())
-                .build();
-
-        // Construir lista de Endereços
-        List<Endereco> enderecos = discenteForm.getEnderecos().stream()
-                .map(enderecoForm -> Endereco.builder()
-                        .rua(enderecoForm.getRua())
-                        .numero(enderecoForm.getNumero())
-                        .complemento(enderecoForm.getComplemento())
-                        .cidade(enderecoForm.getCidade())
-                        .sigla(enderecoForm.getSiglaEstado())
-                        .cep(enderecoForm.getCep())
-                        .build())
-                .collect(Collectors.toList());
-
-        Discente discente = Discente.builder()
-                .dataIngresso(LocalDate.now())
-                .status(Discente.StatusDiscente.ATIVA)
-                .build();
 
         try {
-            discenteService.adicionarDiscente(pessoa, enderecos, discente);
+            discenteService.adicionarDiscente(discenteForm);
         } catch (Exception e) {
             e.printStackTrace();
-            return "erroAoCriarDiscente";
+            return "discente/erro";
         }
 
-        return "redirect:/discentes/listar";
+        return "redirect:/discentes";
     }
 
-    @GetMapping("/listar")
-    public String listar(Model model) {
+    @GetMapping
+    public String listarTodosDiscentes(Model model) {
         List<Discente> discentes = discenteService.listarTodos();
         model.addAttribute("discentes", discentes);
-        return "discentes";
+        return "discente/listar";
     }
 
     @GetMapping("/editar/{id}")
-    public String editarDiscenteForm(@PathVariable Long id, Model model) {
+    public String abrirPaginaEditarDiscente(@PathVariable Long id, Model model) {
         Discente discente = discenteService.buscarDiscenteCompletoPorId(id);
         if (discente == null) {
-            return "redirect:/discentes/listar";
+            return "redirect:/discentes";
         }
 
         DiscenteForm discenteForm = discenteService.converterDiscenteParaForm(discente);
@@ -102,82 +77,109 @@ public class DiscenteController {
         model.addAttribute("discente", discente);
         model.addAttribute("discenteForm", discenteForm);
 
-        return "discenteEditar";
+        return "discente/editar";
     }
 
     @PostMapping("/editar/{id}")
     public String editarDiscente(@PathVariable Long id,
                                  @Valid @ModelAttribute("discenteForm") DiscenteForm discenteForm,
                                  BindingResult bindingResult,
+                                 Model model,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "discenteEditar";
+            Discente discenteOriginal = discenteService.buscarDiscenteCompletoPorId(id);
+            model.addAttribute("discente", discenteOriginal);
+            model.addAttribute("discenteForm", discenteForm);
+            return "discente/editar";
         }
 
         try {
-            Discente discenteOriginal = discenteService.buscarDiscenteCompletoPorId(id);
-            if (discenteOriginal == null) {
-                redirectAttributes.addFlashAttribute("errorMessage", "Discente não encontrado.");
-                return "redirect:/discentes/listar";
-            }
-
-            // Atualiza informações de Pessoa
-            Pessoa pessoaOriginal = discenteOriginal.getPessoa();
-            pessoaOriginal.setNome(discenteForm.getNome());
-            pessoaOriginal.setEmail(discenteForm.getEmail());
-            pessoaOriginal.setTelefone(discenteForm.getTelefone());
-
-            pessoaDAO.atualizarPessoa(pessoaOriginal);
-
-            enderecoDAO.deletarPorPessoaId(pessoaOriginal.getIdPessoa());
-
-            List<Endereco> enderecosAtualizados = discenteForm.getEnderecos().stream()
-                    .map(enderecoForm -> Endereco.builder()
-                            .rua(enderecoForm.getRua())
-                            .numero(enderecoForm.getNumero())
-                            .complemento(enderecoForm.getComplemento())
-                            .cidade(enderecoForm.getCidade())
-                            .sigla(enderecoForm.getSiglaEstado())
-                            .cep(enderecoForm.getCep())
-                            .pessoaId(pessoaOriginal.getIdPessoa())
-                            .build())
-                    .collect(Collectors.toList());
-
-            for (Endereco end : enderecosAtualizados) {
-                enderecoDAO.inserirEndereco(end);
-            }
+            discenteService.editarDiscente(id, discenteForm);
 
             redirectAttributes.addFlashAttribute("successMessage", "Discente atualizado com sucesso!");
-            return "redirect:/discentes/listar";
+            return "redirect:/discentes";
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage", "Ocorreu um erro ao atualizar o discente: " + e.getMessage());
-            return "redirect:/discentes/listar";
+            return "redirect:/discentes";
         }
     }
 
+//    @PostMapping("/editar/{id}")
+//    public String editarDiscente(@PathVariable Long id,
+//                                 @Valid @ModelAttribute("discenteForm") DiscenteFormEditar discenteForm,
+//                                 BindingResult bindingResult,
+//                                 RedirectAttributes redirectAttributes) {
+//        if (bindingResult.hasErrors()) {
+//            return "discente/editar";
+//        }
+//
+//        try {
+//            Discente discenteOriginal = discenteService.buscarDiscenteCompletoPorId(id);
+//            if (discenteOriginal == null) {
+//                redirectAttributes.addFlashAttribute("errorMessage", "Discente não encontrado.");
+//                return "redirect:/discentes";
+//            }
+//
+//            // Atualiza informações de Pessoa
+//            Pessoa pessoaOriginal = discenteOriginal.getPessoa();
+//            pessoaOriginal.setNome(discenteForm.getNome());
+//            pessoaOriginal.setEmail(discenteForm.getEmail());
+//            pessoaOriginal.setTelefone(discenteForm.getTelefone());
+//
+//            pessoaDAO.atualizarPessoa(pessoaOriginal);
+//
+//            // Deleta os endereços
+//            enderecoDAO.deletarPorPessoaId(pessoaOriginal.getIdPessoa());
+//
+//            // Mapeia todos os novos endereços
+//            List<Endereco> enderecosAtualizados = discenteForm.getEnderecos().stream()
+//                    .map(enderecoForm -> Endereco.builder()
+//                            .rua(enderecoForm.getRua())
+//                            .numero(enderecoForm.getNumero())
+//                            .complemento(enderecoForm.getComplemento())
+//                            .cidade(enderecoForm.getCidade())
+//                            .sigla(enderecoForm.getSiglaEstado())
+//                            .cep(enderecoForm.getCep())
+//                            .pessoaId(pessoaOriginal.getIdPessoa())
+//                            .build())
+//                    .collect(Collectors.toList());
+//
+//            for (Endereco end : enderecosAtualizados) {
+//                enderecoDAO.inserirEndereco(end);
+//            }
+//
+//            redirectAttributes.addFlashAttribute("successMessage", "Discente atualizado com sucesso!");
+//            return "redirect:/discentes";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("errorMessage", "Ocorreu um erro ao atualizar o discente: " + e.getMessage());
+//            return "redirect:/discentes";
+//        }
+//    }
+
     @PostMapping("/deletar")
-    public String deletar(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
+    public String deletarDiscente(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
         Discente discente = discenteService.buscarDiscenteCompletoPorId(id);
         pessoaService.deletar(discente.getIdPessoa());
         redirectAttributes.addFlashAttribute("message", "Discente deletado com sucesso.");
-        return "redirect:/discentes/listar";
+        return "redirect:/discentes";
     }
 
     @GetMapping("/{id}")
-    public String visualizarDiscente(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String visualizarInformacoesDiscente(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         try {
             Discente discente = discenteService.buscarDiscenteCompletoPorId(id);
             if (discente == null) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Discente não encontrado.");
-                return "redirect:/discentes/listar";
+                return "redirect:/discentes";
             }
             model.addAttribute("discente", discente);
-            return "discenteComDetalhes";
+            return "discente/informacoes";
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage", "Erro ao buscar discente.");
-            return "redirect:/discentes/listar";
+            return "redirect:/discentes";
         }
     }
 
