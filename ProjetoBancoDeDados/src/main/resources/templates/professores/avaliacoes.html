@@ -47,7 +47,6 @@
                         <div th:id="'collapse' + ${iterStat.index}" class="accordion-collapse collapse"
                              th:aria-labelledby="'heading' + ${iterStat.index}" data-bs-parent="#avaliacoesAccordion">
                             <div class="accordion-body">
-                                <p><strong>Enviada por:</strong> <span th:text="${avaliacao.discente.pessoa.nome}"></span></p>
                                 <p><strong>Nota:</strong> <span th:text="${avaliacao.notaAvaliacao}"></span></p>
                                 <p><strong>Comentario:</strong> <span th:text="${avaliacao.comentario}"></span></p>
                                 <p><strong>Data da Avaliação:</strong> <span th:text="${#temporals.format(avaliacao.dataAvaliacao, 'dd/MM/yyyy')}"></span></p>
@@ -57,7 +56,7 @@
                 </div>
             </div>
             <div th:if="${avaliacoes == null or avaliacoes.isEmpty()}">
-                <p class="text-muted">Não há Avaliações cadastradas.</p>
+                <p class="text-muted">Não há Avaliações.</p>
             </div>
         </div>
     </div>

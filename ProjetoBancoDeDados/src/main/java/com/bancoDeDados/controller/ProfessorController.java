@@ -43,6 +43,7 @@ public class ProfessorController {
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("professorForm", new ProfessorForm());
+        model.addAttribute("departamentos", departamentoService.listarTodos());
 
         return "professores/formularioProfessores";
     }
