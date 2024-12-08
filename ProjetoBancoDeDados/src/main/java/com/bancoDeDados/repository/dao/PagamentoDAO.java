@@ -1,6 +1,7 @@
 package com.bancoDeDados.repository.dao;
 
 import com.bancoDeDados.model.Pagamento;
+import com.bancoDeDados.model.mapper.PagamentoRowMapper;
 import com.bancoDeDados.model.mapper.PagamentoRowMapper1;
 import com.bancoDeDados.model.mapper.PagamentoRowMapper2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PagamentoDAO {
@@ -51,5 +53,116 @@ public class PagamentoDAO {
         """;
 
         return jdbcTemplate.queryForObject(sql, new PagamentoRowMapper2(), idDiscente, anoAtual, mesAtual);
+    }
+
+    public Optional<Pagamento> pegarPagamentoComMaiorValorMes(int mes, int ano) {
+        String sql = """
+            SELECT *
+            FROM pagamentos
+            WHERE EXTRACT(MONTH FROM data_vencimento) = ?
+              AND EXTRACT(YEAR FROM data_vencimento) = ?
+              AND valor = (
+                  SELECT MIN(valor)
+                  FROM pagamentos
+                  WHERE EXTRACT(MONTH FROM data_vencimento) = ?
+                    AND EXTRACT(YEAR FROM data_vencimento) = ?
+              )
+            ORDER BY ID_pagamento
+            LIMIT 1;
+        """;
+
+        return jdbcTemplate.query(sql, new Object[]{mes, ano, mes, ano}, new PagamentoRowMapper())
+                .stream()
+                .findFirst();
+    }
+
+    public Optional<Pagamento> pegarPagamentoComMenorValorMes(int mes, int ano) {
+        String sql = """
+            SELECT *
+            FROM pagamentos
+            WHERE EXTRACT(MONTH FROM data_vencimento) = ?
+              AND EXTRACT(YEAR FROM data_vencimento) = ?
+              AND valor = (
+                  SELECT MAX(valor)
+                  FROM pagamentos
+                  WHERE EXTRACT(MONTH FROM data_vencimento) = ?
+                    AND EXTRACT(YEAR FROM data_vencimento) = ?
+              )
+            ORDER BY ID_pagamento
+            LIMIT 1;
+        """;
+        return jdbcTemplate.query(sql, new Object[]{mes, ano, mes, ano}, new PagamentoRowMapper())
+                .stream()
+                .findFirst();
+    }
+
+    public BigDecimal valorDosPagamentosDoMes(int mes, int ano) {
+        String sql = """
+            SELECT SUM(valor) AS total_pagamentos
+            FROM pagamentos
+            WHERE EXTRACT(MONTH FROM data_vencimento) = ?
+              AND EXTRACT(YEAR FROM data_vencimento) = ?;
+        """;
+
+        BigDecimal totalPagamentos = jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{mes, ano},
+                BigDecimal.class
+        );
+
+        return totalPagamentos != null ? totalPagamentos : BigDecimal.ZERO; // Retorna 0 se o resultado for null
+    }
+
+    public BigDecimal valoresRecebidosDoMes(int mes, int ano) {
+        String sql = """
+            SELECT SUM(valor) AS total_pagamentos
+            FROM pagamentos
+            WHERE status_pagamento = 'pago'
+              AND EXTRACT(MONTH FROM data_vencimento) = ?
+              AND EXTRACT(YEAR FROM data_vencimento) = ?;
+        """;
+
+        BigDecimal totalPagamentos = jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{mes, ano},
+                BigDecimal.class
+        );
+
+        return totalPagamentos != null ? totalPagamentos : BigDecimal.ZERO;
+    }
+
+    public BigDecimal valoresPendentesDoMes(int mes, int ano) {
+        String sql = """
+            SELECT SUM(valor) AS total_pagamentos
+            FROM pagamentos
+            WHERE status_pagamento = 'pendente'
+              AND EXTRACT(MONTH FROM data_vencimento) = ?
+              AND EXTRACT(YEAR FROM data_vencimento) = ?;
+        """;
+
+        BigDecimal totalPagamentos = jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{mes, ano},
+                BigDecimal.class
+        );
+
+        return totalPagamentos != null ? totalPagamentos : BigDecimal.ZERO; // Retorna 0 se o resultado for null
+    }
+
+    public BigDecimal mediaPagamentosDoMes(int mes, int ano) {
+        String sql = """
+            SELECT AVG(valor) AS media_pagamentos
+            FROM pagamentos
+            WHERE EXTRACT(MONTH FROM data_vencimento) = ?
+              AND EXTRACT(YEAR FROM data_vencimento) = ?;
+        """;
+
+        BigDecimal totalPagamentos = jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{mes, ano},
+                BigDecimal.class
+        );
+
+        return totalPagamentos != null ? totalPagamentos : BigDecimal.ZERO; // Retorna 0 se o resultado for null
     }
 }

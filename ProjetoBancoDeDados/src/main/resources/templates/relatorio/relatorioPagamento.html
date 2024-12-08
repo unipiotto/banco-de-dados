@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório Financeiro</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container my-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-4">Relatório Financeiro</h1>
+      <p class="text-center text-muted">
+        Gerado em: <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy')}"></span>
+      </p>
+    </div>
+  </div>
+
+  <h2 class="mt-5">Mês Atual</h2>
+  <table class="table table-striped table-hover mt-3">
+    <thead class="table-dark">
+    <tr>
+      <th>Descrição</th>
+      <th>Valor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Maior Pagamento</td>
+      <td th:text="${relatorio.maiorPagamento}">0.00</td>
+    </tr>
+    <tr>
+      <td>Menor Pagamento</td>
+      <td th:text="${relatorio.menorPagamento}">0.00</td>
+    </tr>
+    <tr>
+      <td>Média dos Pagamentos</td>
+      <td th:text="${#numbers.formatDecimal(relatorio.mediaPagamento, 2, 2)}">0.00</td>
+    </tr>
+    <tr>
+      <td>Total de Valores Pagamentos</td>
+      <td th:text="${relatorio.totalValoresPagamentos}">0.00</td>
+    </tr>
+    <tr>
+      <td>Pagamentos Pendentes</td>
+      <td th:text="${relatorio.pagamentosPendentes}">0.00</td>
+    </tr>
+    <tr>
+      <td>Pagamentos Realizados</td>
+      <td th:text="${relatorio.pagamentosRealizados}">0.00</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2 class="mt-5">Mês Anterior</h2>
+  <table class="table table-striped table-hover mt-3">
+    <thead class="table-dark">
+    <tr>
+      <th>Descrição</th>
+      <th>Valor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Maior Pagamento</td>
+      <td th:text="${relatorio.maiorPagamentoMesAnterior}">0.00</td>
+    </tr>
+    <tr>
+      <td>Menor Pagamento</td>
+      <td th:text="${relatorio.menorPagamentoMesAnterior}">0.00</td>
+    </tr>
+    <tr>
+      <td>Média dos Pagamentos</td>
+      <td th:text="${#numbers.formatDecimal(relatorio.mediaPagamentoMesAnterior, 2, 2)}">0.00</td>
+    </tr>
+    <tr>
+      <td>Total de Valores Pagamentos</td>
+      <td th:text="${relatorio.totalValoresPagamentosMesAnterior}">0.00</td>
+    </tr>
+    <tr>
+      <td>Pagamentos Pendentes</td>
+      <td th:text="${relatorio.pagamentosPendentesMesAnterior}">0.00</td>
+    </tr>
+    <tr>
+      <td>Pagamentos Realizados</td>
+      <td th:text="${relatorio.pagamentosRealizadosMesAnterior}">0.00</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
