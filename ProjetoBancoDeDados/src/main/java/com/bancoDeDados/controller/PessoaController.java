@@ -1,11 +1,14 @@
 package com.bancoDeDados.controller;
 
 import com.bancoDeDados.model.Pessoa;
+import com.bancoDeDados.model.Professor;
 import com.bancoDeDados.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/pessoas")
@@ -20,7 +23,7 @@ public class PessoaController {
         return "pessoas/formulario";
     }
 
-    @PostMapping
+    @PostMapping("/novo")
     public String salvar(@ModelAttribute Pessoa pessoa) {
         pessoaService.salvar(pessoa);
         return "redirect:/pessoas";
@@ -37,5 +40,13 @@ public class PessoaController {
     public String deletar(@PathVariable("id") Long id) {
         pessoaService.deletar(id);
         return "redirect:/pessoas";
+    }
+
+    @GetMapping
+    public String listar(Model model) {
+        List<Pessoa> pessoas = pessoaService.listar();
+        model.addAttribute("pessoas", pessoas);
+        model.addAttribute("service", pessoaService);
+        return "pessoas/pessoas";
     }
 }

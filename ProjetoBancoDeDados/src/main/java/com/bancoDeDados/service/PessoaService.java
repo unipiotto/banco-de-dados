@@ -5,6 +5,7 @@ import com.bancoDeDados.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,21 @@ public class PessoaService {
 
     public void deletar(Long id) {
         pessoaRepository.deletar(id);
+    }
+
+    public List<Pessoa> listar() {
+        return pessoaRepository.listarProfessoresEDiscentes();
+    }
+
+    public String pegarTipo(Long id) {
+        return pessoaRepository.pegarTipo(id);
+    }
+
+    public Long pegarIdProfessor(Long id) {
+        return pessoaRepository.pegarIdProfessor(id);
+    }
+
+    public Long pegarIdDiscente(Long id) {
+        return pessoaRepository.pegarIdDiscente(id);
     }
 }
