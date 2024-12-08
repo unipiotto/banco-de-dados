@@ -1,7 +1,6 @@
 package com.bancoDeDados.repository.dao;
 
 import com.bancoDeDados.model.Pagamento;
-import com.bancoDeDados.model.mapper.EnderecoRowMapper;
 import com.bancoDeDados.model.mapper.PagamentoRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +16,16 @@ public class PagamentoDAO {
     private JdbcTemplate jdbcTemplate;
 
     public List<Pagamento> listarPagamentoPorPessoaId(Long id) {
-        String sql = "SELECT * FROM pagamentos p WHERE p.discente_id = ? ORDER BY data_vencimento DESC";
+        String sql = """
+            SELECT p.id_pagamento, discente_id,
+            SUBSTRING(data_vencimento::TEXT, 1, 4) AS ano_vencimento,
+            SUBSTRING(data_vencimento::TEXT, 6, 2) AS mes_vencimento,
+            REPLACE(p.data_vencimento::TEXT, '-', '/') AS data_vencimento,
+            REPLACE(p.data_pagamento::TEXT, '-', '/') AS data_pagamento,
+            p.valor, p.status_pagamento FROM pagamentos p
+            WHERE p.discente_id = ?
+            ORDER BY data_vencimento DESC
+        """;
         return jdbcTemplate.query(sql, new PagamentoRowMapper(), id);
     }
 

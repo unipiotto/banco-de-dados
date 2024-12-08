@@ -17,6 +17,8 @@ public class Discente {
     private StatusDiscente status;
     private Long cursoId;
 
+    private Curso curso;
+
     private Pessoa pessoa;
 
     public enum StatusDiscente {

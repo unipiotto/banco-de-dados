@@ -16,6 +16,7 @@
             <th>Email</th>
             <th>Registro Acadêmico</th>
             <th>Data de Ingresso</th>
+            <th>Curso</th>
             <th>Status</th>
             <th>Ações</th>
         </tr>
@@ -26,6 +27,7 @@
             <td th:text="${discente.pessoa.email}"></td>
             <td th:text="${discente.registroAcademico}"></td>
             <td th:text="${#temporals.format(discente.dataIngresso, 'dd/MM/yyyy')}"></td>
+            <td th:text="${discente.curso.nomeCurso}"></td>
             <td th:text="${discente.getStatusFormatado()}"></td>
             <td>
                 <a th:href="@{/discentes/editar/{id}(id=${discente.idDiscente})}" class="btn btn-sm btn-warning">Editar</a>

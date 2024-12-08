@@ -73,7 +73,7 @@ VALUES
     ('Curso J', 10, 10);
 
 -- 3. Inserir dados na tabela discente
-INSERT INTO discente (pessoa_id, registro_academico, data_ingresso, status, curso_id)
+INSERT INTO discente (pessoa_id, registro_academico, data_ingresso, status_discente, curso_id)
 VALUES
     (1, '2010.1.08.001', '2010-02-10', 'Ativa', 1),
     (2, '2011.1.08.002', '2011-02-15', 'Concluida', 2),

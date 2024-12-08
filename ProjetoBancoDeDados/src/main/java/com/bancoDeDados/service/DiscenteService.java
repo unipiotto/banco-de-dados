@@ -1,10 +1,13 @@
 package com.bancoDeDados.service;
 
+import com.bancoDeDados.model.Curso;
 import com.bancoDeDados.model.Discente;
 import com.bancoDeDados.model.Endereco;
 import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.model.dto.DiscenteForm;
+import com.bancoDeDados.model.dto.DiscenteFormEditar;
 import com.bancoDeDados.model.dto.EnderecoForm;
+import com.bancoDeDados.repository.dao.CursoDAO;
 import com.bancoDeDados.repository.dao.DiscenteDAO;
 import com.bancoDeDados.repository.dao.EnderecoDAO;
 import com.bancoDeDados.repository.dao.PessoaDAO;
@@ -27,14 +30,16 @@ public class DiscenteService {
     private final EnderecoDAO enderecoDAO;
     private final PessoaRepository pessoaRepository;
     private final AtomicInteger contador;
+    private final CursoDAO cursoDAO;
 
     @Autowired
-    public DiscenteService(PessoaDAO pessoaDAO, DiscenteDAO discenteDAO, EnderecoDAO enderecoDAO, PessoaRepository pessoaRepository) {
+    public DiscenteService(PessoaDAO pessoaDAO, DiscenteDAO discenteDAO, EnderecoDAO enderecoDAO, PessoaRepository pessoaRepository, CursoDAO cursoDAO) {
         this.pessoaDAO = pessoaDAO;
         this.discenteDAO = discenteDAO;
         this.enderecoDAO = enderecoDAO;
         this.pessoaRepository = pessoaRepository;
         this.contador = new AtomicInteger(discenteDAO.contarDiscentesCadastrados());
+        this.cursoDAO = cursoDAO;
     }
 
     public String gerarNovoRegistroAcademico() {
@@ -72,6 +77,7 @@ public class DiscenteService {
         Discente discente = Discente.builder()
                 .dataIngresso(LocalDate.now())
                 .status(Discente.StatusDiscente.ATIVA)
+                .cursoId(Long.valueOf(discenteForm.getCursoId()))
                 .build();
 
         Long pessoaId = pessoaDAO.inserirPessoa(pessoa);
@@ -94,6 +100,8 @@ public class DiscenteService {
         for (Discente discente : discentes) {
             Optional<Pessoa> optionalPessoa = pessoaRepository.buscarPorId(discente.getPessoaId());
             optionalPessoa.ifPresent(discente::setPessoa);
+            Curso curso = cursoDAO.buscarCursoPorId(discente.getCursoId());
+            discente.setCurso(curso);
         }
 
         return discentes;
@@ -103,7 +111,7 @@ public class DiscenteService {
         return discenteDAO.buscarDiscenteCompletoPorId(id);
     }
 
-    public void editarDiscente(Long id, DiscenteForm discenteForm) throws Exception {
+    public void editarDiscente(Long id, DiscenteFormEditar discenteForm) throws Exception {
         Discente discenteOriginal = buscarDiscenteCompletoPorId(id);
         if (discenteOriginal == null) {
             throw new Exception("Discente não encontrado.");
@@ -115,7 +123,6 @@ public class DiscenteService {
         pessoaOriginal.setEmail(discenteForm.getEmail());
         pessoaOriginal.setTelefone(discenteForm.getTelefone());
         pessoaOriginal.setCpf(discenteForm.getCpf());
-        pessoaOriginal.setDataNascimento(discenteForm.getDataNascimento());
         pessoaDAO.atualizarPessoa(pessoaOriginal);
 
         // Deleta os endereços antigos e insere os novos
@@ -152,7 +159,6 @@ public class DiscenteService {
         form.setCpf(pessoa.getCpf());
 
         form.setMatricula(discente.getRegistroAcademico());
-        form.setCurso(null);
 
         List<EnderecoForm> enderecosForm = pessoa.getEnderecos().stream()
                 .map(this::converterEnderecoParaForm)

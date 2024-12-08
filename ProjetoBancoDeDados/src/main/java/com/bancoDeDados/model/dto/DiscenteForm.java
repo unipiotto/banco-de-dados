@@ -1,5 +1,6 @@
 package com.bancoDeDados.model.dto;
 
+import com.bancoDeDados.model.Curso;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,8 @@ public class DiscenteForm {
     private LocalDate dataNascimento;
 
     private String matricula;
-    private String curso;
+
+    private String cursoId;
 
     @Valid
     @NotEmpty(message = "Pelo menos um endereço é obrigatório")

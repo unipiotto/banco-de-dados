@@ -66,7 +66,7 @@ CREATE TABLE discente (
                           registro_academico VARCHAR(20) NOT NULL,
                           data_ingresso DATE NULL,
                           curso_ID INT NOT NULL,
-                          status VARCHAR(20) CHECK (status IN ('Ativa', 'Trancada', 'Concluida')),
+                          status_discente VARCHAR(20) CHECK (status_discente IN ('Ativa', 'Trancada', 'Concluida')),
                           FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
                               ON DELETE CASCADE
                               ON UPDATE CASCADE,

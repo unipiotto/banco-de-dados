@@ -1,14 +1,16 @@
 package com.bancoDeDados.controller;
 
+import com.bancoDeDados.model.Curso;
 import com.bancoDeDados.model.Discente;
 import com.bancoDeDados.model.dto.DiscenteForm;
+import com.bancoDeDados.model.dto.DiscenteFormEditar;
+import com.bancoDeDados.service.CursoService;
 import com.bancoDeDados.service.DiscenteService;
 import com.bancoDeDados.service.PessoaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,21 +24,20 @@ public class DiscenteController {
     private DiscenteService discenteService;
     @Autowired
     private PessoaService pessoaService;
+    @Autowired
+    private CursoService cursoService;
 
     @GetMapping("/formulario")
     public String abrirPaginaFormularioDiscente (Model model) {
+        List<Curso> cursos = cursoService.listarTodos();
         model.addAttribute("discenteForm", new DiscenteForm());
+        model.addAttribute("cursos", cursos);
         return "discente/formulario";
     }
 
     @PostMapping("/formulario")
-    public String adicionarDiscente (@Valid @ModelAttribute DiscenteForm discenteForm,
-                                    BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "discente/formulario";
-        }
-
+    public String adicionarDiscente (@Valid @ModelAttribute DiscenteForm discenteForm
+                                    ) {
         try {
             discenteService.adicionarDiscente(discenteForm);
         } catch (Exception e) {
@@ -71,19 +72,10 @@ public class DiscenteController {
 
     @PostMapping("/editar/{id}")
     public String editarDiscente(@PathVariable Long id,
-                                 @Valid @ModelAttribute("discenteForm") DiscenteForm discenteForm,
-                                 BindingResult bindingResult,
-                                 Model model,
+                                 @ModelAttribute("discenteForm") DiscenteFormEditar discenteFormEditar,
                                  RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            Discente discenteOriginal = discenteService.buscarDiscenteCompletoPorId(id);
-            model.addAttribute("discente", discenteOriginal);
-            model.addAttribute("discenteForm", discenteForm);
-            return "discente/editar";
-        }
-
         try {
-            discenteService.editarDiscente(id, discenteForm);
+            discenteService.editarDiscente(id, discenteFormEditar);
 
             redirectAttributes.addFlashAttribute("successMessage", "Discente atualizado com sucesso!");
             return "redirect:/discentes";

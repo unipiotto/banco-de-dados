@@ -17,6 +17,8 @@ public class Pagamento {
     private Long idPagamento;
     private Long discenteId;
     private LocalDate dataVencimento;
+    private String mesVencimento;
+    private String anoVencimento;
     private LocalDate dataPagamento;
     private BigDecimal valor;
     private StatusPagamento status;
@@ -41,11 +43,7 @@ public class Pagamento {
     }
 
     public String getMesEAnoDoVencimento() {
-        if (dataVencimento == null) {
-            throw new IllegalStateException("dataVencimento não está definida");
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
-        return dataVencimento.format(formatter);
+        return this.mesVencimento + "/" + this.anoVencimento;
     }
 
     public String getDataVencimentoFormatada() {

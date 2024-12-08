@@ -29,6 +29,10 @@
                 <div class="col-md-4"><strong>Status da Matrícula:</strong></div>
                 <div class="col-md-8" th:text="${discente.getStatusFormatado()}"></div>
             </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Curso:</strong></div>
+                <div class="col-md-8" th:text="${discente.curso.nomeCurso}"></div>
+            </div>
         </div>
     </div>
 

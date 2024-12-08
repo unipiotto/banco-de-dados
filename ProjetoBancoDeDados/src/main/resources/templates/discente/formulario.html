@@ -42,6 +42,18 @@
                     <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" th:field="*{dataNascimento}" required />
                     <div th:if="${#fields.hasErrors('dataNascimento')}" class="invalid-feedback d-block" th:errors="*{dataNascimento}"></div>
                 </div>
+
+                <!-- Campo de Seleção de Curso -->
+                <div class="mb-3">
+                    <label for="cursoId" class="form-label">Curso</label>
+                    <select class="form-select" id="cursoId" name="cursoId" th:field="*{cursoId}" required>
+                        <option value="">Selecione</option>
+                        <option th:each="curso : ${cursos}" th:value="${curso.idCurso}" th:text="${curso.nomeCurso}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('cursoId')}" class="invalid-feedback d-block" th:errors="*{cursoId}"></div>
+                </div>
+                <!-- Fim do Campo de Seleção de Curso -->
+
             </div>
         </div>
 

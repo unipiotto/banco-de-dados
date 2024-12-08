@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 
 public class PagamentoRowMapper implements RowMapper<Pagamento> {
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
     @Override
     public Pagamento mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -21,6 +21,8 @@ public class PagamentoRowMapper implements RowMapper<Pagamento> {
         String dateStringVencimento = rs.getString("data_vencimento");
         LocalDate dataVencimento = LocalDate.parse(dateStringVencimento, DATE_FORMATTER);
         pagamento.setDataVencimento(dataVencimento);
+        pagamento.setMesVencimento(rs.getString("mes_vencimento"));
+        pagamento.setAnoVencimento(rs.getString("ano_vencimento"));
         String dateStringPagamento = rs.getString("data_pagamento");
         if (dateStringPagamento != null && !dateStringPagamento.trim().isEmpty()) {
             try {

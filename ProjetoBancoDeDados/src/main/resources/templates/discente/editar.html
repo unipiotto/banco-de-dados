@@ -47,16 +47,6 @@
                     <input type="text" class="form-control" th:field="*{cpf}" placeholder="Digite o CPF" required/>
                     <div th:if="${#fields.hasErrors('cpf')}" class="invalid-feedback d-block" th:errors="*{cpf}"></div>
                 </div>
-
-                <!-- Data de Nascimento -->
-                <div class="mb-3">
-                    <label th:for="*{dataNascimento}" class="form-label">Data de Nascimento</label>
-                    <input type="date" class="form-control"
-                           th:field="*{dataNascimento}"
-                           required />
-                    <div th:if="${#fields.hasErrors('dataNascimento')}" class="invalid-feedback d-block" th:errors="*{dataNascimento}">
-                    </div>
-                </div>
             </div>
         </div>
 

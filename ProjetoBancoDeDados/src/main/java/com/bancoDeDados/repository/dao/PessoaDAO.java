@@ -53,8 +53,8 @@ public class PessoaDAO {
     }
 
     public void atualizarPessoa(Pessoa pessoa) {
-        String sql = "UPDATE pessoa SET nome = ?, email = ?, telefone = ?, cpf = ?, data_nascimento = ? WHERE ID_pessoa = ?";
+        String sql = "UPDATE pessoa SET nome = ?, email = ?, telefone = ?, cpf = ? WHERE ID_pessoa = ?";
         jdbcTemplate.update(sql, pessoa.getNome(), pessoa.getEmail(), pessoa.getTelefone(),
-                pessoa.getCpf(), pessoa.getDataNascimento(), pessoa.getIdPessoa());
+                pessoa.getCpf(), pessoa.getIdPessoa());
     }
 }
