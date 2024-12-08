@@ -24,8 +24,6 @@ public class RelatorioService {
         int mesAnterior = (mesAtual == 1) ? 12 : mesAtual - 1;
         int anoMesAnterior = (mesAtual == 1) ? anoAtual - 1 : anoAtual;
 
-        System.out.println(mesAtual);
-
         // Dados do mês atual
         Optional<Pagamento> pagamentoMaiorValorMesAtual = pagamentoDAO.pegarPagamentoComMaiorValorMes(mesAtual, anoAtual);
         Optional<Pagamento> pagamentoMenorValorMesAtual = pagamentoDAO.pegarPagamentoComMenorValorMes(mesAtual, anoAtual);
@@ -33,6 +31,8 @@ public class RelatorioService {
         BigDecimal valoresRecebidosDoMes = pagamentoDAO.valoresRecebidosDoMes(mesAtual, anoAtual);
         BigDecimal valoresPendentesDoMes = pagamentoDAO.valoresPendentesDoMes(mesAtual, anoAtual);
         BigDecimal mediaPagamentosDoMes = pagamentoDAO.mediaPagamentosDoMes(mesAtual, anoAtual);
+
+        System.out.println(pagamentoMaiorValorMesAtual.map(Pagamento::getValor).orElse(BigDecimal.ZERO));
 
         // Dados do mês anterior
         Optional<Pagamento> pagamentoMaiorValorMesAnterior = pagamentoDAO.pegarPagamentoComMaiorValorMes(mesAnterior, anoMesAnterior);

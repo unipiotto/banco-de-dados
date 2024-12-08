@@ -62,7 +62,7 @@ public class PagamentoDAO {
             WHERE EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?
               AND valor = (
-                  SELECT MIN(valor)
+                  SELECT MAX(valor)
                   FROM pagamentos
                   WHERE EXTRACT(MONTH FROM data_vencimento) = ?
                     AND EXTRACT(YEAR FROM data_vencimento) = ?
@@ -83,7 +83,7 @@ public class PagamentoDAO {
             WHERE EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?
               AND valor = (
-                  SELECT MAX(valor)
+                  SELECT MIN(valor)
                   FROM pagamentos
                   WHERE EXTRACT(MONTH FROM data_vencimento) = ?
                     AND EXTRACT(YEAR FROM data_vencimento) = ?
