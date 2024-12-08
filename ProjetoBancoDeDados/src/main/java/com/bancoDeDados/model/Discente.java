@@ -15,6 +15,7 @@ public class Discente {
     private String registroAcademico;
     private LocalDate dataIngresso;
     private StatusDiscente status;
+    private Long cursoId;
 
     private Pessoa pessoa;
 

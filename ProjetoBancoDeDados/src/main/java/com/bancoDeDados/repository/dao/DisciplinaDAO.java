@@ -15,10 +15,22 @@ public class DisciplinaDAO {
     private JdbcTemplate jdbcTemplate;
 
     public List<Disciplina> buscarDisciplinasDeDiscente(Long discenteId) {
-        String sql = "SELECT d.* FROM disciplinas d " +
-                "JOIN matricula m ON d.ID_disciplina = m.disciplina_ID " +
-                "WHERE m.discente_ID = ?";
+        String sql = """
+            SELECT d.* FROM disciplinas d
+            JOIN matricula m ON d.ID_disciplina = m.disciplina_ID
+            WHERE m.discente_ID = ?
+        """;
 
         return jdbcTemplate.query(sql, new Object[]{discenteId}, new DisciplinaRowMapper());
+    }
+
+    public List<Disciplina> buscarDisciplinasPorCurso(Long idCurso) {
+        String sql = """
+            SELECT d.* FROM disciplinas d
+            JOIN curso_disciplina cd ON d.ID_disciplina = cd.disciplina_ID
+            WHERE cd.curso_ID = ?
+            ORDER BY d.nome_disciplina
+        """;
+        return jdbcTemplate.query(sql, new Object[]{idCurso}, new DisciplinaRowMapper());
     }
 }

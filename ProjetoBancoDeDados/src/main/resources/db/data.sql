@@ -30,20 +30,6 @@ VALUES
     (6, 'Rua F', '600', '06006000', 'RS', 'Porto Alegre'),
     (7, 'Rua G', '700', '07007000',  'SP', 'São Paulo');
 
--- 3. Inserir dados na tabela discente
-INSERT INTO discente (pessoa_id, registro_academico, data_ingresso, status)
-VALUES
-    (1, '2010.1.08.001', '2010-02-10', 'Ativa'),
-    (2, '2011.1.08.002', '2011-02-15', 'Concluida'),
-    (3, '2012.1.08.003', '2012-02-12', 'Ativa'),
-    (4, '2013.1.08.004', '2013-06-05', 'Trancada'),
-    (5, '2014.1.08.005', '2014-02-10', 'Concluida'),
-    (6, '2015.1.08.006', '2015-06-15', 'Ativa'),
-    (7, '2016.1.08.007', '2016-06-20', 'Trancada'),
-    (8, '2017.1.08.008', '2017-06-10', 'Ativa'),
-    (9, '2018.1.08.009', '2018-02-02', 'Concluida'),
-    (10, '2019.1.08.010', '2019-02-05', 'Ativa');
-
 -- 4. Inserir dados na tabela departamentos
 INSERT INTO departamentos (nome_departamento)
 VALUES
@@ -72,6 +58,34 @@ VALUES
     (9, 9, '2018-11-30'),
     (10, 10, '2019-12-05');
 
+-- 8. Inserir dados na tabela cursos
+INSERT INTO cursos (nome_curso, professor_coordenador_id, departamento_id)
+VALUES
+    ('Curso A', 1, 1),
+    ('Curso B', 2, 2),
+    ('Curso C', 3, 3),
+    ('Curso D', 4, 4),
+    ('Curso E', 5, 5),
+    ('Curso F', 6, 5),
+    ('Curso G', 7, 5),
+    ('Curso H', 8, 8),
+    ('Curso I', 9, 9),
+    ('Curso J', 10, 10);
+
+-- 3. Inserir dados na tabela discente
+INSERT INTO discente (pessoa_id, registro_academico, data_ingresso, status, curso_id)
+VALUES
+    (1, '2010.1.08.001', '2010-02-10', 'Ativa', 1),
+    (2, '2011.1.08.002', '2011-02-15', 'Concluida', 2),
+    (3, '2012.1.08.003', '2012-02-12', 'Ativa', 3),
+    (4, '2013.1.08.004', '2013-06-05', 'Trancada', 4),
+    (5, '2014.1.08.005', '2014-02-10', 'Concluida', 5),
+    (6, '2015.1.08.006', '2015-06-15', 'Ativa', 6),
+    (7, '2016.1.08.007', '2016-06-20', 'Trancada', 7),
+    (8, '2017.1.08.008', '2017-06-10', 'Ativa', 8),
+    (9, '2018.1.08.009', '2018-02-02', 'Concluida', 9),
+    (10, '2019.1.08.010', '2019-02-05', 'Ativa', 10);
+
 -- 6. Inserir dados na tabela disciplinas
 INSERT INTO disciplinas (nome_disciplina, carga_horaria, valor_mensal, professor_id)
 VALUES
@@ -99,20 +113,6 @@ VALUES
     (9, 'terça', '16:00:00', 90, '109'),
     (10, 'quarta', '17:00:00', 90, '110');
 
--- 8. Inserir dados na tabela cursos
-INSERT INTO cursos (nome_curso, professor_coordenador_id, departamento_id)
-VALUES
-    ('Curso A', 1, 1),
-    ('Curso B', 2, 2),
-    ('Curso C', 3, 3),
-    ('Curso D', 4, 4),
-    ('Curso E', 5, 5),
-    ('Curso F', 6, 5),
-    ('Curso G', 7, 5),
-    ('Curso H', 8, 8),
-    ('Curso I', 9, 9),
-    ('Curso J', 10, 10);
-
 -- 9. Inserir dados na tabela professor_curso
 INSERT INTO professor_curso (professor_id, curso_id, data_ingresso)
 VALUES
@@ -128,18 +128,18 @@ VALUES
     (10, 10, '2019-12-05');
 
 -- 10. Inserir dados na tabela matricula
-INSERT INTO matricula (discente_id, disciplina_id, nota_final, ano_matricula, semestre)
+INSERT INTO matricula (discente_id, disciplina_id, ano_matricula, semestre)
 VALUES
-    (1, 1, 8.5, 2020, 1),
-    (2, 2, 9.0, 2020, 2),
-    (3, 3, 7.5, 2020, 1),
-    (4, 4, 6.0, 2020, 2),
-    (5, 5, 8.0, 2021, 1),
-    (6, 6, 9.5, 2021, 2),
-    (7, 7, 7.0, 2021, 1),
-    (8, 8, 9.0, 2021, 2),
-    (9, 9, 6.5, 2021, 1),
-    (10, 10, 8.0, 2021, 2);
+    (1, 1,  2020, 1),
+    (2, 2,  2020, 2),
+    (3, 3, 2020, 1),
+    (4, 4, 2020, 2),
+    (5, 5,  2021, 1),
+    (6, 6, 2021, 2),
+    (7, 7,  2021, 1),
+    (8, 8,  2021, 2),
+    (9, 9,  2021, 1),
+    (10, 10,  2021, 2);
 
 -- 11. Inserir dados na tabela avaliacoes
 INSERT INTO avaliacoes (matricula_id, nota, peso)

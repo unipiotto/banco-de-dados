@@ -8,7 +8,6 @@
 <body>
 <div class="container mt-5">
     <h1>Disciplinas</h1>
-    <a th:href="@{/matriculas/discente/{id}(id=${discenteId})}" class="btn btn-sm btn-info">Adicionar Disciplina</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -17,6 +16,7 @@
             <th>Valor Mensal</th>
             <th>Professor</th>
             <th>Horários</th>
+            <th>Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -36,6 +36,11 @@
                     <li th:if="${#lists.size(disciplina.horarios) > 3}">
                     </li>
                 </ul>
+            </td>
+            <td>
+                <form th:action="@{/matriculas/{idDiscente}/adicionar/{disciplinaId}(idDiscente=${idDiscente}, disciplinaId=${disciplina.idDisciplina})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-warning">Adicionar Matricula</button>
+                </form>
             </td>
         </tr>
         </tbody>

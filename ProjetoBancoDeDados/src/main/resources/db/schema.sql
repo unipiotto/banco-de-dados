@@ -25,23 +25,13 @@ CREATE TABLE endereco (
                               ON UPDATE CASCADE
 );
 
--- 3. Discente
-CREATE TABLE discente (
-                          ID_discente SERIAL PRIMARY KEY,
-                          pessoa_ID INT NOT NULL,
-                          registro_academico VARCHAR(20) NOT NULL,
-                          data_ingresso DATE NULL,
-                          status VARCHAR(20) CHECK (status IN ('Ativa', 'Trancada', 'Concluida')),
-                          FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
-                              ON DELETE CASCADE
-                              ON UPDATE CASCADE
-);
-
 -- 4. Departamentos
 CREATE TABLE departamentos (
                                ID_departamento SERIAL PRIMARY KEY,
                                nome_departamento VARCHAR(100) NOT NULL
 );
+
+
 
 -- 5. Professores
 CREATE TABLE professores (
@@ -55,6 +45,34 @@ CREATE TABLE professores (
                              FOREIGN KEY (departamento_ID) REFERENCES departamentos(ID_departamento)
                                  ON DELETE SET NULL
                                  ON UPDATE CASCADE
+);
+
+-- 8. Cursos
+CREATE TABLE cursos (
+                        ID_curso SERIAL PRIMARY KEY,
+                        nome_curso VARCHAR(100) NOT NULL,
+                        professor_coordenador_ID INT,
+                        departamento_ID INT,
+                        FOREIGN KEY (professor_coordenador_ID) REFERENCES professores(ID_professor)
+                            ON DELETE SET NULL
+                            ON UPDATE CASCADE,
+                        FOREIGN KEY (departamento_ID) REFERENCES departamentos(ID_departamento)
+);
+
+-- 3. Discente
+CREATE TABLE discente (
+                          ID_discente SERIAL PRIMARY KEY,
+                          pessoa_ID INT NOT NULL,
+                          registro_academico VARCHAR(20) NOT NULL,
+                          data_ingresso DATE NULL,
+                          curso_ID INT NOT NULL,
+                          status VARCHAR(20) CHECK (status IN ('Ativa', 'Trancada', 'Concluida')),
+                          FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
+                              ON DELETE CASCADE
+                              ON UPDATE CASCADE,
+                          FOREIGN KEY (curso_ID) REFERENCES cursos(ID_curso)
+                              ON DELETE CASCADE
+                              ON UPDATE CASCADE
 );
 
 -- 6. Disciplinas
@@ -80,18 +98,6 @@ CREATE TABLE horarios (
                           FOREIGN KEY (disciplina_ID) REFERENCES disciplinas(ID_disciplina)
                               ON DELETE CASCADE
                               ON UPDATE CASCADE
-);
-
--- 8. Cursos
-CREATE TABLE cursos (
-                        ID_curso SERIAL PRIMARY KEY,
-                        nome_curso VARCHAR(100) NOT NULL,
-                        professor_coordenador_ID INT,
-                        departamento_ID INT,
-                        FOREIGN KEY (professor_coordenador_ID) REFERENCES professores(ID_professor)
-                            ON DELETE SET NULL
-                            ON UPDATE CASCADE,
-                        FOREIGN KEY (departamento_ID) REFERENCES departamentos(ID_departamento)
 );
 
 -- 9. Professor_Curso

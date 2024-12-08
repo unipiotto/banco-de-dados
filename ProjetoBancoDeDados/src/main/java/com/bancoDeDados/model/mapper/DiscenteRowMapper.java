@@ -16,6 +16,7 @@ public class DiscenteRowMapper implements RowMapper<Discente> {
         discente.setRegistroAcademico(rs.getString("registro_academico"));
         discente.setDataIngresso(LocalDate.parse(rs.getString("data_ingresso")));
         discente.setPessoaId(rs.getLong("pessoa_id"));
+        discente.setCursoId(rs.getLong("curso_id"));
 
         String status = rs.getString("status");
         discente.setStatus(StatusDiscente.fromString(status));

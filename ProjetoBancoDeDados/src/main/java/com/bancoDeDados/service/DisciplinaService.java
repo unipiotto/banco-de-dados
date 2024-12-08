@@ -7,7 +7,6 @@ import com.bancoDeDados.repository.dao.DisciplinaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +22,16 @@ public class DisciplinaService {
     public List<Disciplina> buscarDisciplinasDeDiscente(Long discenteId) {
         List<Disciplina> disciplinas = disciplinaDao.buscarDisciplinasDeDiscente(discenteId);
 
+        return informacoesComplementaresDisciplina(disciplinas);
+    }
+
+    public List<Disciplina> buscarDisciplinasPorCurso(Long idCurso) {
+        List<Disciplina> disciplinas = disciplinaDao.buscarDisciplinasPorCurso(idCurso);
+
+        return informacoesComplementaresDisciplina(disciplinas);
+    }
+
+    private List<Disciplina> informacoesComplementaresDisciplina(List<Disciplina> disciplinas) {
         for (Disciplina disciplina : disciplinas) {
             Professor professor = professorService.buscarPorId(disciplina.getIdProfessor());
             disciplina.setProfessor(professor);
@@ -32,4 +41,5 @@ public class DisciplinaService {
 
         return disciplinas;
     }
+
 }

@@ -1,7 +1,6 @@
 package com.bancoDeDados.controller;
 
 import com.bancoDeDados.model.Disciplina;
-import com.bancoDeDados.model.Horario;
 import com.bancoDeDados.service.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,7 @@ public class DisciplinaController {
     public String buscarDisciplinasDeDiscente(@PathVariable Long discenteId, Model model) {
         List<Disciplina> disciplinas = disciplinaService.buscarDisciplinasDeDiscente(discenteId);
         model.addAttribute("disciplinas", disciplinas);
+        model.addAttribute("discenteId", discenteId);
         return "disciplina/listar";
     }
 }
