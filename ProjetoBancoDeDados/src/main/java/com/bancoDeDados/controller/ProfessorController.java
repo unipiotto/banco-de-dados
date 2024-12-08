@@ -127,6 +127,8 @@ public class ProfessorController {
                 redirectAttributes.addFlashAttribute("errorMessage", "Professor não encontrado.");
                 return "redirect:/professores";
             }
+            Departamento dp = departamentoService.buscarDepartamentoId(professor.getIdDepartamento());
+            professor.setDepartamento(dp);
             model.addAttribute("professor", professor);
             return "professores/professorComDetalhes";
         } catch (Exception e) {

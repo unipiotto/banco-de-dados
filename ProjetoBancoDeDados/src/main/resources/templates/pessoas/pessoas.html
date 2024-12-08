@@ -14,7 +14,6 @@
             <th>Nome</th>
             <th>Email</th>
             <th>Telefone</th>
-            <th>Cpf</th>
             <th>Tipo</th>
             <th>Ações</th>
         </tr>
@@ -24,7 +23,6 @@
             <td th:text="${pessoa.nome}"></td>
             <td th:text="${pessoa.email}"></td>
             <td th:text="${pessoa.telefone}"></td>
-            <td th:text="${pessoa.cpf}"></td>
             <td th:text="${service.pegarTipo(pessoa.idPessoa)}"></td>
             <td>
                 <a th:if="${service.pegarTipo(pessoa.idPessoa).contains('rofessor')}" th:href="@{/professores/{id}(id=${service.pegarIdProfessor(pessoa.idPessoa)})}" class="btn btn-sm btn-info">Informações Professor</a>
