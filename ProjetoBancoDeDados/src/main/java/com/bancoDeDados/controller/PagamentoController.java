@@ -1,4 +1,4 @@
-package com.bancoDeDados.repository;
+package com.bancoDeDados.controller;
 
 import com.bancoDeDados.model.Pagamento;
 import com.bancoDeDados.service.PagamentoService;

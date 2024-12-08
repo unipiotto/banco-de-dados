@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,4 +18,11 @@ public class Disciplina {
     private int cargaHoraria;
     private BigDecimal valorMensal;
     private Long idProfessor;
+    private Professor professor;
+    private List<Horario> horarios;
+
+    public String valorMensalFormatado() {
+        return "R$ " + this.valorMensal.toString();
+    }
+
 }
