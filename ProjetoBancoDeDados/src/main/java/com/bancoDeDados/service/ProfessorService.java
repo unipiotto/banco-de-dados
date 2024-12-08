@@ -1,10 +1,10 @@
 package com.bancoDeDados.service;
 
-import com.bancoDeDados.model.*;
-import com.bancoDeDados.model.dto.DiscenteForm;
+import com.bancoDeDados.model.Endereco;
+import com.bancoDeDados.model.Pessoa;
+import com.bancoDeDados.model.Professor;
 import com.bancoDeDados.model.dto.EnderecoForm;
 import com.bancoDeDados.model.dto.ProfessorForm;
-import com.bancoDeDados.repository.PessoaRepository;
 import com.bancoDeDados.repository.ProfessorRepository;
 import com.bancoDeDados.repository.dao.EnderecoDAO;
 import com.bancoDeDados.repository.dao.PessoaDAO;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfessorService {
@@ -23,15 +22,13 @@ public class ProfessorService {
     private final ProfessorDAO professorDAO;
     private final EnderecoDAO enderecoDAO;
     private final ProfessorRepository professorRepository;
-    private final PessoaRepository pessoaRepository;
 
     @Autowired
-    public ProfessorService(PessoaDAO pessoaDAO, ProfessorDAO professorDAO, EnderecoDAO enderecoDAO, ProfessorRepository professorRepository, PessoaRepository pessoaRepository) {
+    public ProfessorService(PessoaDAO pessoaDAO, ProfessorDAO professorDAO, EnderecoDAO enderecoDAO, ProfessorRepository professorRepository) {
         this.pessoaDAO = pessoaDAO;
         this.professorDAO = professorDAO;
         this.enderecoDAO = enderecoDAO;
         this.professorRepository = professorRepository;
-        this.pessoaRepository = pessoaRepository;
 
     }
 
@@ -119,14 +116,6 @@ public class ProfessorService {
 
     public List<Professor> listar() {
         return professorRepository.listar();
-    }
-
-    public void deletar(Long id){
-        professorDAO.remover(id);
-    }
-
-    public void atualizar(Professor professor) {
-        professorDAO.atualizar(professor);
     }
 
     public Professor buscarPorId(Long id){

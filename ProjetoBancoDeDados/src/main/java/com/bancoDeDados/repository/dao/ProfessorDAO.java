@@ -1,14 +1,11 @@
 package com.bancoDeDados.repository.dao;
 
-import com.bancoDeDados.model.Endereco;
 import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.model.Professor;
 import com.bancoDeDados.model.mapper.ProfessorRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class ProfessorDAO {

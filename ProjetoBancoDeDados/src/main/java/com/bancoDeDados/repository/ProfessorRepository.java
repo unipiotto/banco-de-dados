@@ -1,17 +1,13 @@
 package com.bancoDeDados.repository;
 
 import com.bancoDeDados.model.Departamento;
-import com.bancoDeDados.model.Discente;
 import com.bancoDeDados.model.Pessoa;
 import com.bancoDeDados.model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class ProfessorRepository {

@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class AvaliacaoProfessor {
     private Long idAvaliacao;
     private Long idDiscente;
@@ -18,6 +19,9 @@ public class AvaliacaoProfessor {
 
     private String comentario;
     private LocalDate dataAvaliacao;
+
+    private Discente discente;
+    private Professor professor;
 
     public void setNotaAvaliacao(int notaAvaliacao) {
         if (notaAvaliacao < 1 || notaAvaliacao > 5) {

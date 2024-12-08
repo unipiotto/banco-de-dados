@@ -1,6 +1,5 @@
 package com.bancoDeDados.model.dto;
 
-import com.bancoDeDados.model.Departamento;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
