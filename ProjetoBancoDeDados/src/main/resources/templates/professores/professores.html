@@ -39,6 +39,7 @@
                 >
                     Deletar
                 </button>
+                <a th:href="@{/professores/avaliacao/{id}(id=${professor.idProfessor})}" class="btn btn-sm btn-success">Avaliações</a>
                 <a th:href="@{/professores/{id}(id=${professor.idProfessor})}" class="btn btn-sm btn-info">Mais informações</a>
             </td>
         </tr>
