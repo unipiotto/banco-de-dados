@@ -107,8 +107,8 @@ VALUES
     ('Curso C', 3, 3),
     ('Curso D', 4, 4),
     ('Curso E', 5, 5),
-    ('Curso F', 6, 6),
-    ('Curso G', 7, 7),
+    ('Curso F', 6, 5),
+    ('Curso G', 7, 5),
     ('Curso H', 8, 8),
     ('Curso I', 9, 9),
     ('Curso J', 10, 10);
