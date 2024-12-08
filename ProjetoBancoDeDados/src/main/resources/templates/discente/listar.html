@@ -13,7 +13,6 @@
         <thead>
         <tr>
             <th>Nome</th>
-            <th>Email</th>
             <th>Registro Acadêmico</th>
             <th>Data de Ingresso</th>
             <th>Curso</th>
@@ -24,7 +23,6 @@
         <tbody>
         <tr th:each="discente : ${discentes}">
             <td th:text="${discente.pessoa.nome}"></td>
-            <td th:text="${discente.pessoa.email}"></td>
             <td th:text="${discente.registroAcademico}"></td>
             <td th:text="${#temporals.format(discente.dataIngresso, 'dd/MM/yyyy')}"></td>
             <td th:text="${discente.curso.nomeCurso}"></td>
