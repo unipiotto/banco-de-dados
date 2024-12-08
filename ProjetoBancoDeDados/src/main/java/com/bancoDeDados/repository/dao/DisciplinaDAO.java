@@ -33,4 +33,9 @@ public class DisciplinaDAO {
         """;
         return jdbcTemplate.query(sql, new Object[]{idCurso}, new DisciplinaRowMapper());
     }
+
+    public Disciplina buscarDisciplinaPorId(Long id) {
+        String sql = "SELECT * FROM disciplinas WHERE id_disciplina = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new DisciplinaRowMapper());
+    }
 }
