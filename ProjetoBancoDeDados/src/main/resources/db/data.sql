@@ -323,14 +323,14 @@ VALUES
     (75, '2019.1.08.010', '2019-02-05', 'Ativa', 5),
     (76, '2020.1.08.011', '2020-03-10', 'Ativa', 6),
     (77, '2021.1.08.012', '2021-04-12', 'Ativa', 7),
-    (78, '2020.2.08.013', '2020-09-15', 'Trancada', 8),
+    (2, '2020.2.08.013', '2020-09-15', 'Trancada', 8),
     (79, '2022.1.08.014', '2022-02-20', 'Ativa', 9),
     (80, '2021.2.08.015', '2021-07-25', 'Concluida', 10),
-    (81, '2020.1.08.016', '2020-03-10', 'Ativa', 6),
+    (5, '2020.1.08.016', '2020-03-10', 'Ativa', 6),
     (82, '2021.1.08.017', '2021-04-12', 'Ativa', 7),
     (83, '2020.2.08.018', '2020-09-15', 'Trancada', 8),
-    (84, '2022.1.08.019', '2022-02-20', 'Ativa', 9),
-    (85, '2021.2.08.020', '2021-07-25', 'Concluida', 10),
+    (6, '2022.1.08.019', '2022-02-20', 'Ativa', 9),
+    (7, '2021.2.08.020', '2021-07-25', 'Concluida', 10),
     (86, '2022.1.08.021', '2022-02-15', 'Ativa', 1),
     (87, '2023.1.08.022', '2023-03-20', 'Concluida', 2),
     (88, '2023.2.08.023', '2023-08-25', 'Ativa', 3),
@@ -351,6 +351,31 @@ VALUES
     ('Matemática Discreta', 60, 640.00, 11),
     ('Álgebra Abstrata', 60, 650.00, 14),
     ('Probabilidade', 60, 660.00, 1),
+    ('Banco de Dados', 60, 700.00, 9),
+    ('Sistemas Operacionais', 60, 680.00, 9),
+    ('Redes de Computadores', 60, 720.00, 9),
+    ('Engenharia de Software', 60, 750.00, 10),
+    ('Qualidade de Software', 60, 760.00, 10),
+    ('Arquitetura de Software', 60, 770.00, 10),
+    ('Teoria de Compiladores', 60, 710.00, 11),
+    ('Complexidade de Algoritmos', 60, 690.00, 11),
+    ('Fundamentos de Lógica Computacional', 60, 680.00, 11),
+    ('Inteligência Artificial', 60, 800.00, 12),
+    ('Aprendizado de Máquina', 60, 850.00, 12),
+    ('Visão Computacional', 60, 870.00, 12),
+    ('Processamento de Linguagem Natural', 60, 890.00, 12),
+    ('Computação Gráfica', 60, 820.00, 13),
+    ('Design de Interação', 60, 790.00, 13),
+    ('Jogos Digitais', 60, 850.00, 13),
+    ('Segurança da Informação', 60, 810.00, 14),
+    ('Criptografia e Segurança de Redes', 60, 880.00, 14),
+    ('Computação em Nuvem', 60, 840.00, 15),
+    ('Big Data e Análise de Dados', 60, 870.00, 15),
+    ('Computação Paralela e Distribuída', 60, 900.00, 15),
+    ('Internet das Coisas', 60, 880.00, 15),
+    ('Desenvolvimento Mobile', 60, 850.00, 15),
+    ('Robótica', 60, 910.00, 16),
+    ('Computação Quântica', 60, 950.00, 16),
 
     ('Mecânica Clássica', 60, 550.00, 11),
     ('Eletromagnetismo', 60, 580.00, 14),
@@ -408,7 +433,7 @@ VALUES
 
     -- Horários para "Geometria Analítica"
     (3, 'sexta', '12:00:00', 90, '105'),
-    (3, 'sábado', '14:00:00', 90, '106'),
+    (3, 'segunda', '14:00:00', 90, '106'),
 
     -- Horários para "Estatística Aplicada"
     (4, 'segunda', '15:00:00', 90, '107'),
@@ -420,7 +445,7 @@ VALUES
 
     -- Horários para "Cálculo Numérico"
     (6, 'sexta', '10:00:00', 90, '111'),
-    (6, 'sábado', '12:00:00', 90, '112'),
+    (6, 'segunda', '12:00:00', 90, '112'),
 
     -- Horários para "Teoria dos Números"
     (7, 'segunda', '13:00:00', 90, '113'),
@@ -432,7 +457,7 @@ VALUES
 
     -- Horários para "Álgebra Abstrata"
     (9, 'sexta', '08:00:00', 90, '117'),
-    (9, 'sábado', '10:00:00', 90, '118'),
+    (9, 'segunda', '10:00:00', 90, '118'),
 
     -- Horários para "Probabilidade"
     (10, 'segunda', '11:00:00', 90, '119'),
@@ -444,7 +469,7 @@ VALUES
 
     -- Horários para "Eletromagnetismo"
     (12, 'sexta', '16:00:00', 90, '203'),
-    (12, 'sábado', '17:30:00', 90, '204'),
+    (12, 'segunda', '17:30:00', 90, '204'),
 
     -- Horários para "Física Quântica"
     (13, 'segunda', '08:00:00', 90, '205'),
@@ -456,7 +481,7 @@ VALUES
 
     -- Horários para "Óptica"
     (15, 'sexta', '12:00:00', 90, '209'),
-    (15, 'sábado', '13:30:00', 90, '210'),
+    (15, 'segunda', '13:30:00', 90, '210'),
 
     -- Horários para "Relatividade Especial"
     (16, 'segunda', '14:00:00', 90, '211'),
@@ -468,7 +493,7 @@ VALUES
 
     -- Horários para "Física Experimental I"
     (18, 'sexta', '08:00:00', 90, '215'),
-    (18, 'sábado', '09:30:00', 90, '216'),
+    (18, 'segunda', '09:30:00', 90, '216'),
 
     -- Horários para "Física Experimental II"
     (19, 'segunda', '10:00:00', 90, '217'),
@@ -476,7 +501,128 @@ VALUES
 
     -- Horários para "Astrofísica"
     (20, 'terça', '12:00:00', 90, '219'),
-    (20, 'quinta', '13:30:00', 90, '220');
+    (20, 'quinta', '13:30:00', 90, '220'),
+
+    -- Horários para "Química Orgânica"
+    (21, 'segunda', '14:00:00', 90, '301'),
+    (21, 'quarta', '15:30:00', 90, '302'),
+
+-- Horários para "Química Inorgânica"
+    (22, 'terça', '16:00:00', 90, '303'),
+    (22, 'quinta', '17:30:00', 90, '304'),
+
+-- Horários para "Fisico-Química"
+    (23, 'sexta', '08:00:00', 90, '305'),
+    (23, 'segunda', '09:30:00', 90, '306'),
+
+-- Horários para "Química Analítica"
+    (24, 'segunda', '10:00:00', 90, '307'),
+    (24, 'quarta', '11:30:00', 90, '308'),
+
+-- Horários para "Bioquímica"
+    (25, 'terça', '12:00:00', 90, '309'),
+    (25, 'quinta', '13:30:00', 90, '310'),
+
+-- Horários para "Química Ambiental"
+    (26, 'sexta', '14:00:00', 90, '311'),
+    (26, 'segunda', '15:30:00', 90, '312'),
+
+-- Horários para "Química dos Materiais"
+    (27, 'segunda', '16:00:00', 90, '313'),
+    (27, 'quarta', '17:30:00', 90, '314'),
+
+-- Horários para "Química Medicinal"
+    (28, 'terça', '08:00:00', 90, '315'),
+    (28, 'quinta', '09:30:00', 90, '316'),
+
+-- Horários para "Métodos Instrumentais"
+    (29, 'sexta', '10:00:00', 90, '317'),
+    (29, 'segunda', '11:30:00', 90, '318'),
+
+-- Horários para "Química Industrial"
+    (30, 'segunda', '12:00:00', 90, '319'),
+    (30, 'quarta', '13:30:00', 90, '320'),
+
+    -- Horários para "Biologia Celular"
+    (31, 'terça', '14:00:00', 90, '401'),
+    (31, 'quinta', '15:30:00', 90, '402'),
+
+-- Horários para "Genética"
+    (32, 'sexta', '16:00:00', 90, '403'),
+    (32, 'segunda', '17:30:00', 90, '404'),
+
+-- Horários para "Microbiologia"
+    (33, 'segunda', '08:00:00', 90, '405'),
+    (33, 'quarta', '09:30:00', 90, '406'),
+
+-- Horários para "Zoologia"
+    (34, 'terça', '10:00:00', 90, '407'),
+    (34, 'quinta', '11:30:00', 90, '408'),
+
+-- Horários para "Botânica"
+    (35, 'sexta', '12:00:00', 90, '409'),
+    (35, 'segunda', '13:30:00', 90, '410'),
+
+-- Horários para "Ecologia"
+    (36, 'segunda', '14:00:00', 90, '411'),
+    (36, 'quarta', '15:30:00', 90, '412'),
+
+-- Horários para "Fisiologia Animal"
+    (37, 'terça', '16:00:00', 90, '413'),
+    (37, 'quinta', '17:30:00', 90, '414'),
+
+-- Horários para "Fisiologia Vegetal"
+    (38, 'sexta', '08:00:00', 90, '415'),
+    (38, 'segunda', '09:30:00', 90, '416'),
+
+-- Horários para "Biologia Evolutiva"
+    (39, 'segunda', '10:00:00', 90, '417'),
+    (39, 'quarta', '11:30:00', 90, '418'),
+
+-- Horários para "Biotecnologia"
+    (40, 'terça', '12:00:00', 90, '419'),
+    (40, 'quinta', '13:30:00', 90, '420'),
+
+    -- Horários para "História Antiga"
+    (41, 'segunda', '08:00:00', 90, '501'),
+    (41, 'quarta', '09:30:00', 90, '502'),
+
+-- Horários para "História Medieval"
+    (42, 'terça', '10:00:00', 90, '503'),
+    (42, 'quinta', '11:30:00', 90, '504'),
+
+-- Horários para "História Moderna"
+    (43, 'sexta', '12:00:00', 90, '505'),
+    (43, 'segunda', '13:30:00', 90, '506'),
+
+-- Horários para "História Contemporânea"
+    (44, 'segunda', '14:00:00', 90, '507'),
+    (44, 'quarta', '15:30:00', 90, '508'),
+
+-- Horários para "História do Brasil Colonial"
+    (45, 'terça', '16:00:00', 90, '509'),
+    (45, 'quinta', '17:30:00', 90, '510'),
+
+-- Horários para "História do Brasil Império"
+    (46, 'sexta', '08:00:00', 90, '511'),
+    (46, 'segunda', '09:30:00', 90, '512'),
+
+-- Horários para "História da América Latina"
+    (47, 'segunda', '10:00:00', 90, '513'),
+    (47, 'quarta', '11:30:00', 90, '514'),
+
+-- Horários para "História do Oriente Médio"
+    (48, 'terça', '12:00:00', 90, '515'),
+    (48, 'quinta', '13:30:00', 90, '516'),
+
+-- Horários para "História Cultural"
+    (49, 'sexta', '14:00:00', 90, '517'),
+    (49, 'segunda', '15:30:00', 90, '518'),
+
+-- Horários para "História Econômica"
+    (50, 'segunda', '16:00:00', 90, '519'),
+    (50, 'quarta', '17:30:00', 90, '520');
+
 
 -- 9. Inserir dados na tabela professor_curso
 INSERT INTO professor_curso (professor_id, curso_id, data_ingresso)
@@ -668,33 +814,213 @@ VALUES
     (10, '2024-09-15', '2024-09-10', 600.00, 'pago'),
     (10, '2024-10-15', '2024-10-10', 600.00, 'pago'),
     (10, '2024-11-15', '2024-11-10', 600.00, 'pago'),
-    (10, '2024-12-15', NULL, 600.00, 'pendente');
+    (10, '2024-12-15', NULL, 600.00, 'pendente'),
+
+    (11, '2024-02-15', '2024-02-10', 600.00, 'pago'),
+    (11, '2024-03-15', '2024-03-10', 600.00, 'pago'),
+    (11, '2024-04-15', '2024-04-10', 600.00, 'pago'),
+    (11, '2024-05-15', '2024-05-10', 600.00, 'pago'),
+    (11, '2024-06-15', '2024-06-10', 600.00, 'pago'),
+    (11, '2024-07-15', '2024-07-10', 600.00, 'pago'),
+    (11, '2024-08-15', '2024-08-10', 600.00, 'pago'),
+    (11, '2024-09-15', '2024-09-10', 600.00, 'pago'),
+    (11, '2024-10-15', '2024-10-10', 600.00, 'pago'),
+    (11, '2024-11-15', '2024-11-10', 600.00, 'pago'),
+    (11, '2024-12-15', NULL, 600.00, 'pendente'),
+
+    (12, '2024-02-15', '2024-02-10', 600.00, 'pago'),
+    (12, '2024-03-15', '2024-03-10', 600.00, 'pago'),
+    (12, '2024-04-15', '2024-04-10', 600.00, 'pago'),
+    (12, '2024-05-15', '2024-05-10', 600.00, 'pago'),
+    (12, '2024-06-15', '2024-06-10', 600.00, 'pago'),
+    (12, '2024-07-15', '2024-07-10', 600.00, 'pago'),
+    (12, '2024-08-15', '2024-08-10', 600.00, 'pago'),
+    (12, '2024-09-15', '2024-09-10', 600.00, 'pago'),
+    (12, '2024-10-15', '2024-10-10', 600.00, 'pago'),
+    (12, '2024-11-15', '2024-11-10', 600.00, 'pago'),
+    (12, '2024-12-15', NULL, 600.00, 'pendente'),
+
+    -- Repetir para discentes 13 até 26
+    (13, '2024-02-15', '2024-02-10', 600.00, 'pago'),
+    (13, '2024-03-15', '2024-03-10', 600.00, 'pago'),
+    (13, '2024-04-15', '2024-04-10', 600.00, 'pago'),
+    (13, '2024-05-15', '2024-05-10', 600.00, 'pago'),
+    (13, '2024-06-15', '2024-06-10', 600.00, 'pago'),
+    (13, '2024-07-15', '2024-07-10', 600.00, 'pago'),
+    (13, '2024-08-15', '2024-08-10', 600.00, 'pago'),
+    (13, '2024-09-15', '2024-09-10', 600.00, 'pago'),
+    (13, '2024-10-15', '2024-10-10', 600.00, 'pago'),
+    (13, '2024-11-15', '2024-11-10', 600.00, 'pago'),
+    (13, '2024-12-15', NULL, 600.00, 'pendente'),
+
+    (14, '2024-02-15', '2024-02-10', 600.00, 'pago'),
+    (14, '2024-03-15', '2024-03-10', 600.00, 'pago'),
+    (14, '2024-04-15', '2024-04-10', 600.00, 'pago'),
+    (14, '2024-05-15', '2024-05-10', 600.00, 'pago'),
+    (14, '2024-06-15', '2024-06-10', 600.00, 'pago'),
+    (14, '2024-07-15', '2024-07-10', 600.00, 'pago'),
+    (14, '2024-08-15', '2024-08-10', 600.00, 'pago'),
+    (14, '2024-09-15', '2024-09-10', 600.00, 'pago'),
+    (14, '2024-10-15', '2024-10-10', 600.00, 'pago'),
+    (14, '2024-11-15', '2024-11-10', 600.00, 'pago'),
+    (14, '2024-12-15', NULL, 600.00, 'pendente'),
+
+    (15, '2024-02-15', '2024-02-10', 600.00, 'pago'),
+    (15, '2024-03-15', '2024-03-10', 600.00, 'pago'),
+    (15, '2024-04-15', '2024-04-10', 600.00, 'pago'),
+    (15, '2024-05-15', '2024-05-10', 600.00, 'pago'),
+    (15, '2024-06-15', '2024-06-10', 600.00, 'pago'),
+    (15, '2024-07-15', '2024-07-10', 600.00, 'pago'),
+    (15, '2024-08-15', '2024-08-10', 600.00, 'pago'),
+    (15, '2024-09-15', '2024-09-10', 600.00, 'pago'),
+    (15, '2024-10-15', '2024-10-10', 600.00, 'pago'),
+    (15, '2024-11-15', '2024-11-10', 600.00, 'pago'),
+    (15, '2024-12-15', NULL, 600.00, 'pendente'),
+
+    (16, '2024-02-15', '2024-02-10', 600.00, 'pago'),
+    (16, '2024-03-15', '2024-03-10', 600.00, 'pago'),
+    (16, '2024-04-15', '2024-04-10', 600.00, 'pago'),
+    (16, '2024-05-15', '2024-05-10', 600.00, 'pago'),
+    (16, '2024-06-15', '2024-06-10', 600.00, 'pago'),
+    (16, '2024-07-15', '2024-07-10', 600.00, 'pago'),
+    (16, '2024-08-15', '2024-08-10', 600.00, 'pago'),
+    (16, '2024-09-15', '2024-09-10', 600.00, 'pago'),
+    (16, '2024-10-15', '2024-10-10', 600.00, 'pago'),
+    (16, '2024-11-15', '2024-11-10', 600.00, 'pago'),
+    (16, '2024-12-15', NULL, 600.00, 'pendente'),
+
+    (17, '2024-02-15', '2024-02-10', 600.00, 'pago'),
+    (17, '2024-03-15', '2024-03-10', 600.00, 'pago'),
+    (17, '2024-04-15', '2024-04-10', 600.00, 'pago'),
+    (17, '2024-05-15', '2024-05-10', 600.00, 'pago'),
+    (17, '2024-06-15', '2024-06-10', 600.00, 'pago'),
+    (17, '2024-07-15', '2024-07-10', 600.00, 'pago'),
+    (17, '2024-08-15', '2024-08-10', 600.00, 'pago'),
+    (17, '2024-09-15', '2024-09-10', 600.00, 'pago'),
+    (17, '2024-10-15', '2024-10-10', 600.00, 'pago'),
+    (17, '2024-11-15', '2024-11-10', 600.00, 'pago'),
+    (17, '2024-12-15', NULL, 600.00, 'pendente');
 
 
--- 13. Inserir dados na tabela curso_disciplina
+
 INSERT INTO curso_disciplina (curso_id, disciplina_id)
 VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 6),
-    (7, 7),
-    (8, 8),
-    (9, 9),
-    (10, 10);
+    -- Departamento de Ciências Exatas
+    (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), -- Matemática
+    (2, 11), (2, 12), (2, 13), (2, 14), (2, 15), (2, 16), (2, 17), (2, 18), (2, 19), (2, 20), -- Física
+    (3, 21), (3, 22), (3, 23), (3, 24), (3, 25), (3, 26), (3, 27), (3, 28), (3, 29), (3, 30), -- Química
+    (4, 4), (4, 10), -- Estatística Aplicada e Probabilidade para Estatística
+    (5, 6), (5, 8), (5, 10), -- Cálculo Numérico, Matemática Discreta e Probabilidade para Ciência da Computação
+    -- Disciplinas de Ciência da Computação para Ciência da Computação
+    (5, 7),  -- Sistemas Operacionais
+    (5, 9),  -- Engenharia de Software
+    (5, 11), -- Arquitetura de Software
+    (5, 12), -- Teoria de Compiladores
+    (5, 13), -- Complexidade de Algoritmos
+    (5, 14), -- Fundamentos de Lógica Computacional
+    (5, 15), -- Inteligência Artificial
+    (5, 16), -- Aprendizado de Máquina
+    (5, 17), -- Visão Computacional
+    (5, 18), -- Processamento de Linguagem Natural
+    (5, 19), -- Computação Gráfica
+    (5, 20), -- Design de Interação
+    (5, 21), -- Jogos Digitais
+    (5, 22), -- Segurança da Informação
+    (5, 23), -- Criptografia e Segurança de Redes
+    (5, 24), -- Computação em Nuvem
+    (5, 25), -- Big Data e Análise de Dados
+    (5, 26), -- Computação Paralela e Distribuída
+    (5, 27), -- Internet das Coisas
+    (5, 28), -- Desenvolvimento Mobile
+    (5, 29), -- Robótica
+    (5, 30), -- Computação Quântica
+    (5, 31), -- Introdução à Ciência da Computação
+    (5, 32), -- Estruturas de Dados
+    (5, 33), -- Algoritmos Avançados
+    (5, 34), -- Projeto Integrador
 
--- 14. Inserir dados na tabela avaliacao_professores
+    -- Departamento de Ciências Humanas e Sociais
+    (6, 41), (6, 42), (6, 43), (6, 44), (6, 45), (6, 46), (6, 47), (6, 48), (6, 49), (6, 50), -- História
+    (7, 45), (7, 36), -- Geografia com História do Brasil Colonial e Ecologia
+    (8, 41), (8, 43), (8, 49), -- Filosofia com História Antiga, Moderna e Cultural
+    (9, 44), (9, 47), (9, 50), -- Sociologia com História Contemporânea, América Latina e Econômica
+    (10, 36), (10, 38), -- Antropologia com Ecologia e Fisiologia Vegetal
+
+    -- Departamento de Linguagens, Letras e Artes
+    (11, 41), (11, 43), (11, 49), (11, 44), -- Letras
+    (12, 41), (12, 43), (12, 44), -- Linguística
+    (13, 48), (13, 49), (13, 50), -- Artes
+    (14, 41), (14, 45), (14, 47), -- Estudos Literários
+    (15, 42), (15, 48), (15, 50), -- Tradução e Interpretação
+
+    -- Departamento de Ciências Biológicas e da Saúde
+    (16, 31), (16, 32), (16, 33), (16, 34), (16, 35), (16, 36), (16, 37), (16, 38), (16, 39), (16, 40), -- Biologia
+    (17, 25), (17, 21), (17, 33), -- Bioquímica com disciplinas de Química e Microbiologia
+    (18, 31), (18, 32), (18, 37), (18, 40), -- Medicina com Biologia Celular, Genética e Fisiologia Animal
+    (19, 31), (19, 37), (19, 39), -- Enfermagem com Biologia Celular e Biologia Evolutiva
+    (20, 21), (20, 22), (20, 23), -- Farmácia com disciplinas de Química
+    (21, 24), (21, 25), (21, 29), -- Odontologia com Química Analítica, Bioquímica e Métodos Instrumentais
+    (22, 36), (22, 39), (22, 40), -- Nutrição com Ecologia, Biologia Evolutiva e Biotecnologia
+    (23, 37), (23, 38), -- Educação Física com Fisiologia Animal e Vegetal
+    (24, 34), (24, 38), -- Veterinária com Zoologia e Fisiologia Vegetal
+
+    -- Departamento de Ciências Agrárias
+    (25, 36), (25, 38), (25, 11), -- Agronomia com Ecologia, Fisiologia Vegetal e Mecânica Clássica
+    (26, 34), (26, 36), (26, 11), -- Zootecnia com Zoologia, Ecologia e Mecânica Clássica
+    (27, 11), (27, 12), -- Engenharia Florestal com Mecânica Clássica e Eletromagnetismo
+    (28, 11), (28, 12), (28, 26), -- Engenharia Agrícola com Mecânica Clássica, Eletromagnetismo e Química Ambiental
+
+    -- Cursos de áreas mistas
+    (29, 36), (29, 37), (29, 44); -- Ciências Ambientais com Ecologia, Fisiologia Animal e História Contemporânea
+
 INSERT INTO avaliacao_professores (discente_id, professor_id, nota_ensino, comentario, data_avaliacao)
 VALUES
-    (1, 1, 5, 'Ótimo professor', '2023-05-01'),
-    (2, 2, 4, 'Bom professor', '2023-06-01'),
-    (3, 3, 3, 'Regular', '2023-07-01'),
-    (4, 4, 2, 'Precisava melhorar', '2023-08-01'),
-    (5, 5, 1, 'Não gostei', '2023-09-01'),
-    (6, 6, 5, 'Excelente', '2023-10-01'),
-    (7, 7, 4, 'Muito bom', '2023-11-01'),
-    (8, 8, 3, 'Bom, mas pode melhorar', '2023-12-01'),
-    (9, 9, 2, 'Difícil de acompanhar', '2024-01-01'),
-    (10, 10, 5, 'Fantástico', '2024-02-01');
+    -- Avaliações para professor_id=1
+    (1, 1, 5, 'Ótimo professor, sempre claro.', '2023-05-01'),
+    (2, 1, 4, 'Muito bom, mas poderia responder mais dúvidas.', '2023-06-15'),
+    (3, 1, 5, 'Didática excelente!', '2023-07-10'),
+
+    -- Avaliações para professor_id=2
+    (4, 2, 4, 'Bom professor, porém às vezes apressado.', '2023-05-20'),
+    (5, 2, 4, 'Explica bem, mas o conteúdo é denso.', '2023-06-18'),
+    (6, 2, 3, 'Regular, poderia usar mais exemplos práticos.', '2023-07-05'),
+
+    -- Avaliações para professor_id=3
+    (7, 3, 3, 'Regular, o material é bom, mas a explicação confunde.', '2023-06-01'),
+    (8, 3, 4, 'Melhorou ao longo do semestre.', '2023-07-10'),
+    (9, 3, 5, 'Excelente didática, gostei muito.', '2023-08-01'),
+
+    -- Avaliações para professor_id=4
+    (10, 4, 2, 'A explicação foi confusa.', '2023-05-25'),
+    (1, 4, 3, 'Material bom, mas precisaria mais paciência com alunos.', '2023-06-15'),
+    (2, 4, 4, 'Melhorou ao longo das aulas.', '2023-07-20'),
+
+    -- Avaliações para professor_id=5
+    (3, 5, 1, 'Material incompleto e confuso.', '2023-06-05'),
+    (4, 5, 2, 'Dificuldade em acompanhar o raciocínio.', '2023-07-15'),
+    (5, 5, 3, 'Didática poderia ser melhor.', '2023-08-01'),
+
+    -- Avaliações para professor_id=6
+    (6, 6, 5, 'Excelente, sempre disposto a ajudar.', '2023-05-01'),
+    (7, 6, 4, 'Bom professor, mas as aulas são cansativas.', '2023-06-01'),
+    (8, 6, 5, 'Muito dedicado e prestativo.', '2023-07-01'),
+
+    -- Avaliações para professor_id=7
+    (9, 7, 4, 'Muito bom, explica com clareza.', '2023-06-15'),
+    (10, 7, 5, 'Gostei muito das aulas, professor muito competente.', '2023-07-10'),
+    (1, 7, 4, 'Boa didática, mas poderia melhorar o ritmo.', '2023-08-01'),
+
+    -- Avaliações para professor_id=8
+    (2, 8, 3, 'Bom professor, mas as aulas são densas.', '2023-06-20'),
+    (3, 8, 4, 'Melhorou a interação com os alunos.', '2023-07-15'),
+    (4, 8, 5, 'Aulas excelentes e muito bem preparadas.', '2023-08-10'),
+
+    -- Avaliações para professor_id=9
+    (5, 9, 2, 'Difícil de acompanhar o raciocínio.', '2023-06-10'),
+    (6, 9, 3, 'Conteúdo importante, mas explicação rápida.', '2023-07-01'),
+    (7, 9, 4, 'Bom professor, material bem estruturado.', '2023-08-01'),
+
+    -- Avaliações para professor_id=10
+    (8, 10, 5, 'Fantástico, professor muito empático.', '2023-06-05'),
+    (9, 10, 5, 'Aulas incríveis, professor sempre disposto a ajudar.', '2023-07-01'),
+    (10, 10, 5, 'Didática impecável, adorei o semestre.', '2023-08-01');

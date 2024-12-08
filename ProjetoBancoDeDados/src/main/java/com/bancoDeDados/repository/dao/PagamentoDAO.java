@@ -37,8 +37,6 @@ public class PagamentoDAO {
     }
 
     public void atualizarValorPagamento(Long id, BigDecimal valorPagamento) {
-        System.out.println(id);
-        System.out.println(valorPagamento);
         String sql = "UPDATE pagamentos SET valor = ? WHERE id_pagamento = ?";
         jdbcTemplate.update(sql, valorPagamento, id);
     }

@@ -91,7 +91,7 @@ CREATE TABLE disciplinas (
 CREATE TABLE horarios (
                           ID_horario SERIAL PRIMARY KEY,
                           disciplina_ID INT,
-                          dia_semana VARCHAR(20) CHECK (dia_semana IN ('segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo')),
+                          dia_semana VARCHAR(20) CHECK (dia_semana IN ('segunda', 'terça', 'quarta', 'quinta', 'sexta')),
                           horario_inicio TIME,
                           duracao INT NOT NULL,
                           numero_sala VARCHAR(10),
