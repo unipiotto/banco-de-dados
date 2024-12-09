@@ -39,14 +39,10 @@ public class MatriculaService {
 
         Pagamento pagamento = pagamentoDAO.buscarPagamentoDoMes(mesAtual, anoAtual, idDiscente);
 
-        System.out.println(pagamento.getValor());
-
         Disciplina disciplina = disciplinaDAO.buscarDisciplinaPorId(idDisciplina);
 
         BigDecimal valorAntigo = pagamento.getValor();
         BigDecimal novoValor = valorAntigo.add(disciplina.getValorMensal());
-
-        System.out.println(pagamento.getIdPagamento());
 
         pagamentoDAO.atualizarValorPagamento(pagamento.getIdPagamento(), novoValor);
     }
