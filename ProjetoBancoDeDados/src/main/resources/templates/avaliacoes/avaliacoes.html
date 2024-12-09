@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Lista de avaliações</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Avaliações do discente [[${discente.registroAcademico}]]</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Avaliações</th>
+            <th>Nota Final</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="disciplina : ${disciplinas}">
+            <td th:text="${disciplina.nomeDisciplina}"></td>
+            <td>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Notas</th>
+                            <th>Pesos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="avaliacao : ${avaliacaoService.listarNotasDiscentePorDisciplina(discente.getIdDiscente(), disciplina.getIdDisciplina())}">
+                            <td th:text="${avaliacao.nota}"></td>
+                            <td th:text="${avaliacao.peso}"></td>
+                            <td><a th:href="@{/avaliacoes/editar/{id}(id=${avaliacao.idAvaliacao})}" class="btn btn-sm btn-warning">Editar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td th:text="${matriculaService.calcularNotaFinal(avaliacaoService.listarNotasDiscentePorDisciplina(discente.getIdDiscente(), disciplina.getIdDisciplina()))}"></td>
+            <td><a th:href="@{/avaliacoes/adicionar/{id}(id = ${matriculaService.getMatriculaIdPorIdDisciplinaEIdDiscente(discente.getIdDiscente(), disciplina.getIdDisciplina())})}" class="btn btn-primary mb-3">Adicionar Avaliação</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Botões de Ação -->
+    <div class="d-flex justify-content-between">
+        <a th:href="@{/discentes}" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
