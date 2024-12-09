@@ -13,18 +13,18 @@ public class AvaliacaoDAO {
     private JdbcTemplate jdbcTemplate;
 
     public void inserir(Avaliacao avaliacao) {
-        String sql = "INSERT INTO avaliacoes (matricula_ID, nota, peso) values (?, ?, ?)";
+        String sql = "INSERT INTO avaliacao (matricula_ID, nota, peso) values (?, ?, ?)";
         jdbcTemplate.update(sql, avaliacao.getIdMatricula(), avaliacao.getNota(), avaliacao.getPeso());
     }
 
     public void atualizar(Avaliacao avaliacao) {
-        String sql = "UPDATE avaliacoes SET nota = ?, peso = ?, matricula_ID = ? WHERE ID_avaliacao = ?";
+        String sql = "UPDATE avaliacao SET nota = ?, peso = ?, matricula_ID = ? WHERE ID_avaliacao = ?";
         jdbcTemplate.update(sql, avaliacao.getNota(), avaliacao.getPeso(), avaliacao.getIdMatricula(), avaliacao.getIdAvaliacao());
     }
 
 
     public Avaliacao buscarPorId(Long idAvaliacao) {
-        String sql = "SELECT * FROM avaliacoes WHERE ID_avaliacao = ?";
+        String sql = "SELECT * FROM avaliacao WHERE ID_avaliacao = ?";
         return jdbcTemplate.queryForObject(sql, new AvaliacaoRowMapper(), idAvaliacao);
     }
 }

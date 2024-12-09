@@ -20,7 +20,7 @@ public class AvaliacaoRepository {
 
     public List<Avaliacao> listarNotasDiscente(Long id) {
         String sql = """
-                SELECT * FROM avaliacoes 
+                SELECT * FROM avaliacao 
                 WHERE matricula_ID = (SELECT ID_matricula 
                 FROM matricula WHERE discente_ID = ?)
                 """;
@@ -37,7 +37,7 @@ public class AvaliacaoRepository {
 
     public List<Avaliacao> listarNotasDiscentePorDisciplina(Long idDiscente, Long idDisciplina) {
         String sql = """
-                SELECT * FROM avaliacoes 
+                SELECT * FROM avaliacao 
                 WHERE matricula_ID = (SELECT ID_matricula 
                 FROM matricula WHERE discente_ID = ? AND disciplina_ID = ?)
                 """;
@@ -69,7 +69,7 @@ public class AvaliacaoRepository {
                 SELECT discente_ID
                 FROM matricula
                 WHERE ID_matricula = (SELECT matricula_ID
-                FROM avaliacoes
+                FROM avaliacao
                 WHERE ID_avaliacao = ?)
                 """;
         return jdbcTemplate.queryForObject(sql, Long.class, idAvaliacao);

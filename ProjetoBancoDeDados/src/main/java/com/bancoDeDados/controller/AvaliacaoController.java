@@ -63,26 +63,13 @@ public class AvaliacaoController {
             avaliacaoForm.setIdMatricula(id);
             avaliacaoService.adicionar(avaliacaoForm);
             attributes.addFlashAttribute("successMessage", "Avaliação adicionada com sucesso!");
-            return "redirect:/discentes";
+            return "redirect:/avaliacoes/" + id.toString();
         } catch (Exception e) {
             e.printStackTrace();
             attributes.addFlashAttribute("errorMessage", "Ocorreu um erro ao adicionar a avaliação: " + e.getMessage());
-            return "redirect:/discentes";
+            return "redirect:/avaliacoes/" + id.toString() ;
         }
     }
-//    @GetMapping("/editar/{id}")
-//    public String editarProfessorForm(@PathVariable Long id, Model model) {
-//        Professor professor = professorService.buscarPorId(id);
-//        if (professor == null) {
-//            return "redirect:/professores";
-//        }
-//
-//        ProfessorForm professorForm = professorService.converterProfessorParaForm(professor);
-//
-//        model.addAttribute("professor", professor);
-//        model.addAttribute("professorForm", professorForm);
-//        return "professores/professorEditar";
-//    }
 
     @GetMapping("/editar/{id}")//idAvaliacao
     public String editarAvaliacaoForm(@PathVariable Long id, Model model) {
@@ -112,63 +99,4 @@ public class AvaliacaoController {
             return "redirect:/discentes";
         }
     }
-
-
-//    @GetMapping("/editar/{id}")
-//    public String editarAvaliacaoForm(@PathVariable Long id, Model model) {
-//        Avaliacao avaliacao = avaliacaoService.buscarPorId(id);
-//
-//        if(avaliacao == null) {
-//            return "redirect:/avaliacoes/adicionar/" + avaliacaoService.buscarIdDiscentePorIdAvaliacao(id);
-//        }
-//
-//        AvaliacaoForm avaliacaoForm = avaliacaoService.converterAvaliacaoForm(avaliacao);
-//
-//        model.addAttribute("avaliacaoForm", avaliacaoForm);
-//
-//        model.addAttribute("avaliacao", avaliacao);
-//        return "avaliacoes/avaliacaoForm";
-//    }
-//
-//    @PostMapping("/editar/{id}")
-//    public String editarAvaliacao(@PathVariable Long id, AvaliacaoForm avaliacaoForm, RedirectAttributes attributes) {
-//        try{
-//            avaliacaoService.atualizar(avaliacaoForm);
-//            attributes.addFlashAttribute("successMessage", "Avaliação atualizada com sucesso!");
-//            return "redirect:/avaliacoes/adicionar/" + avaliacaoService.buscarIdDiscentePorIdAvaliacao(id);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            attributes.addFlashAttribute("errorMessage", "Ocorreu um erro ao atualizar a avaliação: " + e.getMessage());
-//            return "redirect:/avaliacoes/adicionar/" + avaliacaoService.buscarIdDiscentePorIdAvaliacao(id);
-//        }
-//    }
-
-
-
-
-//
-//    @PostMapping("/editar/{id}")
-//    public String editarProfessor(@PathVariable Long id,
-//                                 @Valid @ModelAttribute("professorForm") ProfessorForm professorForm,
-//                                 BindingResult bindingResult,
-//                                 Model model,
-//                                 RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()) {
-//            Professor professorOriginal = professorService.buscarPorId(id);
-//            model.addAttribute("professor", professorOriginal);
-//            model.addAttribute("professorForm", professorForm);
-//            return "professores/professorEditar";
-//        }
-//
-//        try {
-//
-//            professorService.editarProfessor(id, professorForm);
-//            redirectAttributes.addFlashAttribute("successMessage", "Professor atualizado com sucesso!");
-//            return "redirect:/professores";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            redirectAttributes.addFlashAttribute("errorMessage", "Ocorreu um erro ao atualizar o professor: " + e.getMessage());
-//            return "redirect:/professores";
-//        }
-//    }
 }
