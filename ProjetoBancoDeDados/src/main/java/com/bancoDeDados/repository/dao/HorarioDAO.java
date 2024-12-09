@@ -15,7 +15,7 @@ public class HorarioDAO {
     private JdbcTemplate jdbcTemplate;
 
     public List<Horario> buscarHorariosDeDisciplina(Long disciplinaId) {
-        String sql = "SELECT * FROM horarios WHERE disciplina_id = ?";
+        String sql = "SELECT * FROM horario WHERE disciplina_id = ?";
         return jdbcTemplate.query(sql, new Object[]{disciplinaId}, new HorarioRowMapper());
     }
 }

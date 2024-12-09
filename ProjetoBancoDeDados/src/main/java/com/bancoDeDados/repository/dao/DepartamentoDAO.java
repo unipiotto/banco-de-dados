@@ -13,7 +13,7 @@ public class DepartamentoDAO {
     private JdbcTemplate jdbcTemplate;
 
     public Departamento buscarDepartamentoPorId(Long id) {
-        String sql = "SELECT * FROM departamentos WHERE ID_departamento = ?";
+        String sql = "SELECT * FROM departamento WHERE ID_departamento = ?";
         return jdbcTemplate.queryForObject(sql, new DepartamentoRowMapper(), id);
     }
 }

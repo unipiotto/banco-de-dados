@@ -19,7 +19,7 @@ public class ProfessorDAO {
     private EnderecoDAO enderecoDAO;
 
     public Professor buscarPorId(Long id) {
-        String sql = "SELECT * FROM professores WHERE ID_professor = ?";
+        String sql = "SELECT * FROM professor WHERE ID_professor = ?";
         Professor professor = jdbcTemplate.queryForObject(sql, new ProfessorRowMapper(), id);
         if (professor != null) {
             Pessoa pessoa = pessoaDAO.buscarPessoaComEnderecos(professor.getIdPessoa());
@@ -29,17 +29,17 @@ public class ProfessorDAO {
     }
 
     public void inserir(Professor professor) {
-        String sql = "INSERT INTO professores (pessoa_ID, departamento_ID, data_contratacao) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO professor (pessoa_ID, departamento_ID, data_contratacao) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, professor.getIdPessoa(), professor.getIdDepartamento(), professor.getDataContratacao());
     }
 
     public void atualizar(Professor professor) {
-        String sqlPr = "UPDATE professores SET departamento_ID = ? WHERE ID_professor = ?";
+        String sqlPr = "UPDATE professor SET departamento_ID = ? WHERE ID_professor = ?";
         jdbcTemplate.update(sqlPr, professor.getIdDepartamento(), professor.getIdPessoa());
     }
 
     public void remover(Long id) {
-        String sql = "DELETE FROM professores WHERE ID_professor = ?";
+        String sql = "DELETE FROM professor WHERE ID_professor = ?";
         jdbcTemplate.update(sql, id);
     }
 }

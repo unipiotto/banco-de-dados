@@ -1,6 +1,5 @@
-DROP TABLE IF EXISTS pessoa, endereco, discente, professores, disciplinas, horarios, professor_curso, matricula, avaliacoes, pagamentos, departamentos, cursos, curso_disciplina, avaliacao_professores CASCADE;
+DROP TABLE IF EXISTS pessoa, endereco, discente, professor, disciplina, horario, professor_curso, matricula, avaliacao, pagamento, departamento, curso, curso_disciplina, avaliacao_professor CASCADE;
 
--- 1. Pessoa
 CREATE TABLE pessoa (
                         ID_pessoa SERIAL PRIMARY KEY,
                         nome VARCHAR(100) NOT NULL,
@@ -10,7 +9,6 @@ CREATE TABLE pessoa (
                         data_nascimento DATE NOT NULL
 );
 
--- 2. Endereço
 CREATE TABLE endereco (
                           ID_endereco SERIAL PRIMARY KEY,
                           pessoa_ID INT NOT NULL,
@@ -25,16 +23,12 @@ CREATE TABLE endereco (
                               ON UPDATE CASCADE
 );
 
--- 4. Departamentos
-CREATE TABLE departamentos (
+CREATE TABLE departamento (
                                ID_departamento SERIAL PRIMARY KEY,
                                nome_departamento VARCHAR(100) NOT NULL
 );
 
-
-
--- 5. Professores
-CREATE TABLE professores (
+CREATE TABLE professor (
                              ID_professor SERIAL PRIMARY KEY,
                              pessoa_ID INT,
                              departamento_ID INT,
@@ -42,24 +36,23 @@ CREATE TABLE professores (
                              FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
                                  ON DELETE CASCADE
                                  ON UPDATE CASCADE,
-                             FOREIGN KEY (departamento_ID) REFERENCES departamentos(ID_departamento)
+                             FOREIGN KEY (departamento_ID) REFERENCES departamento(ID_departamento)
                                  ON DELETE SET NULL
                                  ON UPDATE CASCADE
 );
 
--- 8. Cursos
-CREATE TABLE cursos (
+CREATE TABLE curso (
                         ID_curso SERIAL PRIMARY KEY,
                         nome_curso VARCHAR(100) NOT NULL,
                         professor_coordenador_ID INT,
                         departamento_ID INT,
-                        FOREIGN KEY (professor_coordenador_ID) REFERENCES professores(ID_professor)
+                        FOREIGN KEY (professor_coordenador_ID) REFERENCES professor(ID_professor)
                             ON DELETE SET NULL
                             ON UPDATE CASCADE,
-                        FOREIGN KEY (departamento_ID) REFERENCES departamentos(ID_departamento)
+                        FOREIGN KEY (departamento_ID) REFERENCES departamento(ID_departamento)
+                            ON UPDATE CASCADE
 );
 
--- 3. Discente
 CREATE TABLE discente (
                           ID_discente SERIAL PRIMARY KEY,
                           pessoa_ID INT NOT NULL,
@@ -70,51 +63,45 @@ CREATE TABLE discente (
                           FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
                               ON DELETE CASCADE
                               ON UPDATE CASCADE,
-                          FOREIGN KEY (curso_ID) REFERENCES cursos(ID_curso)
-                              ON DELETE CASCADE
-                              ON UPDATE CASCADE
+                          FOREIGN KEY (curso_ID) REFERENCES curso(ID_curso)
 );
 
--- 6. Disciplinas
-CREATE TABLE disciplinas (
+CREATE TABLE disciplina (
                              ID_disciplina SERIAL PRIMARY KEY,
                              nome_disciplina VARCHAR(100) NOT NULL,
                              carga_horaria INT NOT NULL,
                              valor_mensal DECIMAL(10,2) NOT NULL,
                              professor_ID INT,
-                             FOREIGN KEY (professor_ID) REFERENCES professores(ID_professor)
+                             FOREIGN KEY (professor_ID) REFERENCES professor(ID_professor)
                                  ON DELETE SET NULL
                                  ON UPDATE CASCADE
 );
 
--- 7. Horários
-CREATE TABLE horarios (
+CREATE TABLE horario (
                           ID_horario SERIAL PRIMARY KEY,
                           disciplina_ID INT,
                           dia_semana VARCHAR(20) CHECK (dia_semana IN ('segunda', 'terça', 'quarta', 'quinta', 'sexta')),
                           horario_inicio TIME,
                           duracao INT NOT NULL,
                           numero_sala VARCHAR(10),
-                          FOREIGN KEY (disciplina_ID) REFERENCES disciplinas(ID_disciplina)
+                          FOREIGN KEY (disciplina_ID) REFERENCES disciplina(ID_disciplina)
                               ON DELETE CASCADE
                               ON UPDATE CASCADE
 );
 
--- 9. Professor_Curso
 CREATE TABLE professor_curso (
                                  professor_ID INT,
                                  curso_ID INT,
                                  data_ingresso DATE,
                                  PRIMARY KEY (professor_ID, curso_ID),
-                                 FOREIGN KEY (professor_ID) REFERENCES professores(ID_professor)
+                                 FOREIGN KEY (professor_ID) REFERENCES professor(ID_professor)
                                      ON DELETE CASCADE
                                      ON UPDATE CASCADE,
-                                 FOREIGN KEY (curso_ID) REFERENCES cursos(ID_curso)
+                                 FOREIGN KEY (curso_ID) REFERENCES curso(ID_curso)
                                      ON DELETE CASCADE
                                      ON UPDATE CASCADE
 );
 
--- 10. Matrícula
 CREATE TABLE matricula (
                            ID_matricula SERIAL PRIMARY KEY,
                            discente_ID INT,
@@ -125,13 +112,12 @@ CREATE TABLE matricula (
                            FOREIGN KEY (discente_ID) REFERENCES discente(ID_discente)
                                ON DELETE CASCADE
                                ON UPDATE CASCADE,
-                           FOREIGN KEY (disciplina_ID) REFERENCES disciplinas(ID_disciplina)
+                           FOREIGN KEY (disciplina_ID) REFERENCES disciplina(ID_disciplina)
                                ON DELETE CASCADE
                                ON UPDATE CASCADE
 );
 
--- 11. Avaliações
-CREATE TABLE avaliacoes (
+CREATE TABLE avaliacao (
                             ID_avaliacao SERIAL PRIMARY KEY,
                             matricula_ID INT,
                             nota DECIMAL(5,2) NOT NULL,
@@ -141,8 +127,7 @@ CREATE TABLE avaliacoes (
                                 ON UPDATE CASCADE
 );
 
--- 12. Pagamentos
-CREATE TABLE pagamentos (
+CREATE TABLE pagamento (
                             ID_pagamento SERIAL PRIMARY KEY,
                             discente_ID INT,
                             data_vencimento DATE NOT NULL,
@@ -154,21 +139,19 @@ CREATE TABLE pagamentos (
                                 ON UPDATE CASCADE
 );
 
--- 13. Curso_Disciplina
 CREATE TABLE curso_disciplina (
                                   curso_ID INT,
                                   disciplina_ID INT,
                                   PRIMARY KEY (curso_ID, disciplina_ID),
-                                  FOREIGN KEY (curso_ID) REFERENCES cursos(ID_curso)
+                                  FOREIGN KEY (curso_ID) REFERENCES curso(ID_curso)
                                       ON DELETE CASCADE
                                       ON UPDATE CASCADE,
-                                  FOREIGN KEY (disciplina_ID) REFERENCES disciplinas(ID_disciplina)
+                                  FOREIGN KEY (disciplina_ID) REFERENCES disciplina(ID_disciplina)
                                       ON DELETE CASCADE
                                       ON UPDATE CASCADE
 );
 
--- 14. Avaliação de Professores
-CREATE TABLE avaliacao_professores (
+CREATE TABLE avaliacao_professor (
                                        ID_avaliacao SERIAL PRIMARY KEY,
                                        discente_ID INT,
                                        professor_ID INT,
@@ -178,7 +161,7 @@ CREATE TABLE avaliacao_professores (
                                        FOREIGN KEY (discente_ID) REFERENCES discente(ID_discente)
                                            ON DELETE CASCADE
                                            ON UPDATE CASCADE,
-                                       FOREIGN KEY (professor_ID) REFERENCES professores(ID_professor)
+                                       FOREIGN KEY (professor_ID) REFERENCES professor(ID_professor)
                                            ON DELETE CASCADE
                                            ON UPDATE CASCADE
 );

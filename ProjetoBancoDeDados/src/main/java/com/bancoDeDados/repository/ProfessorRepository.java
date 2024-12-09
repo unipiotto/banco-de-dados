@@ -20,9 +20,9 @@ public class ProfessorRepository {
         SELECT pr.ID_professor, pr.data_contratacao,
                pe.ID_pessoa, pe.nome, pe.email, pe.telefone, pe.cpf, pe.data_nascimento,
                d.ID_departamento, d.nome_departamento
-        FROM professores pr 
+        FROM professor pr 
         JOIN pessoa pe ON pr.pessoa_ID = pe.ID_pessoa
-        JOIN departamentos d ON pr.departamento_ID = d.ID_departamento
+        JOIN departamento d ON pr.departamento_ID = d.ID_departamento
         """;
         return jdbcTemplate.query(sql, (rs, _) -> {
             Professor professor = new Professor();

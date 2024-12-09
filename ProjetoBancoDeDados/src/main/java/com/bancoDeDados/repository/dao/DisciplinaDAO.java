@@ -16,7 +16,7 @@ public class DisciplinaDAO {
 
     public List<Disciplina> buscarDisciplinasDeDiscente(Long discenteId) {
         String sql = """
-            SELECT d.* FROM disciplinas d
+            SELECT d.* FROM disciplina d
             JOIN matricula m ON d.ID_disciplina = m.disciplina_ID
             WHERE m.discente_ID = ?
         """;
@@ -26,7 +26,7 @@ public class DisciplinaDAO {
 
     public List<Disciplina> buscarDisciplinasPorCurso(Long idCurso) {
         String sql = """
-            SELECT d.* FROM disciplinas d
+            SELECT d.* FROM disciplina d
             JOIN curso_disciplina cd ON d.ID_disciplina = cd.disciplina_ID
             WHERE cd.curso_ID = ?
             ORDER BY d.nome_disciplina
@@ -35,7 +35,7 @@ public class DisciplinaDAO {
     }
 
     public Disciplina buscarDisciplinaPorId(Long id) {
-        String sql = "SELECT * FROM disciplinas WHERE id_disciplina = ?";
+        String sql = "SELECT * FROM disciplina WHERE id_disciplina = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, new DisciplinaRowMapper());
     }
 }

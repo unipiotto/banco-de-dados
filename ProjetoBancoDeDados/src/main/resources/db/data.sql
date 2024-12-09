@@ -197,7 +197,7 @@ VALUES
     (91, 'Rua AE1', '3100', '31234500', NULL, 'SP', 'São Paulo'),
     (92, 'Rua AF1', '3200', '32234500', NULL, 'RJ', 'Niterói');
 
-INSERT INTO departamentos (nome_departamento)
+INSERT INTO departamento (nome_departamento)
 VALUES
     ('Ciências Exatas'),
     ('Ciências Humanas e Sociais'),
@@ -205,7 +205,7 @@ VALUES
     ('Ciências Biológicas e da Saúde'),
     ('Ciências Agrárias');
 
-INSERT INTO professores (pessoa_id, departamento_id, data_contratacao)
+INSERT INTO professor (pessoa_id, departamento_id, data_contratacao)
 VALUES
     -- Professores do Departamento de Ciências Exatas
     (1, 1, '2010-03-01'),
@@ -266,7 +266,7 @@ VALUES
     (60, 5, '2049-10-25');
 
 
-INSERT INTO cursos (nome_curso, professor_coordenador_id, departamento_id)
+INSERT INTO curso (nome_curso, professor_coordenador_id, departamento_id)
 VALUES
     -- Cursos do Departamento de Ciências Exatas
     ('Matemática', 1, 1),
@@ -339,7 +339,7 @@ VALUES
     (91, '2025.1.08.026', '2025-03-01', 'Concluida', 6),
     (92, '2025.2.08.027', '2025-10-10', 'Ativa', 7);
 
-INSERT INTO disciplinas (nome_disciplina, carga_horaria, valor_mensal, professor_id)
+INSERT INTO disciplina (nome_disciplina, carga_horaria, valor_mensal, professor_id)
 VALUES
     ('Cálculo Diferencial', 60, 500.00, 1),
     ('Álgebra Linear', 60, 520.00, 1),
@@ -421,7 +421,7 @@ VALUES
     ('História Cultural', 60, 860.00, 5),
     ('História Econômica', 60, 880.00, 12);
 
-INSERT INTO horarios (disciplina_id, dia_semana, horario_inicio, duracao, numero_sala)
+INSERT INTO horario (disciplina_id, dia_semana, horario_inicio, duracao, numero_sala)
 VALUES
     -- Horários para "Cálculo Diferencial"
     (1, 'segunda', '08:00:00', 90, '101'),
@@ -653,7 +653,7 @@ VALUES
     (10, 10,  2021, 2);
 
 -- 11. Inserir dados na tabela avaliacoes
-INSERT INTO avaliacoes (matricula_id, nota, peso)
+INSERT INTO avaliacao (matricula_id, nota, peso)
 VALUES
     (1, 8.5, 0.8),
     (2, 9.0, 0.9),
@@ -667,7 +667,7 @@ VALUES
     (10, 8.0, 0.8);
 
 -- Inserir pagamentos para discente_id=1
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (1, '2024-02-15', '2024-02-10', 620.00, 'pago'),
     (1, '2024-03-15', '2024-03-10', 580.00, 'pago'),
@@ -696,8 +696,8 @@ VALUES
     (2, '2024-11-15', '2024-11-10', 600.00, 'pago'),
     (2, '2024-12-15', NULL, 620.00, 'pendente');
 
--- Inserir pagamentos para discente_id=3
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+-- Inserir pagamento para discente_id=3
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (3, '2024-02-15', '2024-02-10', 610.00, 'pago'),
     (3, '2024-03-15', '2024-03-10', 590.00, 'pago'),
@@ -711,8 +711,8 @@ VALUES
     (3, '2024-11-15', '2024-11-10', 600.00, 'pago'),
     (3, '2024-12-15', NULL, 600.00, 'pendente');
 
--- Inserir pagamentos para discente_id=4
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+-- Inserir pagamento para discente_id=4
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (4, '2024-02-15', '2024-02-10', 580.00, 'pago'),
     (4, '2024-03-15', '2024-03-10', 590.00, 'pago'),
@@ -727,7 +727,7 @@ VALUES
     (4, '2024-12-15', '2024-10-10', 600.00, 'pago');
 
 
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (5, '2024-02-15', '2024-02-10', 4500.00, 'pago'),
     (5, '2024-03-15', '2024-03-10', 4700.00, 'pago'),
@@ -741,8 +741,8 @@ VALUES
     (5, '2024-11-15', '2024-11-10', 4900.00, 'pago'),
     (5, '2024-12-15', '2024-10-10', 5000.00, 'pago');
 
--- Inserir pagamentos para discente_id=6
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+-- Inserir pagamento para discente_id=6
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (6, '2024-02-15', '2024-02-10', 6100.00, 'pago'),
     (6, '2024-03-15', '2024-03-10', 6200.00, 'pago'),
@@ -756,8 +756,8 @@ VALUES
     (6, '2024-11-15', '2024-11-10', 6200.00, 'pago'),
     (6, '2024-12-15', '2024-10-10', 6000.00, 'pago');
 
--- Inserir pagamentos para discente_id=7
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+-- Inserir pagamento para discente_id=7
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (7, '2024-02-15', '2024-02-10', 7000.00, 'pago'),
     (7, '2024-03-15', '2024-03-10', 6900.00, 'pago'),
@@ -771,8 +771,8 @@ VALUES
     (7, '2024-11-15', '2024-11-10', 6900.00, 'pago'),
     (7, '2024-12-15', NULL, 7000.00, 'pendente');
 
--- Inserir pagamentos para discente_id=8
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+-- Inserir pagamento para discente_id=8
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (8, '2024-02-15', '2024-02-10', 4500.00, 'pago'),
     (8, '2024-03-15', '2024-03-10', 4700.00, 'pago'),
@@ -786,8 +786,8 @@ VALUES
     (8, '2024-11-15', '2024-11-10', 4900.00, 'pago'),
     (8, '2024-12-15', NULL, 5000.00, 'pendente');
 
--- Inserir pagamentos para discente_id=9
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+-- Inserir pagamento para discente_id=9
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (9, '2024-02-15', '2024-02-10', 600.00, 'pago'),
     (9, '2024-03-15', '2024-03-10', 600.00, 'pago'),
@@ -801,8 +801,8 @@ VALUES
     (9, '2024-11-15', '2024-11-10', 600.00, 'pago'),
     (9, '2024-12-15', '2024-10-10', 600.00, 'pago');
 
--- Inserir pagamentos para discente_id=10
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+-- Inserir pagamento para discente_id=10
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (10, '2024-02-15', '2024-02-10', 600.00, 'pago'),
     (10, '2024-03-15', '2024-03-10', 600.00, 'pago'),
@@ -901,8 +901,6 @@ VALUES
     (17, '2024-11-15', '2024-11-10', 600.00, 'pago'),
     (17, '2024-12-15', NULL, 600.00, 'pendente');
 
-
-
 INSERT INTO curso_disciplina (curso_id, disciplina_id)
 VALUES
     -- Departamento de Ciências Exatas
@@ -973,7 +971,7 @@ VALUES
     -- Cursos de áreas mistas
     (29, 36), (29, 37), (29, 44); -- Ciências Ambientais com Ecologia, Fisiologia Animal e História Contemporânea
 
-INSERT INTO avaliacao_professores (discente_id, professor_id, nota_ensino, comentario, data_avaliacao)
+INSERT INTO avaliacao_professor (discente_id, professor_id, nota_ensino, comentario, data_avaliacao)
 VALUES
     -- Avaliações para professor_id=1
     (1, 1, 5, 'Ótimo professor, sempre claro.', '2023-05-01'),

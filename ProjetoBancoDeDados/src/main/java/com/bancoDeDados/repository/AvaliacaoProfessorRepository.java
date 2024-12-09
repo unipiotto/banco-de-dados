@@ -15,7 +15,7 @@ public class AvaliacaoProfessorRepository {
     private JdbcTemplate jdbcTemplate;
 
     public List<AvaliacaoProfessor> listar() {
-        String sql = "SELECT * FROM avaliacao_professores";
+        String sql = "SELECT * FROM avaliacao_professor";
         return jdbcTemplate.query(sql, (rs, _) -> {
             AvaliacaoProfessor a = new AvaliacaoProfessor();
             a.setIdAvaliacao(rs.getLong("ID_avaliacao"));
@@ -29,7 +29,7 @@ public class AvaliacaoProfessorRepository {
     }
 
     public List<AvaliacaoProfessor> listarPorIdProfessor(long professorID) {
-        String sql = "SELECT * FROM avaliacao_professores WHERE professor_ID = ?";
+        String sql = "SELECT * FROM avaliacao_professor WHERE professor_ID = ?";
 
         return jdbcTemplate.query(sql, (rs, _) -> {
             AvaliacaoProfessor a = new AvaliacaoProfessor();

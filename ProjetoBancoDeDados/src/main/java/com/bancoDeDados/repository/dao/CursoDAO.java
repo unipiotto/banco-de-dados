@@ -19,23 +19,23 @@ public class CursoDAO {
     private JdbcTemplate jdbcTemplate;
 
     public Curso buscarCursoPorId(Long id){
-        String sql = "SELECT * FROM cursos WHERE ID_curso = ?";
+        String sql = "SELECT * FROM curso WHERE ID_curso = ?";
         return jdbcTemplate.queryForObject(sql, new CursoRowMapper(), id);
     }
 
     public Curso atualizarCurso(Curso curso) {
-        String sql = "UPDATE cursos SET nome_curso = ?, professor_coordenador_ID = ?, departamento_ID = ? WHERE ID_curso = ?";
+        String sql = "UPDATE curso SET nome_curso = ?, professor_coordenador_ID = ?, departamento_ID = ? WHERE ID_curso = ?";
         jdbcTemplate.update(sql, curso.getNomeCurso(), curso.getIdProfessorCordernador(), curso.getDepartamentoId(), curso.getIdCurso());
         return buscarCursoPorId(curso.getIdCurso());
     }
 
     public void deletarCurso(Long id) {
-        String sql = "DELETE FROM cursos WHERE ID_curso = ?";
+        String sql = "DELETE FROM curso WHERE ID_curso = ?";
         jdbcTemplate.update(sql, id);
     }
 
     public Curso criarCurso(Curso curso) {
-        String sql = "INSERT INTO cursos (nome_curso, professor_coordenador_ID, departamento_ID) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO curso (nome_curso, professor_coordenador_ID, departamento_ID) VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

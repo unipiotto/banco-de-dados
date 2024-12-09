@@ -16,7 +16,7 @@ public class CursoRepository {
 
     public List<Curso> listarTodos() {
         try{
-            String sql = "SELECT c.ID_curso, c.nome_curso, c.professor_coordenador_ID, departamento_ID FROM cursos c ORDER BY c.ID_curso ASC";
+            String sql = "SELECT c.ID_curso, c.nome_curso, c.professor_coordenador_ID, departamento_ID FROM curso c ORDER BY c.ID_curso ASC";
             return jdbcTemplate.query(sql, (rs, rowNum) -> {
                 Curso curso = new Curso();
                 curso.setIdCurso(rs.getLong("ID_curso"));
@@ -34,7 +34,7 @@ public class CursoRepository {
     public List<Curso> listarCursosPorDepartamento(Long departamentoId) {
         try {
             String sql = "SELECT c.ID_curso, c.nome_curso, c.professor_coordenador_ID, c.departamento_ID " +
-                    "FROM cursos c " +
+                    "FROM curso c " +
                     "WHERE c.departamento_ID = ? " +
                     "ORDER BY c.ID_curso ASC";
             return jdbcTemplate.query(sql, new Object[]{departamentoId}, (rs, rowNum) -> {

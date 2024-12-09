@@ -44,7 +44,7 @@ public class PessoaRepository {
     public List<Pessoa> listarProfessoresEDiscentes() {
         String sql = """
                 (SELECT DISTINCT P.nome, P.ID_pessoa, P.email, P.telefone, P.cpf, P.data_nascimento
-                FROM professores Pr
+                FROM professor Pr
                 JOIN pessoa P ON Pr.pessoa_ID = P.ID_pessoa
                 INTERSECT
                 SELECT DISTINCT P.nome, P.ID_pessoa, P.email, P.telefone, P.cpf, P.data_nascimento
@@ -52,7 +52,7 @@ public class PessoaRepository {
                 JOIN pessoa P ON D.pessoa_ID = P.ID_pessoa)
                 UNION
                 (SELECT DISTINCT P.nome, P.ID_pessoa, P.email, P.telefone, P.cpf, P.data_nascimento
-                FROM professores Pr
+                FROM professor Pr
                 JOIN pessoa P ON Pr.pessoa_ID = P.ID_pessoa
                 EXCEPT
                 SELECT DISTINCT P.nome, P.ID_pessoa, P.email, P.telefone, P.cpf, P.data_nascimento
@@ -64,7 +64,7 @@ public class PessoaRepository {
                 JOIN pessoa P ON D.pessoa_ID = P.ID_pessoa
                 EXCEPT
                 SELECT DISTINCT P.nome, P.ID_pessoa, P.email, P.telefone, P.cpf, P.data_nascimento
-                FROM professores Pr
+                FROM professor Pr
                 JOIN pessoa P ON Pr.pessoa_ID = P.ID_pessoa);
                 """;
 
@@ -98,7 +98,7 @@ public class PessoaRepository {
                     END AS Papel
                 FROM pessoa P
                 LEFT JOIN discente D ON P.ID_pessoa = D.pessoa_ID
-                LEFT JOIN professores Pr ON P.ID_pessoa = Pr.pessoa_ID
+                LEFT JOIN professor Pr ON P.ID_pessoa = Pr.pessoa_ID
                 WHERE P.ID_pessoa = ?;
                 """;
 
@@ -111,7 +111,7 @@ public class PessoaRepository {
     public Long pegarIdProfessor(Long id) {
         String sql = """
                 SELECT ID_professor
-                FROM professores
+                FROM professor
                 WHERE pessoa_ID = ?
                 """;
         return jdbcTemplate.queryForObject(sql, Long.class, id);

@@ -26,7 +26,7 @@ public class PagamentoDAO {
             SUBSTRING(data_vencimento::TEXT, 6, 2) AS mes_vencimento,
             REPLACE(p.data_vencimento::TEXT, '-', '/') AS data_vencimento,
             REPLACE(p.data_pagamento::TEXT, '-', '/') AS data_pagamento,
-            p.valor, p.status_pagamento FROM pagamentos p
+            p.valor, p.status_pagamento FROM pagamento p
             WHERE p.discente_id = ?
             ORDER BY data_vencimento DESC
         """;
@@ -34,19 +34,19 @@ public class PagamentoDAO {
     }
 
     public void atualizarPagamento(Long id, LocalDate dataPagamento) {
-        String sql = "UPDATE pagamentos SET data_pagamento = ?, status_pagamento = 'pago' WHERE id_pagamento = ?";
+        String sql = "UPDATE pagamento SET data_pagamento = ?, status_pagamento = 'pago' WHERE id_pagamento = ?";
         jdbcTemplate.update(sql, dataPagamento, id);
     }
 
     public void atualizarValorPagamento(Long id, BigDecimal valorPagamento) {
-        String sql = "UPDATE pagamentos SET valor = ? WHERE id_pagamento = ?";
+        String sql = "UPDATE pagamento SET valor = ? WHERE id_pagamento = ?";
         jdbcTemplate.update(sql, valorPagamento, id);
     }
 
     public Pagamento buscarPagamentoDoMes(int mesAtual, int anoAtual, Long idDiscente) {
         String sql = """
             SELECT *
-            FROM pagamentos
+            FROM pagamento
             WHERE discente_ID = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?
               AND EXTRACT(MONTH FROM data_vencimento) = ?;
@@ -58,12 +58,12 @@ public class PagamentoDAO {
     public Optional<Pagamento> pegarPagamentoComMaiorValorMes(int mes, int ano) {
         String sql = """
             SELECT *
-            FROM pagamentos
+            FROM pagamento
             WHERE EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?
               AND valor = (
                   SELECT MAX(valor)
-                  FROM pagamentos
+                  FROM pagamento
                   WHERE EXTRACT(MONTH FROM data_vencimento) = ?
                     AND EXTRACT(YEAR FROM data_vencimento) = ?
               )
@@ -79,12 +79,12 @@ public class PagamentoDAO {
     public Optional<Pagamento> pegarPagamentoComMenorValorMes(int mes, int ano) {
         String sql = """
             SELECT *
-            FROM pagamentos
+            FROM pagamento
             WHERE EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?
               AND valor = (
                   SELECT MIN(valor)
-                  FROM pagamentos
+                  FROM pagamento
                   WHERE EXTRACT(MONTH FROM data_vencimento) = ?
                     AND EXTRACT(YEAR FROM data_vencimento) = ?
               )
@@ -99,7 +99,7 @@ public class PagamentoDAO {
     public BigDecimal valorDosPagamentosDoMes(int mes, int ano) {
         String sql = """
             SELECT SUM(valor) AS total_pagamentos
-            FROM pagamentos
+            FROM pagamento
             WHERE EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?;
         """;
@@ -116,7 +116,7 @@ public class PagamentoDAO {
     public BigDecimal valoresRecebidosDoMes(int mes, int ano) {
         String sql = """
             SELECT SUM(valor) AS total_pagamentos
-            FROM pagamentos
+            FROM pagamento
             WHERE status_pagamento = 'pago'
               AND EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?;
@@ -134,7 +134,7 @@ public class PagamentoDAO {
     public BigDecimal valoresPendentesDoMes(int mes, int ano) {
         String sql = """
             SELECT SUM(valor) AS total_pagamentos
-            FROM pagamentos
+            FROM pagamento
             WHERE status_pagamento = 'pendente'
               AND EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?;
@@ -152,7 +152,7 @@ public class PagamentoDAO {
     public BigDecimal mediaPagamentosDoMes(int mes, int ano) {
         String sql = """
             SELECT AVG(valor) AS media_pagamentos
-            FROM pagamentos
+            FROM pagamento
             WHERE EXTRACT(MONTH FROM data_vencimento) = ?
               AND EXTRACT(YEAR FROM data_vencimento) = ?;
         """;

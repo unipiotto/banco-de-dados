@@ -69,7 +69,7 @@ public class DiscenteDAO {
             JOIN
                 pessoa p ON d.pessoa_id = p.id_pessoa
             JOIN
-                cursos c ON d.curso_id = c.id_curso
+                curso c ON d.curso_id = c.id_curso
         """;
         return jdbcTemplate.query(sql, (rs, _) -> {
             Discente discente = new Discente();

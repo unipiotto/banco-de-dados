@@ -16,7 +16,7 @@ public class DepartamentoRepository {
 
     public List<Departamento> listarTodos() {
         try {
-            String sql = "SELECT d.ID_departamento, d.nome_departamento FROM departamentos d ORDER BY d.ID_departamento ASC";
+            String sql = "SELECT d.ID_departamento, d.nome_departamento FROM departamento d ORDER BY d.ID_departamento ASC";
             return jdbcTemplate.query(sql, (rs, rowNum) -> {
                 Departamento departamento = new Departamento();
                 departamento.setIdDepartamento(rs.getLong("ID_departamento"));
