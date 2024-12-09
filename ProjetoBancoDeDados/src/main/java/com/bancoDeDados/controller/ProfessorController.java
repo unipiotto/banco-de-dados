@@ -94,6 +94,7 @@ public class ProfessorController {
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             Professor professorOriginal = professorService.buscarPorId(id);
+            model.addAttribute("departamentos", departamentoService.listarTodos());
             model.addAttribute("professor", professorOriginal);
             model.addAttribute("professorForm", professorForm);
             return "professores/professorEditar";
