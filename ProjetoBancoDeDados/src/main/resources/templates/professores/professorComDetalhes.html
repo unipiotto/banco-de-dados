@@ -21,6 +21,10 @@
                 <div class="col-md-4"><strong>Data de Contratação:</strong></div>
                 <div class="col-md-8" th:text="${#temporals.format(professor.dataContratacao, 'dd/MM/yyyy')}"></div>
             </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Departamento do Professor</strong></div>
+                <div class="col-md-8" th:text="${professor.departamento.nomeDepartamento}"></div>
+            </div>
         </div>
     </div>
 

@@ -70,11 +70,9 @@
                 <div class="mb-3">
                     <label for="departamentoId" class="form-label">Departamento</label>
                     <select class="form-select" id="departamentoId" name="departamentoId" th:field="*{departamentoId}" required >
-                        <!--TODO: Fazer isso usando um th:each-->
                         <option value="">Selecione</option>
-                        <option value="1">Exatas</option>
-                        <option value="2">Humanas</option>
-                        <option value="3">Biológicas</option>
+                        <option th:each="dp : ${departamentos}" th:value="${dp.idDepartamento}">[[${dp.nomeDepartamento}]]</option>
+
                     </select>
                     <div th:if="${#fields.hasErrors('departamentoId')}" class="invalid-feedback d-block" th:errors="*{departamentoId}"></div>
                 </div>

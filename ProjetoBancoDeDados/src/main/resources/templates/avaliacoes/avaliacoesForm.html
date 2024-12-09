@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Avaliação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Adicionar Avaliação</h1>
+    <form th:action="@{/avaliacoes/adicionar/{id}(id = ${id})}" th:method="post" th:object="${avaliacaoForm}" novalidate>
+        <!-- Avaliação -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Avaliação</h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="nota" class="form-label">Nota</label>
+                    <input type="text" class="form-control" id="nota" name="nota" th:field="*{nota}" required />
+                    <div th:if="${#fields.hasErrors('nota')}" class="invalid-feedback d-block" th:errors="*{nota}"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="peso" class="form-label">Peso</label>
+                    <input type="text" class="form-control" id="peso" name="peso" th:field="*{peso}" required />
+                    <div th:if="${#fields.hasErrors('peso')}" class="invalid-feedback d-block" th:errors="*{peso}"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Botões de Ação -->
+        <div class="d-flex justify-content-between">
+            <a th:href="@{/discentes}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- Bootstrap JS e dependências -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
