@@ -682,7 +682,7 @@ VALUES
     (1, '2024-12-15', NULL, 600.00, 'pendente');
 
 -- Inserir pagamentos para discente_id=2
-INSERT INTO pagamentos (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
+INSERT INTO pagamento (discente_id, data_vencimento, data_pagamento, valor, status_pagamento)
 VALUES
     (2, '2024-02-15', '2024-02-10', 600.00, 'pago'),
     (2, '2024-03-15', '2024-03-10', 620.00, 'pago'),

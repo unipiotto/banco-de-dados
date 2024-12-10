@@ -33,8 +33,6 @@ public class DisciplinaController {
     @Autowired
     private ProfessorService professorService;
     @Autowired
-    private DisciplinaDAO disciplinaDAO;
-    @Autowired
     private HorarioDAO horarioDAO;
     @Autowired
     private CursoService cursoService;
@@ -165,10 +163,7 @@ public class DisciplinaController {
         }
         disciplina.setProfessor(professor);
 
-        System.out.println(disciplina.getIdDisciplina());
-
         disciplina = disciplinaService.criarDisciplina(disciplina);
-        System.out.println(disciplina.getIdDisciplina());
         if (disciplina == null || disciplina.getIdDisciplina() == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Erro ao criar a disciplina.");
             return "redirect:/disciplinas/criar";
@@ -180,7 +175,10 @@ public class DisciplinaController {
             redirectAttributes.addFlashAttribute("errorMessage", "Curso não encontrado.");
             return "redirect:/disciplinas/criar";
         }
+        System.out.println("passei");
         disciplinaService.associarCursoDisciplina(curso, disciplina);
+
+        System.out.println("passei2");
 
         redirectAttributes.addFlashAttribute("successMessage", "Disciplina criada com sucesso!");
         return "redirect:/disciplinas/listar";

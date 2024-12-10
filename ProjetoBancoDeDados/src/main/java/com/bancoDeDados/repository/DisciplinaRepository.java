@@ -18,7 +18,7 @@ public class DisciplinaRepository {
 
     public List<Disciplina> listarTodos() {
         try {
-            String sql = "SELECT d.ID_disciplina, d.nome_disciplina, d.carga_horaria, d.valor_mensal, d.professor_ID FROM disciplinas d ORDER BY d.ID_disciplina ASC";
+            String sql = "SELECT d.ID_disciplina, d.nome_disciplina, d.carga_horaria, d.valor_mensal, d.professor_ID FROM disciplina d ORDER BY d.ID_disciplina ASC";
             return jdbcTemplate.query(sql, (rs, rowNum) -> {
                 Disciplina disciplina = new Disciplina();
                 disciplina.setIdDisciplina(rs.getLong("ID_disciplina"));
@@ -37,8 +37,8 @@ public class DisciplinaRepository {
     public List<Professor> buscarProfessoresPorDisciplina(Long idDisciplina) {
         try {
             String sql = "SELECT p.ID_professor, p.pessoa_ID, p.departamento_ID, p.data_contratacao, pe.nome AS pessoa_nome " +
-                    "FROM professores p " +
-                    "JOIN disciplinas d ON p.ID_professor = d.professor_ID " +
+                    "FROM professor p " +
+                    "JOIN disciplina d ON p.ID_professor = d.professor_ID " +
                     "JOIN pessoa pe ON p.pessoa_ID = pe.ID_pessoa " +
                     "WHERE d.ID_disciplina = ?";
 
@@ -65,9 +65,9 @@ public class DisciplinaRepository {
     public List<Disciplina> buscarDisciplinasPorCurso(Long idCurso) {
         try {
             String sql = "SELECT d.ID_disciplina, d.nome_disciplina " +
-                    "FROM disciplinas d " +
+                    "FROM disciplina d " +
                     "JOIN curso_disciplina cd ON d.ID_disciplina = cd.disciplina_ID " +
-                    "JOIN cursos c ON cd.curso_ID = c.ID_curso " +
+                    "JOIN curso c ON cd.curso_ID = c.ID_curso " +
                     "WHERE c.ID_curso = ?";
 
             return jdbcTemplate.query(sql, (rs, rowNum) -> {

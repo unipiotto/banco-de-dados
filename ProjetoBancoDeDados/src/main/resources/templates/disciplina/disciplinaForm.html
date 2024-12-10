@@ -16,19 +16,19 @@
         <div class="card-body">
             <form th:action="@{/disciplinas/criar}" th:object="${disciplina}" method="post">
                 <div class="mb-3">
-                    <label for="nomeDisciplina" class="form-label">Nome da Disciplina</label>
+                    <label for="nomeDisciplina" class="form-label font-weight-bold">Nome da Disciplina</label>
                     <input type="text" id="nomeDisciplina" name="nomeDisciplina" class="form-control" th:value="${disciplina.nomeDisciplina}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="cargaHoraria" class="form-label">Carga Horária</label>
+                    <label for="cargaHoraria" class="form-label font-weight-bold">Carga Horária</label>
                     <input type="number" id="cargaHoraria" name="cargaHoraria" class="form-control" th:value="${disciplina.cargaHoraria}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="valorMensal" class="form-label">Valor Mensal</label>
+                    <label for="valorMensal" class="form-label font-weight-bold">Valor Mensal</label>
                     <input type="number" step="0.01" id="valorMensal" name="valorMensal" class="form-control" th:value="${disciplina.valorMensal}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="idProfessor" class="form-label">Professor Responsável</label>
+                    <label for="idProfessor" class="form-label font-weight-bold">Professor Responsável</label>
                     <select id="idProfessor" name="idProfessor" class="form-select" required>
                         <option value="" disabled selected>Selecione um Professor</option>
                         <option th:each="professor : ${professores}"
@@ -38,7 +38,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="idCurso" class="form-label">Curso Relacionado</label>
+                    <label for="idCurso" class="form-label font-weight-bold">Curso Relacionado</label>
                     <p class="form-control-plaintext" id="idCurso" th:text="${curso.nomeCurso}"></p>
                     <input type="hidden" name="idCurso" th:value="${curso.idCurso}" />
                 </div>

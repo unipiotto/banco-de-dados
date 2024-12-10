@@ -31,9 +31,9 @@ public class HorarioDAO {
 
     public Map<String, List<Horario>> buscarHorariosDisciplinaProfessor(Long idDisciplina) {
         String sql = "SELECT h.*, d.professor_ID, p.nome " +
-                "FROM horarios h " +
-                "JOIN disciplinas d ON d.ID_disciplina = h.disciplina_ID " +
-                "JOIN professores pr ON pr.ID_professor = d.professor_ID " +
+                "FROM horario h " +
+                "JOIN disciplina d ON d.ID_disciplina = h.disciplina_ID " +
+                "JOIN professor pr ON pr.ID_professor = d.professor_ID " +
                 "JOIN pessoa p ON p.ID_pessoa = pr.pessoa_ID " +
                 "WHERE h.disciplina_ID = ?";
 

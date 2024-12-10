@@ -38,7 +38,7 @@ public class CursoDAO {
         String sql = "INSERT INTO curso (nome_curso, professor_coordenador_ID, departamento_ID) VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql, new String[] {"id_curso"});
             ps.setString(1, curso.getNomeCurso());
             ps.setObject(2, curso.getIdProfessorCordernador());
             ps.setObject(3, curso.getDepartamentoId());

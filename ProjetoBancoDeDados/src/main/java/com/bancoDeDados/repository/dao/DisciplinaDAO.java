@@ -45,28 +45,19 @@ public class DisciplinaDAO {
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, new DisciplinaRowMapper());
     }
 
-    public Disciplina buscarDisciplinaId(Long idDisciplina) {
-        String sql = "SELECT * FROM disciplinas WHERE id_disciplina = ?";
-        List<Disciplina> disciplinas = jdbcTemplate.query(sql, new Object[]{idDisciplina}, new DisciplinaRowMapper());
-        if (disciplinas.isEmpty()) {
-            return null;
-        }
-        return disciplinas.get(0);
-    }
-
     public Disciplina atualizarDisciplina(Disciplina disciplina) {
-        String sql = "UPDATE disciplinas SET nome_disciplina = ?, carga_horaria = ?, valor_mensal = ?, professor_ID = ? WHERE ID_disciplina = ?";
+        String sql = "UPDATE disciplina SET nome_disciplina = ?, carga_horaria = ?, valor_mensal = ?, professor_ID = ? WHERE ID_disciplina = ?";
         jdbcTemplate.update(sql, disciplina.getNomeDisciplina(), disciplina.getCargaHoraria(), disciplina.getValorMensal(), disciplina.getIdProfessor(), disciplina.getIdDisciplina());
-        return buscarDisciplinaId(disciplina.getIdDisciplina());
+        return buscarDisciplinaPorId(disciplina.getIdDisciplina());
     }
 
     public void deletarDisciplina(Long id) {
-        String sql = "DELETE FROM disciplinas WHERE ID_disciplina = ?";
+        String sql = "DELETE FROM disciplina WHERE ID_disciplina = ?";
         jdbcTemplate.update(sql, id);
     }
 
     public Disciplina criarDisciplina(Disciplina disciplina) {
-        String sql = "INSERT INTO disciplinas (nome_disciplina, carga_horaria, valor_mensal, professor_ID) " +
+        String sql = "INSERT INTO disciplina (nome_disciplina, carga_horaria, valor_mensal, professor_ID) " +
                 "VALUES (?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -81,6 +72,7 @@ public class DisciplinaDAO {
 
         Long idGerado = keyHolder.getKey().longValue();
         disciplina.setIdDisciplina(idGerado);
+        System.out.println(idGerado);
         return disciplina;
     }
 }

@@ -58,7 +58,7 @@ public class DisciplinaService {
     }
 
     public Disciplina buscarDisciplinaId(Long id){
-        return disciplinaDao.buscarDisciplinaId(id);
+        return disciplinaDao.buscarDisciplinaPorId(id);
     }
 
     public Disciplina atualizarDisciplina(Disciplina disciplina){
