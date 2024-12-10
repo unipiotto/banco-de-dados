@@ -38,10 +38,8 @@ public class AvaliacaoController {
         List<Avaliacao> avaliacoes = avaliacaoService.listarNotasDiscente(idDiscente);
         Discente discente = discenteService.buscarDiscenteCompletoPorId(idDiscente);
         List<Disciplina> disciplinas = disciplinaService.buscarDisciplinasDeDiscente(idDiscente);
-        List<Long> idDisciplinas = disciplinaService.buscarDisciplinasDeDiscente(idDiscente).stream().map(Disciplina::getIdDisciplina).toList();
 
         model.addAttribute("disciplinas", disciplinas);
-        model.addAttribute("disciplinasIds", idDisciplinas);
         model.addAttribute("discente", discente);
         model.addAttribute("avaliacoes", avaliacoes);
         model.addAttribute("avaliacaoService", avaliacaoService);
