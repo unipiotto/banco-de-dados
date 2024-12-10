@@ -39,7 +39,7 @@ public class RelatorioService {
         Optional<Pagamento> pagamentoMenorValorMesAnterior = pagamentoDAO.pegarPagamentoComMenorValorMes(mesAnterior, anoMesAnterior);
         BigDecimal valoresTotalMesAnterior = pagamentoDAO.valorDosPagamentosDoMes(mesAnterior, anoAtual);
         BigDecimal valoresRecebidosDoMesAnterior = pagamentoDAO.valoresRecebidosDoMes(mesAnterior, anoAtual);
-        BigDecimal valoresPendentesDoMesAnterior = pagamentoDAO.valoresPendentesDoMes(mesAtual, anoAtual);
+        BigDecimal valoresPendentesDoMesAnterior = pagamentoDAO.valoresPendentesDoMes(mesAnterior, anoAtual);
         BigDecimal mediaPagamentosDoMesAnterior = pagamentoDAO.mediaPagamentosDoMes(mesAnterior, anoAtual);
 
         Relatorio relatorio = Relatorio.builder()
