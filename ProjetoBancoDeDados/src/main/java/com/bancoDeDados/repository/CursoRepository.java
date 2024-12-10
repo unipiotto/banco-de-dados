@@ -1,6 +1,9 @@
 package com.bancoDeDados.repository;
 
 import com.bancoDeDados.model.Curso;
+import com.bancoDeDados.model.Professor;
+import com.bancoDeDados.repository.dao.CursoDAO;
+import com.bancoDeDados.repository.dao.ProfessorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,6 +16,12 @@ public class CursoRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private CursoDAO cursoDAO;
+    @Autowired
+    private ProfessorRepository professorRepository;
+    @Autowired
+    private ProfessorDAO professorDAO;
 
     public List<Curso> listarTodos() {
         try{
@@ -49,5 +58,11 @@ public class CursoRepository {
             e.printStackTrace();
             return new ArrayList<>();
         }
+    }
+
+    public Professor buscarProfessorCoordenadorPorCurso(Long idCurso) {
+        Curso curso = cursoDAO.buscarCursoPorId(idCurso);
+        Long idProfessor = curso.getIdProfessorCordernador();
+        return professorDAO.buscarPorId(idProfessor);
     }
 }

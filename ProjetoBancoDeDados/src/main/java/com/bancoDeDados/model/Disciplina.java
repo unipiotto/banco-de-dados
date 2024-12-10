@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,7 @@ public class Disciplina {
     private BigDecimal valorMensal;
     private Long idProfessor;
     private Professor professor;
-    private List<Horario> horarios;
+    private List<Horario> horarios = new ArrayList<>();
 
     public String valorMensalFormatado() {
         return "R$ " + this.valorMensal.toString();

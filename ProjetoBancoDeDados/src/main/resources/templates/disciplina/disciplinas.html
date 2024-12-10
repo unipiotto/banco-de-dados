@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Disciplinas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h1>Lista de Disciplinas</h1>
+  <div class="mb-4">
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nome da Disciplina</th>
+      <th>Carga Horária</th>
+      <th>Valor Mensal</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="disciplina : ${disciplinas}">
+      <td th:text="${disciplina.getNomeDisciplina()}"></td>
+      <td th:text="${disciplina.getCargaHoraria()}"></td>
+      <td th:text="${disciplina.getValorMensal()}"></td>
+      <td>
+        <form th:action="@{/disciplinas/deletar/{id}(id=${disciplina.idDisciplina})}" method="post" style="display:inline;">
+          <button type="submit" class="btn btn-sm btn-danger"
+                  onclick="return confirm('Tem certeza que deseja excluir esta disciplina?')">Excluir</button>
+        </form>
+        <a th:href="@{/disciplinas/editar/{id}(id=${disciplina.idDisciplina})}" class="btn btn-sm btn-warning">Editar</a>
+        <a th:href="@{/disciplinas/{id}(id=${disciplina.idDisciplina})}" class="btn btn-sm btn-info">Mais informações</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

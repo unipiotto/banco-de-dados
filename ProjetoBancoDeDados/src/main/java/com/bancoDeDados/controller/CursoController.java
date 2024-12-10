@@ -1,7 +1,11 @@
 package com.bancoDeDados.controller;
 
-import com.bancoDeDados.model.Curso;
-import com.bancoDeDados.service.CursoService;
+import com.bancoDeDados.model.*;
+import com.bancoDeDados.repository.DisciplinaRepository;
+import com.bancoDeDados.repository.dao.DepartamentoDAO;
+import com.bancoDeDados.repository.dao.HorarioDAO;
+import com.bancoDeDados.repository.dao.ProfessorDAO;
+import com.bancoDeDados.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,6 +23,22 @@ public class CursoController {
 
     @Autowired
     private CursoService cursoService;
+    @Autowired
+    private DepartamentoDAO departamentoDAO;
+    @Autowired
+    private ProfessorDAO professorDAO;
+    @Autowired
+    private DepartamentoService departamentoService;
+    @Autowired
+    private ProfessorService professorService;
+    @Autowired
+    private DisciplinaService disciplinaService;
+    @Autowired
+    private DisciplinaRepository disciplinaRepository;
+    @Autowired
+    private HorarioDAO horarioDAO;
+    @Autowired
+    private HorarioService horarioService;
 
     @GetMapping("/listar")
     public String listarCurso(Model model) {
@@ -34,6 +55,13 @@ public class CursoController {
                 redirectAttributes.addFlashAttribute("errorMessage", "Curso não encontrado");
                 return "redirect:/cursos/listar";
             }
+            Departamento departamento = departamentoDAO.buscarDepartamentoPorId(curso.getDepartamentoId());
+            Professor professor = professorDAO.buscarPorId(curso.getIdProfessorCordernador());
+            List<Disciplina> disciplinas = disciplinaRepository.buscarDisciplinasPorCurso(id);
+
+            model.addAttribute("disciplinas", disciplinas);
+            model.addAttribute("professor", professor);
+            model.addAttribute("departamento", departamento);
             model.addAttribute("curso", curso);
             return "/curso/cursoDetalhado";
         } catch (Exception e) {
@@ -50,6 +78,11 @@ public class CursoController {
             redirectAttributes.addFlashAttribute("errorMessage", "Curso não encontrado");
             return "redirect:/cursos/listar";
         }
+        List<Departamento> departamentos = departamentoService.listarTodos();
+        List<Professor> professores = professorService.listar();
+
+        model.addAttribute("professores", professores);
+        model.addAttribute("departamentos", departamentos);
         model.addAttribute("curso", curso);
         return "/curso/cursoEditar";
     }
@@ -89,6 +122,11 @@ public class CursoController {
 
     @GetMapping("/criar")
     public String criarFormCurso(Model model) {
+        List<Departamento> departamentos = departamentoService.listarTodos();
+        List<Professor> professores = professorService.listar();
+
+        model.addAttribute("departamentos", departamentos);
+        model.addAttribute("professores", professores);
         model.addAttribute("curso", new Curso());
         return "/curso/cursoForm";
     }

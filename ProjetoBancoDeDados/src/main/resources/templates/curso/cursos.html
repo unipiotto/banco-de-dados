@@ -13,16 +13,12 @@
         <thead>
         <tr>
             <th>Nome do Curso</th>
-            <th>ID Professor Coordenador</th>
-            <th>ID Departamento</th>
             <th>Ações</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="curso : ${cursos}">
             <td th:text="${curso.nomeCurso}"></td>
-            <td th:text="${curso.idProfessorCordernador}"></td>
-            <td th:text="${curso.departamentoId}"></td>
             <td>
                 <form th:action="@{/cursos/deletar/{id}(id=${curso.idCurso})}" method="post" style="display:inline;">
                     <button type="submit" class="btn btn-sm btn-danger"

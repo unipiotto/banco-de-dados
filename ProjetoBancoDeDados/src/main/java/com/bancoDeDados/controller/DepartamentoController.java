@@ -2,6 +2,7 @@ package com.bancoDeDados.controller;
 
 import com.bancoDeDados.model.Departamento;
 import com.bancoDeDados.model.Curso;
+import com.bancoDeDados.model.Professor;
 import com.bancoDeDados.service.DepartamentoService;
 import com.bancoDeDados.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
