@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="container my-5">
-    <h1 class="mb-4 text-center">Editar Discente</h1>
+    <h1 class="mb-4 text-center">Editar Professor</h1>
     <form th:action="@{/professores/editar/{id}(id=${professor != null ? professor.idProfessor : ''})}" th:method="post" th:object="${professorForm}" novalidate>
         <!-- Informações Pessoais -->
         <div class="card mb-4">

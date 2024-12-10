@@ -7,23 +7,26 @@
 </head>
 <body>
 <div class="container mt-5">
-    <a href="/departamentos/listar" class="btn btn-secondary mb-3">Voltar para os Departamentos</a>
+    <a href="/" class="btn btn-secondary mb-3">Voltar para o Inicio</a>
     <h1>Lista de Cursos</h1>
     <a th:href="@{/cursos/criar}" class="btn btn-primary mb-3">Criar Curso</a>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Nome do Curso</th>
+            <th>Departamento Relacionado</th>
+            <th>Professor Coordenador</th>
             <th>Ações</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="curso : ${cursos}">
             <td th:text="${curso.nomeCurso}"></td>
+            <td th:text="${curso.departamento.getNomeDepartamento()}"></td>
+            <td th:text="${curso.professor.getPessoa().getNome()}"></td>
             <td>
                 <form th:action="@{/cursos/deletar/{id}(id=${curso.idCurso})}" method="post" style="display:inline;">
-                    <button type="submit" class="btn btn-sm btn-danger"
-                            onclick="return confirm('Tem certeza que deseja excluir este curso?')">Excluir</button>
+                    <button type="submit" class="btn btn-sm btn-danger" >Excluir</button>
                 </form>
                 <a th:href="@{/cursos/editar/{id}(id=${curso.idCurso})}" class="btn btn-sm btn-warning">Editar</a>
                 <a th:href="@{/cursos/{id}(id=${curso.idCurso})}" class="btn btn-sm btn-info">Mais informações</a>

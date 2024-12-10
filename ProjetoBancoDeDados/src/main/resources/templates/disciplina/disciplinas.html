@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container mt-5">
-  <a href="/cursos/listar" class="btn btn-secondary mb-3">Voltar para os Cursos</a>
+  <a href="/" class="btn btn-secondary mb-3">Voltar para o Inicio</a>
   <h1>Lista de Disciplinas</h1>
   <div class="mb-4">
   </div>
@@ -27,8 +27,7 @@
       <td th:text="${disciplina.getValorMensal()}"></td>
       <td>
         <form th:action="@{/disciplinas/deletar/{id}(id=${disciplina.idDisciplina})}" method="post" style="display:inline;">
-          <button type="submit" class="btn btn-sm btn-danger"
-                  onclick="return confirm('Tem certeza que deseja excluir esta disciplina?')">Excluir</button>
+          <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
         </form>
         <a th:href="@{/disciplinas/editar/{id}(id=${disciplina.idDisciplina})}" class="btn btn-sm btn-warning">Editar</a>
         <a th:href="@{/disciplinas/{id}(id=${disciplina.idDisciplina})}" class="btn btn-sm btn-info">Mais informações</a>

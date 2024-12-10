@@ -5,6 +5,7 @@ import com.bancoDeDados.model.Disciplina;
 
 import com.bancoDeDados.model.Professor;
 import com.bancoDeDados.model.Horario;
+import com.bancoDeDados.repository.dao.DepartamentoDAO;
 import com.bancoDeDados.repository.dao.DisciplinaDAO;
 import com.bancoDeDados.repository.dao.HorarioDAO;
 import com.bancoDeDados.service.CursoService;
@@ -155,7 +156,6 @@ public class DisciplinaController {
                                   @RequestParam("idCurso") String idCurso,
                                   RedirectAttributes redirectAttributes) {
 
-        System.out.println(idCurso);
         Professor professor = professorService.buscarPorId(Long.parseLong(idProfessor));
         if (professor == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Professor não encontrado.");
@@ -175,12 +175,10 @@ public class DisciplinaController {
             redirectAttributes.addFlashAttribute("errorMessage", "Curso não encontrado.");
             return "redirect:/disciplinas/criar";
         }
-        System.out.println("passei");
         disciplinaService.associarCursoDisciplina(curso, disciplina);
 
-        System.out.println("passei2");
 
         redirectAttributes.addFlashAttribute("successMessage", "Disciplina criada com sucesso!");
-        return "redirect:/disciplinas/listar";
+        return "redirect:/cursos/" + curso.getIdCurso();
     }
 }

@@ -38,13 +38,19 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="idCurso" class="form-label font-weight-bold">Curso Relacionado</label>
-                    <p class="form-control-plaintext" id="idCurso" th:text="${curso.nomeCurso}"></p>
+                    <label for="idCurso" class="form-label font-weight-bold">Curso</label>
+                    <div class="d-flex align-items-center">
+                        <p
+                                class="form-control-plaintext px-3 py-2 rounded bg-light border font-weight-bold text-primary mb-0"
+                                id="idCurso"
+                                th:text="${curso.nomeCurso}"
+                                style="flex-grow: 1;"
+                        ></p>
+                    </div>
                     <input type="hidden" name="idCurso" th:value="${curso.idCurso}" />
                 </div>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <a th:href="@{/disciplinas/listar}" class="btn btn-secondary">Cancelar</a>
-                <a th:href="@{/cursos/listar}" class="btn btn-info">Voltar para Cursos</a>
+                <a th:href="@{/cursos/{id}(id=${curso.idCurso})}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Adicionar</button>
             </form>
         </div>
     </div>

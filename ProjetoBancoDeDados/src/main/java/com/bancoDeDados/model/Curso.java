@@ -14,4 +14,8 @@ public class Curso {
     private String nomeCurso;
     private Long departamentoId;
     private Long idProfessorCordernador;
+
+    Departamento departamento;
+
+    Professor professor;
 }

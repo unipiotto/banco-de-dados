@@ -43,6 +43,12 @@ public class CursoController {
     @GetMapping("/listar")
     public String listarCurso(Model model) {
         List<Curso> cursos = cursoService.listarTodos();
+        for (Curso curso : cursos) {
+            Departamento d = departamentoDAO.buscarDepartamentoPorId(curso.getDepartamentoId());
+            curso.setDepartamento(d);
+            Professor p = professorDAO.buscarPorId(curso.getIdProfessorCordernador());
+            curso.setProfessor(p);
+        }
         model.addAttribute("cursos", cursos);
         return "/curso/cursos";
     }

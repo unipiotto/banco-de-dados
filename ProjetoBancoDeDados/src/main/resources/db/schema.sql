@@ -54,16 +54,18 @@ CREATE TABLE curso (
 );
 
 CREATE TABLE discente (
-                          ID_discente SERIAL PRIMARY KEY,
-                          pessoa_ID INT NOT NULL,
-                          registro_academico VARCHAR(20) NOT NULL,
-                          data_ingresso DATE NULL,
-                          curso_ID INT NOT NULL,
-                          status_discente VARCHAR(20) CHECK (status_discente IN ('Ativa', 'Trancada', 'Concluida')),
-                          FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
-                              ON DELETE CASCADE
-                              ON UPDATE CASCADE,
-                          FOREIGN KEY (curso_ID) REFERENCES curso(ID_curso)
+                        ID_discente SERIAL PRIMARY KEY,
+                        pessoa_ID INT NOT NULL,
+                        registro_academico VARCHAR(20) NOT NULL,
+                        data_ingresso DATE,
+                        curso_ID INT NOT NULL,
+                        status_discente VARCHAR(20) DEFAULT 'Ativa' CHECK (status_discente IN ('Ativa', 'Trancada', 'Concluida')),
+                        FOREIGN KEY (pessoa_ID) REFERENCES pessoa(ID_pessoa)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE,
+                        FOREIGN KEY (curso_ID) REFERENCES curso(ID_curso)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 );
 
 CREATE TABLE disciplina (
